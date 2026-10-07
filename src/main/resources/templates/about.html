@@ -1,0 +1,675 @@
+<!doctype html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{fragments/base}"
+>
+  <head>
+    <title>Về chúng tôi - VIGER EDU</title>
+  </head>
+  <body>
+    <div layout:fragment="content">
+      <main class="main-content">
+        <!-- PAGE HEADER SECTION -->
+        <section
+          class="cta-section"
+          style="
+            padding: 8rem 0 6rem;
+            background:
+              linear-gradient(rgba(15, 30, 45, 0.75), rgba(15, 30, 45, 0.85)),
+              url(&quot;https://viger.edu.vn/wp-content/uploads/2026/04/pexels-photo-7972313.jpeg&quot;)
+                no-repeat center center;
+            background-size: cover;
+            border-bottom: 4px solid var(--coral-accent);
+          "
+        >
+          <div class="page-container">
+            <div class="cta-content animate-hidden scale-up">
+              <div
+                class="section-pretitle"
+                style="
+                  justify-content: center;
+                  color: white;
+                  margin-bottom: 1rem;
+                "
+              >
+                <span class="cta-subtitle-line"></span>
+                <span style="letter-spacing: 2px; text-transform: uppercase"
+                  >Câu chuyện của chúng tôi</span
+                >
+              </div>
+              <h1
+                class="hero-heading"
+                style="color: white; font-size: 3.5rem; letter-spacing: 1px"
+              >
+                VỀ CHÚNG TÔI
+              </h1>
+              <p
+                style="
+                  font-size: 1.25rem;
+                  max-width: 700px;
+                  margin: 1.5rem auto 0;
+                  color: rgba(255, 255, 255, 0.9);
+                  font-weight: 300;
+                  line-height: 1.6;
+                "
+              >
+                Đối Tác Tin Cậy Trên Hành Trình Giáo Dục Quốc Tế Cùng
+                <span class="text-highlight">VIGER EDU</span>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- GIỚI THIỆU LỘ TRÌNH -->
+        <section style="padding: 6rem 0; background-color: var(--card-bg)">
+          <div class="page-container">
+            <div class="hero-grid" style="align-items: center; gap: 4rem">
+              <!-- Cột trái: Hình ảnh -->
+              <div
+                class="hero-image animate-hidden fade-right"
+                style="position: relative"
+              >
+                <div
+                  style="
+                    position: absolute;
+                    top: -20px;
+                    left: -20px;
+                    right: 20px;
+                    bottom: 20px;
+                    background-color: var(--primary);
+                    border-radius: 20px;
+                    z-index: 0;
+                    opacity: 0.1;
+                  "
+                ></div>
+                <img
+                  src="https://viger.edu.vn/wp-content/uploads/2026/04/pexels-photo-34475611.jpeg"
+                  alt="Khám Phá Lộ Trình Bước Vào Giáo Dục Bậc Cao"
+                  class="img-fluid hero-img-custom"
+                  style="
+                    position: relative;
+                    z-index: 1;
+                    border-radius: 20px;
+                    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+                  "
+                />
+              </div>
+
+              <!-- Cột phải: Text -->
+              <div class="hero-text animate-hidden fade-left">
+                <div class="section-pretitle">
+                  <span class="subtitle-line"></span> KHÁM PHÁ LỘ TRÌNH
+                </div>
+                <h2
+                  class="section-title"
+                  style="
+                    margin-bottom: 2rem;
+                    font-size: 2.2rem;
+                    line-height: 1.3;
+                  "
+                >
+                  Khám Phá Lộ Trình Bước Vào Giáo Dục Bậc Cao
+                </h2>
+
+                <div
+                  style="
+                    background: white;
+                    padding: 2rem;
+                    border-radius: 16px;
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+                    margin-bottom: 1.5rem;
+                    border-left: 4px solid var(--coral-accent);
+                  "
+                >
+                  <p
+                    class="hero-desc"
+                    style="
+                      font-size: 1.15rem;
+                      color: var(--ink-main);
+                      margin-bottom: 0;
+                    "
+                  >
+                    <strong style="color: var(--primary)">VIGER EDU</strong> là
+                    đơn vị tư vấn du học chuyên sâu, tập trung vào các lộ trình
+                    giáo dục bậc cao tại Châu Âu, đặc biệt là CHLB Đức.
+                  </p>
+                </div>
+
+                <p
+                  class="hero-desc"
+                  style="font-size: 1.1rem; line-height: 1.7"
+                >
+                  Tại VIGER EDU, chúng tôi đã đồng hành và giúp đỡ vô số học
+                  viên hiện thực hóa ước mơ của mình bằng cách cung cấp các lộ
+                  trình giáo dục cá nhân hóa, sự hướng dẫn chuyên sâu và quy
+                  trình nộp hồ sơ đại học thành công, mang lại tỷ lệ đỗ cao vào
+                  các trường quốc tế.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- NÂNG BƯỚC HỌC VIÊN SECTION -->
+        <!-- NÂNG BƯỚC HỌC VIÊN SECTION (ACCORDION) -->
+        <section
+          class="commitment-section"
+          style="padding: 8rem 0; background-color: #fafbfe"
+        >
+          <div
+            class="page-container"
+            style="max-width: 1200px; margin: 0 auto; padding: 0 2rem"
+          >
+            <div
+              style="
+                display: flex;
+                flex-wrap: wrap;
+                align-items: flex-start;
+                gap: 5rem;
+              "
+            >
+              <!-- Cột trái: Tiêu đề và giới thiệu -->
+              <div
+                style="flex: 1; min-width: 300px"
+                class="animate-hidden fade-right"
+              >
+                <div
+                  style="
+                    width: 50px;
+                    height: 4px;
+                    background: var(--coral-accent);
+                    margin-bottom: 1.5rem;
+                    border-radius: 2px;
+                  "
+                ></div>
+                <h2
+                  style="
+                    font-family: &quot;Playfair Display&quot;, serif;
+                    font-size: 2.8rem;
+                    line-height: 1.25;
+                    margin-bottom: 1.5rem;
+                    color: var(--ink-primary);
+                    letter-spacing: 1px;
+                  "
+                >
+                  NÂNG BƯỚC HỌC VIÊN<br />BẰNG SỰ ĐỒNG HÀNH<br />CHUYÊN BIỆT
+                </h2>
+                <p
+                  style="
+                    font-size: 1.15rem;
+                    color: var(--ink-secondary);
+                    line-height: 1.75;
+                    max-width: 450px;
+                  "
+                >
+                  Chúng tôi thiết kế dịch vụ phù hợp với nhu cầu riêng biệt của
+                  từng học viên, hỗ trợ các bạn nhập học thành công tại các học
+                  viện uy tín khắp Châu Âu và xây dựng sự nghiệp bền vững.
+                </p>
+              </div>
+
+              <!-- Cột phải: Accordion -->
+              <div
+                style="flex: 1.2; min-width: 300px"
+                class="animate-hidden fade-left"
+                id="customAccordion"
+              >
+                <!-- Mục 1 -->
+                <div
+                  class="acc-item"
+                  style="
+                    background: white;
+                    border-radius: 16px;
+                    margin-bottom: 1.25rem;
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+                    border: 1px solid rgba(0, 0, 0, 0.04);
+                    overflow: hidden;
+                  "
+                >
+                  <button
+                    class="acc-header"
+                    style="
+                      width: 100%;
+                      text-align: left;
+                      background: none;
+                      border: none;
+                      padding: 1.5rem 2rem;
+                      display: flex;
+                      justify-content: space-between;
+                      align-items: center;
+                      cursor: pointer;
+                      font-size: 1.15rem;
+                      font-weight: 600;
+                      color: var(--ink-primary);
+                      font-family: inherit;
+                    "
+                  >
+                    <span style="padding-right: 1rem"
+                      >Cam Kết Của Chúng Tôi Đối Với Sự Thành Công Của Bạn</span
+                    >
+                    <span
+                      class="acc-icon"
+                      style="
+                        font-size: 1.8rem;
+                        font-weight: 300;
+                        transition: transform 0.3s ease;
+                        color: var(--ink-muted);
+                      "
+                      >+</span
+                    >
+                  </button>
+                  <div
+                    class="acc-content"
+                    style="
+                      max-height: 0;
+                      padding: 0 2rem;
+                      opacity: 0;
+                      overflow: hidden;
+                      transition: all 0.4s ease;
+                    "
+                  >
+                    <p
+                      style="
+                        color: var(--ink-secondary);
+                        line-height: 1.7;
+                        margin: 0;
+                        padding-bottom: 1.5rem;
+                      "
+                    >
+                      Sứ mệnh của VIGER EDU là tiếp sức cho các bạn trẻ thông
+                      qua những quyết định sáng suốt về lộ trình học tập và sự
+                      nghiệp, từ đó kiến tạo một tương lai bền vững trong môi
+                      trường toàn cầu.
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Mục 2 -->
+                <div
+                  class="acc-item"
+                  style="
+                    background: white;
+                    border-radius: 16px;
+                    margin-bottom: 1.25rem;
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+                    border: 1px solid rgba(0, 0, 0, 0.04);
+                    overflow: hidden;
+                  "
+                >
+                  <button
+                    class="acc-header"
+                    style="
+                      width: 100%;
+                      text-align: left;
+                      background: none;
+                      border: none;
+                      padding: 1.5rem 2rem;
+                      display: flex;
+                      justify-content: space-between;
+                      align-items: center;
+                      cursor: pointer;
+                      font-size: 1.15rem;
+                      font-weight: 600;
+                      color: var(--ink-primary);
+                      font-family: inherit;
+                    "
+                  >
+                    <span style="padding-right: 1rem"
+                      >Tầm Nhìn Về Một Tương Lai Với Nhiều Cơ Hội Toàn Cầu</span
+                    >
+                    <span
+                      class="acc-icon"
+                      style="
+                        font-size: 1.8rem;
+                        font-weight: 300;
+                        transition: transform 0.3s ease;
+                        color: var(--ink-muted);
+                      "
+                      >+</span
+                    >
+                  </button>
+                  <div
+                    class="acc-content"
+                    style="
+                      max-height: 0;
+                      padding: 0 2rem;
+                      opacity: 0;
+                      overflow: hidden;
+                      transition: all 0.4s ease;
+                    "
+                  >
+                    <p
+                      style="
+                        color: var(--ink-secondary);
+                        line-height: 1.7;
+                        margin: 0;
+                        padding-bottom: 1.5rem;
+                      "
+                    >
+                      Chúng tôi hướng tới mục tiêu trở thành đơn vị tư vấn du
+                      học hàng đầu tại Việt Nam, là cầu nối đưa học viên đến với
+                      các trường đại học quốc tế danh tiếng, đồng thời thúc đẩy
+                      sự phát triển cá nhân và thành công trong sự nghiệp.
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Mục 3 -->
+                <div
+                  class="acc-item"
+                  style="
+                    background: white;
+                    border-radius: 16px;
+                    margin-bottom: 1.25rem;
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+                    border: 1px solid rgba(0, 0, 0, 0.04);
+                    overflow: hidden;
+                  "
+                >
+                  <button
+                    class="acc-header"
+                    style="
+                      width: 100%;
+                      text-align: left;
+                      background: none;
+                      border: none;
+                      padding: 1.5rem 2rem;
+                      display: flex;
+                      justify-content: space-between;
+                      align-items: center;
+                      cursor: pointer;
+                      font-size: 1.15rem;
+                      font-weight: 600;
+                      color: var(--ink-primary);
+                      font-family: inherit;
+                    "
+                  >
+                    <span style="padding-right: 1rem"
+                      >Triết Lý Dẫn Đường Trong Công Việc Của Chúng Tôi</span
+                    >
+                    <span
+                      class="acc-icon"
+                      style="
+                        font-size: 1.8rem;
+                        font-weight: 300;
+                        transition: transform 0.3s ease;
+                        color: var(--ink-muted);
+                      "
+                      >+</span
+                    >
+                  </button>
+                  <div
+                    class="acc-content"
+                    style="
+                      max-height: 0;
+                      padding: 0 2rem;
+                      opacity: 0;
+                      overflow: hidden;
+                      transition: all 0.4s ease;
+                    "
+                  >
+                    <p
+                      style="
+                        color: var(--ink-secondary);
+                        line-height: 1.7;
+                        margin: 0;
+                        padding-bottom: 1.5rem;
+                      "
+                    >
+                      Các giá trị cốt lõi của VIGER EDU bao gồm sự chính trực,
+                      dịch vụ cá nhân hóa, cam kết hướng tới sự xuất sắc và niềm
+                      đam mê đồng hành cùng học viên đạt được các mục tiêu học
+                      tập cũng như sự nghiệp.
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Mục 4 -->
+                <div
+                  class="acc-item"
+                  style="
+                    background: white;
+                    border-radius: 16px;
+                    margin-bottom: 1.25rem;
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+                    border: 1px solid rgba(0, 0, 0, 0.04);
+                    overflow: hidden;
+                  "
+                >
+                  <button
+                    class="acc-header"
+                    style="
+                      width: 100%;
+                      text-align: left;
+                      background: none;
+                      border: none;
+                      padding: 1.5rem 2rem;
+                      display: flex;
+                      justify-content: space-between;
+                      align-items: center;
+                      cursor: pointer;
+                      font-size: 1.15rem;
+                      font-weight: 600;
+                      color: var(--ink-primary);
+                      font-family: inherit;
+                    "
+                  >
+                    <span style="padding-right: 1rem"
+                      >Ghi Nhận Cho Sự Xuất Sắc Của Chúng Tôi</span
+                    >
+                    <span
+                      class="acc-icon"
+                      style="
+                        font-size: 1.8rem;
+                        font-weight: 300;
+                        transition: transform 0.3s ease;
+                        color: var(--ink-muted);
+                      "
+                      >+</span
+                    >
+                  </button>
+                  <div
+                    class="acc-content"
+                    style="
+                      max-height: 0;
+                      padding: 0 2rem;
+                      opacity: 0;
+                      overflow: hidden;
+                      transition: all 0.4s ease;
+                    "
+                  >
+                    <p
+                      style="
+                        color: var(--ink-secondary);
+                        line-height: 1.7;
+                        margin: 0;
+                        padding-bottom: 1.5rem;
+                      "
+                    >
+                      VIGER EDU đã nhận được nhiều lời tán dương và đánh giá cao
+                      cho những đóng góp nổi bật đối với sự thành công của học
+                      viên cũng như trong lĩnh vực tư vấn giáo dục quốc tế tại
+                      Việt Nam.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Script điều khiển Accordion -->
+          <script>
+            document.addEventListener("DOMContentLoaded", function () {
+              const headers = document.querySelectorAll(".acc-header");
+
+              headers.forEach((header) => {
+                header.addEventListener("click", function () {
+                  const currentItem = this.parentElement;
+                  const isActive = currentItem.classList.contains("active");
+
+                  // Đóng tất cả các mục khác
+                  document.querySelectorAll(".acc-item").forEach((item) => {
+                    item.classList.remove("active");
+                    const btn = item.querySelector(".acc-header");
+                    btn.style.color = "var(--ink-primary)";
+                    const icon = item.querySelector(".acc-icon");
+                    icon.textContent = "+";
+                    icon.style.transform = "rotate(0deg)";
+                    icon.style.color = "var(--ink-muted)";
+
+                    const content = item.querySelector(".acc-content");
+                    content.style.maxHeight = "0";
+                    content.style.opacity = "0";
+                  });
+
+                  // Mở mục được click (nếu nó đang đóng)
+                  if (!isActive) {
+                    currentItem.classList.add("active");
+                    this.style.color = "var(--coral-accent)";
+
+                    const icon = this.querySelector(".acc-icon");
+                    icon.textContent = "−";
+                    icon.style.transform = "rotate(180deg)";
+                    icon.style.color = "var(--coral-accent)";
+
+                    const content = currentItem.querySelector(".acc-content");
+                    // Gán max-height đủ lớn để hiệu ứng mượt mà
+                    content.style.maxHeight = content.scrollHeight + 40 + "px";
+                    content.style.opacity = "1";
+                  }
+                });
+              });
+            });
+          </script>
+        </section>
+
+        <!-- HÀNH TRÌNH TƯ VẤN SECTION -->
+        <section style="padding: 6rem 0; background-color: var(--card-bg)">
+          <div class="page-container">
+            <div class="hero-grid" style="align-items: center; gap: 4rem">
+              <!-- Cột trái: Text -->
+              <div class="hero-text animate-hidden fade-right">
+                <div class="section-pretitle">
+                  <span class="subtitle-line"></span> HÀNH TRÌNH PHÁT TRIỂN
+                </div>
+                <h2
+                  class="section-title"
+                  style="
+                    margin-bottom: 2rem;
+                    font-size: 2.2rem;
+                    line-height: 1.3;
+                  "
+                >
+                  Di Sản Kiến Tạo Tương Lai Qua Đường Giáo Dục
+                </h2>
+
+                <p
+                  class="hero-desc"
+                  style="
+                    font-size: 1.1rem;
+                    line-height: 1.7;
+                    margin-bottom: 1.5rem;
+                  "
+                >
+                  Kể từ khi thành lập, VIGER EDU luôn cống hiến hết mình để định
+                  hướng cho học viên Việt Nam đạt được những thành tựu học thuật
+                  xuất sắc và các cơ hội nghề nghiệp quốc tế giá trị.
+                </p>
+
+                <p
+                  class="hero-desc"
+                  style="font-size: 1.1rem; line-height: 1.7"
+                >
+                  Với nhiều năm kinh nghiệm, chúng tôi đã khẳng định uy tín vững
+                  chắc trong việc đồng hành cùng học viên suốt chặng đường, mang
+                  lại vô số kết quả nhập học thành công tại Đức và Châu Âu.
+                </p>
+              </div>
+
+              <!-- Cột phải: Hình ảnh -->
+              <div
+                class="hero-image animate-hidden fade-left"
+                style="position: relative"
+              >
+                <div
+                  style="
+                    position: absolute;
+                    top: -20px;
+                    right: -20px;
+                    left: 20px;
+                    bottom: 20px;
+                    background-color: var(--primary);
+                    border-radius: 20px;
+                    z-index: 0;
+                    opacity: 0.1;
+                  "
+                ></div>
+                <img
+                  src="https://viger.edu.vn/wp-content/uploads/2026/08/173095770936.webp"
+                  alt="Hành Trình Trong Lĩnh Vực Tư Vấn Giáo Dục"
+                  class="img-fluid hero-img-custom"
+                  style="
+                    position: relative;
+                    z-index: 1;
+                    border-radius: 20px;
+                    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+                  "
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- CTA SECTION (Từ index) -->
+        <section class="cta-section">
+          <div class="page-container">
+            <div class="cta-content animate-hidden scale-up">
+              <div
+                class="section-pretitle"
+                style="justify-content: center; color: white"
+              >
+                <span class="cta-subtitle-line"></span>
+                <span style="letter-spacing: 0.5px"
+                  >Bắt đầu hành trình của riêng bạn</span
+                >
+              </div>
+              <h2 class="section-title cta-title" style="margin-top: 1rem">
+                KHỞI ĐẦU HÀNH TRÌNH CHINH PHỤC TƯƠNG LAI
+              </h2>
+              <p
+                class="cta-desc"
+                style="font-size: 1.15rem; margin-top: 1.5rem"
+              >
+                Liên hệ với chúng tôi ngay hôm nay để được tư vấn lộ trình học
+                tập và sự nghiệp vững chắc tại nước ngoài.
+              </p>
+              <div
+                class="animate-hidden scale-up delay-200"
+                style="
+                  margin-top: 2.5rem;
+                  display: flex;
+                  justify-content: center;
+                "
+              >
+                <a
+                  class="cta-pill"
+                  href="#"
+                  style="padding: 0.8rem 2.5rem; font-size: 1.1rem"
+                >
+                  <span>Bắt đầu ngay</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+      <!-- #main -->
+    </div>
+
+    <th:block layout:fragment="scripts">
+      <script th:src="@{/js/counters.js}"></script>
+      <script th:src="@{/js/animations.js}"></script>
+    </th:block>
+  </body>
+</html>

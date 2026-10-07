@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta
+      name="description"
+      content="VIGER.EDU.VN — From Vietnam to Europe. Expert German education consultancy for Vietnamese students seeking world-class academic opportunities in Germany."
+    />
+    <!-- layout:title-pattern appends the specific page title to the site title -->
+    <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">VIGER.EDU.VN</title>
+    <link
+      rel="icon"
+      type="image/png"
+      th:href="@{/img/favicon.png}"
+      href="/img/favicon.png"
+    />
+    <link th:href="@{/styles.css}" href="/styles.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <!-- Header -->
+    <div th:replace="~{fragments/header :: header-main}"></div>
+
+    <!-- Main Content injected here -->
+    <div layout:fragment="content"></div>
+
+    <!-- Footer -->
+    <div th:replace="~{fragments/footer :: footer-main}"></div>
+
+    <!-- Common JS -->
+    <script th:src="@{/js/main.js}"></script>
+
+    <!-- Page Specific JS injected here -->
+    <th:block layout:fragment="scripts"></th:block>
+  </body>
+</html>

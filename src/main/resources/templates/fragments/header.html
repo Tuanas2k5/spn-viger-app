@@ -1,0 +1,75 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <body>
+    <header class="bar" th:fragment="header-main">
+      <div class="brand-group">
+        <a class="brand" href="/">
+          <img th:src="@{/img/logo.png}" src="/img/logo.png" alt="Logo" />
+          <div class="brand-text">
+            <span id="brand-title">VIGER.EDU.VN</span>
+            <span id="brand-sub">From Vietnam to Europe</span>
+          </div>
+        </a>
+      </div>
+
+      <input class="navtoggle" type="checkbox" id="nav-open" />
+      <label class="scrim" for="nav-open" aria-hidden="true"></label>
+      <label class="burger" for="nav-open" aria-label="Menu">
+        <svg viewBox="0 0 22 14">
+          <path class="b1" d="M1 1 H21" />
+          <path class="b2" d="M1 7 H21" />
+          <path class="b3" d="M1 13 H21" />
+        </svg>
+      </label>
+
+      <div class="navpanel">
+        <nav class="menu">
+          <a href="/ve-chung-toi"><span id="nav-home">Về chúng tôi</span></a>
+          <div class="menu-dropdown">
+            <a href="#"
+              ><span id="nav-about">Giáo dục tại Đức</span>
+              <svg class="caret" viewBox="0 0 9 6" aria-hidden="true">
+                <path d="M0.7 1.1 L4.5 4.6 L8.3 1.1" />
+              </svg>
+            </a>
+            <div class="dropdown-content">
+              <a href="#">Tổng quan</a>
+              <a href="#">Hệ thống giáo dục</a>
+              <a href="#">Nghiên cứu và Ứng dụng</a>
+              <a href="#">Chi phí và Cơ hội</a>
+              <a href="#">Cơ hội nghề nghiệp</a>
+            </div>
+          </div>
+          <div class="menu-dropdown">
+            <a href="#"
+              ><span id="nav-consult">Tư vấn</span>
+              <svg class="caret" viewBox="0 0 9 6" aria-hidden="true">
+                <path d="M0.7 1.1 L4.5 4.6 L8.3 1.1" />
+              </svg>
+            </a>
+            <div class="dropdown-content">
+              <a href="#">Du học Đại học</a>
+              <a href="#">Du học Cao học</a>
+              <a href="#">Quy trình Tư vấn</a>
+            </div>
+          </div>
+          <a href="#"><span id="nav-programs">Chương trình học</span></a>
+          <div class="menu-dropdown">
+            <a href="#"
+              ><span id="nav-blog">Blog</span>
+              <svg class="caret" viewBox="0 0 9 6" aria-hidden="true">
+                <path d="M0.7 1.1 L4.5 4.6 L8.3 1.1" />
+              </svg>
+            </a>
+            <div class="dropdown-content">
+              <a href="#">Hiểu về Đức</a>
+              <a href="#">Cuộc sống ở Đức</a>
+              <a href="#">Chương trình học</a>
+            </div>
+          </div>
+        </nav>
+        <a class="cta-pill" href="/lien-he"><span id="nav-cta">Bắt đầu ngay</span></a>
+      </div>
+    </header>
+  </body>
+</html>

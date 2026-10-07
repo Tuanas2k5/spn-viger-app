@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plety - The Intelligence Layer</title>
+    <meta name="description" content="Plety integrates seamlessly into your stack to deliver real-time understanding, not just predictions.">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- React & ReactDOM -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <!-- Babel -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    keyframes: {
+                        marquee_30s_linear_infinite: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-50%)' },
+                        }
+                    },
+                    animation: {
+                        marquee_30s_linear_infinite: 'marquee_30s_linear_infinite 30s linear infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(2.5rem); /* translate-y-10 is 2.5rem */
+            transition: opacity 1000ms ease-out, transform 1000ms ease-out;
+        }
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .mask-gradient {
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+
+        .accordion-content {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 300ms ease-out;
+        }
+        
+        .accordion-content.open {
+            grid-template-rows: 1fr;
+        }
+
+        .accordion-content > div {
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans antialiased overflow-x-hidden">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        // Custom Hook for Scroll Reveal
+        function useScrollReveal() {
+            const ref = useRef(null);
+            const [isVisible, setIsVisible] = useState(false);
+
+            useEffect(() => {
+                const observer = new IntersectionObserver(
+                    ([entry]) => {
+                        if (entry.isIntersecting) {
+                            setIsVisible(true);
+                            observer.unobserve(entry.target);
+                        }
+                    },
+                    { threshold: 0.1 }
+                );
+                
+                if (ref.current) {
+                    observer.observe(ref.current);
+                }
+                
+                return () => {
+                    if (ref.current) {
+                        observer.unobserve(ref.current);
+                    }
+                };
+            }, []);
+
+            return { ref, isVisible };
+        }
+
+        const FadeInUp = ({ children, className = "" }) => {
+            const { ref, isVisible } = useScrollReveal();
+            return (
+                <div ref={ref} className={`fade-in-up ${isVisible ? 'visible' : ''} ${className}`}>
+                    {children}
+                </div>
+            );
+        };
+
+        const Logo = () => (
+            <svg width="100" height="32" viewBox="0 0 100 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 8L24 24H0L12 8Z" stroke="#0f172a" strokeWidth="2" strokeLinejoin="round"/>
+                <circle cx="12" cy="18" r="3" fill="#0f172a"/>
+                <text x="32" y="22" fontFamily="Inter, sans-serif" fontSize="18" fontWeight="600" fill="#0f172a">Plety</text>
+            </svg>
+        );
+
+        const DummyLogo = ({ name }) => (
+            <div className="flex items-center gap-2">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-slate-800">
+                    <polygon points="12 2 2 22 22 22" />
+                </svg>
+                <span className="font-semibold text-lg text-slate-800">{name}</span>
+            </div>
+        );
+
+        const Navbar = () => {
+            const [isScrolled, setIsScrolled] = useState(false);
+            const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+            useEffect(() => {
+                const handleScroll = () => {
+                    setIsScrolled(window.scrollY > 20);
+                };
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
+            const handleNavClick = (id) => {
+                setIsMobileMenuOpen(false);
+                const element = document.getElementById(id);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                }
+            };
+
+            return (
+                <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white/80 backdrop-blur-md border-b border-slate-200/50 py-3' : 'bg-transparent py-5'}`}>
+                    <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
+                        <div className="flex items-center cursor-pointer" onClick={() => handleNavClick('about')}>
+                            <Logo />
+                        </div>
+                        
+                        <div className="hidden md:flex items-center space-x-8">
+                            {['About', 'Features', 'FAQ', 'Contact'].map((item) => (
+                                <button key={item} onClick={() => handleNavClick(item.toLowerCase())} className="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">
+                                    {item}
+                                </button>
+                            ))}
+                        </div>
+
+                        <div className="hidden md:block">
+                            <button className="bg-slate-900 hover:bg-slate-800 text-white text-sm font-medium px-5 py-2.5 rounded-full shadow-sm transition-colors">
+                                Get started
+                            </button>
+                        </div>
+
+                        <div className="md:hidden">
+                            <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-slate-900 p-2 focus:outline-none">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    {isMobileMenuOpen ? (
+                                        <path d="M18 6L6 18M6 6l12 12" />
+                                    ) : (
+                                        <path d="M3 12h18M3 6h18M3 18h18" />
+                                    )}
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Mobile Menu */}
+                    <div className={`md:hidden absolute top-full left-0 right-0 bg-white shadow-lg overflow-hidden transition-all duration-300 ${isMobileMenuOpen ? 'max-h-64 border-b border-slate-200' : 'max-h-0'}`}>
+                        <div className="flex flex-col py-4 px-6 space-y-4">
+                            {['About', 'Features', 'FAQ', 'Contact'].map((item) => (
+                                <button key={item} onClick={() => handleNavClick(item.toLowerCase())} className="text-left text-base font-medium text-slate-600 hover:text-slate-900">
+                                    {item}
+                                </button>
+                            ))}
+                            <button className="bg-slate-900 text-white text-sm font-medium px-5 py-2.5 rounded-full shadow-sm w-full mt-4">
+                                Get started
+                            </button>
+                        </div>
+                    </div>
+                </nav>
+            );
+        };
+
+        const Hero = () => {
+            const brands = ['Springfield', 'Orbitc', 'Cloud', 'Amster', 'Nexus'];
+            const repeatedBrands = [...brands, ...brands, ...brands, ...brands];
+
+            return (
+                <section id="about" className="min-h-screen flex flex-col items-center justify-center pt-32 pb-20 relative z-0">
+                    <video 
+                        autoPlay 
+                        loop 
+                        muted 
+                        playsInline
+                        className="absolute inset-0 -z-10 object-cover min-w-full min-h-full opacity-60"
+                    >
+                        <source src="https://cdn.sceneai.art/Hero%20Section%20Video/50b4f304-cdca-4e12-8735-580d225834be.mp4" type="video/mp4" />
+                    </video>
+                    <div className="absolute inset-0 -z-10 bg-gradient-to-b from-white/40 via-white/80 to-slate-50"></div>
+
+                    <FadeInUp className="flex flex-col items-center w-full max-w-4xl px-6">
+                        <div className="px-3 py-1.5 rounded-full bg-slate-900/5 border border-slate-900/10 text-xs font-medium text-slate-700 mb-8 backdrop-blur-sm">
+                            ✨ Announcing API 2.0
+                        </div>
+                        
+                        <h1 className="text-5xl md:text-7xl font-medium tracking-tight mb-6 text-center text-slate-900">
+                            The intelligence layer <br className="hidden md:block"/>
+                            for clear <span className="font-serif italic font-normal text-slate-800">decisions.</span>
+                        </h1>
+                        
+                        <p className="text-[16px] text-slate-600 max-w-2xl text-center mb-10 leading-relaxed">
+                            Our platform integrates seamlessly into your stack to deliver real-time understanding, not just predictions.
+                        </p>
+                        
+                        <div className="flex flex-col sm:flex-row gap-4 mb-24">
+                            <button className="bg-slate-900 hover:bg-slate-800 text-white text-sm font-medium px-6 py-3 rounded-full shadow-md transition-all">
+                                Get started
+                            </button>
+                            <button className="bg-white text-slate-900 border border-slate-200 hover:bg-slate-50 text-sm font-medium px-6 py-3 rounded-full transition-all">
+                                Learn more
+                            </button>
+                        </div>
+                    </FadeInUp>
+
+                    <FadeInUp className="w-full mt-10">
+                        <p className="text-sm text-slate-400 font-medium mb-8 text-center">Trusted by industry leaders</p>
+                        <div className="w-full overflow-hidden mask-gradient py-4">
+                            <div className="flex w-max animate-marquee_30s_linear_infinite">
+                                {repeatedBrands.map((brand, i) => (
+                                    <div key={i} className="flex-shrink-0 px-8 opacity-70 flex items-center justify-center">
+                                        <DummyLogo name={brand} />
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </FadeInUp>
+                </section>
+            );
+        };
+
+        const Feature1 = () => (
+            <section id="features" className="py-24 px-6 max-w-7xl mx-auto">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    <FadeInUp>
+                        <div className="text-amber-600 bg-amber-50 px-3 py-1 rounded-full text-sm w-fit mb-4">
+                            ✨ AI chat
+                        </div>
+                        <h2 className="text-4xl md:text-5xl font-semibold text-slate-900 mb-6 leading-tight">
+                            Where speed meets intelligent conversation.
+                        </h2>
+                        <p className="text-slate-600 text-lg mb-8 leading-relaxed">
+                            A conversational AI assistant that understands your questions, provides intelligent answers, and helps you get things done fast from casual chats to complex tasks.
+                        </p>
+                        <button className="text-slate-900 font-medium hover:text-slate-700 flex items-center gap-2 group">
+                            Get started 
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-1 transition-transform">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                    </FadeInUp>
+                    <FadeInUp>
+                        <div className="rounded-3xl overflow-hidden p-8 border border-slate-200/60 shadow-2xl shadow-slate-200/50 relative bg-white aspect-[4/3] flex items-center justify-center">
+                            <video 
+                                autoPlay 
+                                loop 
+                                muted 
+                                playsInline
+                                className="absolute inset-0 object-cover w-full h-full"
+                            >
+                                <source src="https://cdn.sceneai.art/Hero%20Section%20Video/1bcc8fa3-37f6-4c53-8591-0347e4c7f8ac.mp4" type="video/mp4" />
+                            </video>
+                            <div className="absolute inset-0 bg-white/20"></div>
+                            
+                            <div className="relative z-10 w-full max-w-sm bg-white/90 backdrop-blur-xl border border-slate-100 shadow-xl rounded-2xl p-4 flex flex-col gap-4">
+                                <div className="flex gap-2 mb-2">
+                                    <div className="bg-slate-100 text-slate-600 text-xs px-3 py-1.5 rounded-full">Create image</div>
+                                    <div className="bg-slate-100 text-slate-600 text-xs px-3 py-1.5 rounded-full">Summarize</div>
+                                </div>
+                                <div className="flex items-center gap-3 bg-white border border-slate-200 rounded-xl p-3 shadow-sm">
+                                    <div className="flex-1 text-slate-400 text-sm">Ask anything...</div>
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-slate-600"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </FadeInUp>
+                </div>
+            </section>
+        );
+
+        const Feature2 = () => (
+            <section className="py-24 px-6 max-w-7xl mx-auto">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    <FadeInUp className="order-2 lg:order-1">
+                        <div className="rounded-3xl overflow-hidden p-8 border border-slate-200/60 shadow-2xl shadow-slate-200/50 relative bg-white aspect-[4/3] flex items-center justify-center">
+                            <video 
+                                autoPlay 
+                                loop 
+                                muted 
+                                playsInline
+                                className="absolute inset-0 object-cover w-full h-full"
+                            >
+                                <source src="https://cdn.sceneai.art/Hero%20Section%20Video/736fd4a0-70ac-4f44-9633-55769ead6aca.mp4" type="video/mp4" />
+                            </video>
+                            <div className="absolute inset-0 bg-white/20"></div>
+                            
+                            <div className="relative z-10 w-full max-w-sm bg-white/90 backdrop-blur-xl border border-slate-100 shadow-xl rounded-2xl p-5">
+                                <div className="flex items-center gap-4 mb-4">
+                                    <div className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-white shrink-0">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                                    </div>
+                                    <div className="flex-1">
+                                        <div className="text-sm font-semibold text-slate-900">11:06 AM – Chris</div>
+                                        <div className="flex items-center gap-1 mt-1 h-4">
+                                            {[...Array(12)].map((_, i) => (
+                                                <div key={i} className="w-1 bg-slate-400 rounded-full" style={{height: `${Math.max(20, Math.random() * 100)}%`}}></div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                                <p className="text-sm text-slate-600 bg-white/50 p-3 rounded-lg border border-slate-100">
+                                    "So the key takeaway here is that we need to align the quarterly goals with the new infrastructure updates before Q3 begins."
+                                </p>
+                            </div>
+                        </div>
+                    </FadeInUp>
+                    <FadeInUp className="order-1 lg:order-2">
+                        <div className="text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full text-sm w-fit mb-4">
+                            ✨ AI transcription
+                        </div>
+                        <h2 className="text-4xl md:text-5xl font-semibold text-slate-900 mb-6 leading-tight">
+                            Turn speech into text with speed and precision.
+                        </h2>
+                        <p className="text-slate-600 text-lg mb-8 leading-relaxed">
+                            Automatically convert speech into accurate, editable text in real time. Perfect for meetings, interviews, voice notes, and more, powered by advanced speech recognition technology.
+                        </p>
+                        <button className="text-slate-900 font-medium hover:text-slate-700 flex items-center gap-2 group">
+                            Get started 
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-1 transition-transform">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                    </FadeInUp>
+                </div>
+            </section>
+        );
+
+        const AccordionItem = ({ question, answer, isOpen, onClick, isLast }) => (
+            <div className={`border-slate-100 ${!isLast ? 'border-b' : ''}`}>
+                <button 
+                    onClick={onClick}
+                    className="w-full py-6 px-6 flex justify-between items-center text-left focus:outline-none group"
+                >
+                    <span className="text-base text-slate-800 font-medium">{question}</span>
+                    <span className="ml-4 text-slate-400 transition-transform duration-300 transform group-hover:text-slate-900">
+                        <svg 
+                            width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                            className={`transition-transform duration-300 ${isOpen ? 'rotate-45' : 'rotate-0'}`}
+                        >
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                    </span>
+                </button>
+                <div className={`accordion-content ${isOpen ? 'open' : ''}`}>
+                    <div>
+                        <p className="text-slate-500 text-sm pb-6 px-6">
+                            {answer}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        );
+
+        const FAQ = () => {
+            const [openIndex, setOpenIndex] = useState(0);
+
+            const faqs = [
+                { q: "Is my data safe and private?", a: "Yes, we use enterprise-grade encryption for all data in transit and at rest. We never use your proprietary data to train our foundational models without explicit consent." },
+                { q: "How easy is it to integrate with our stack?", a: "Integration typically takes less than 10 minutes. We provide robust SDKs for React, Python, Node, and Go, plus extensive documentation." },
+                { q: "Do you offer custom pricing for large teams?", a: "Absolutely. Our enterprise plans are tailored to your usage volume and include dedicated account management and SLA guarantees." },
+                { q: "Can I try it for free before committing?", a: "Yes, we offer a 14-day free trial on all Pro plans with full access to features so you can test the integration thoroughly." },
+                { q: "What kind of support do you provide?", a: "All plans include email support. Pro and Enterprise plans include priority slack channels and dedicated technical success managers." }
+            ];
+
+            return (
+                <section id="faq" className="py-32 px-6 max-w-3xl mx-auto">
+                    <FadeInUp>
+                        <h2 className="text-4xl md:text-5xl font-semibold mb-12 text-center text-slate-900">
+                            We've got answers
+                        </h2>
+                        <div className="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
+                            {faqs.map((faq, i) => (
+                                <AccordionItem 
+                                    key={i}
+                                    question={faq.q}
+                                    answer={faq.a}
+                                    isOpen={openIndex === i}
+                                    onClick={() => setOpenIndex(openIndex === i ? -1 : i)}
+                                    isLast={i === faqs.length - 1}
+                                />
+                            ))}
+                        </div>
+                    </FadeInUp>
+                </section>
+            );
+        };
+
+        const Footer = () => (
+            <footer id="contact" className="relative z-0 pt-32 pb-10 px-6 border-t border-slate-200 overflow-hidden">
+                <video 
+                    autoPlay 
+                    loop 
+                    muted 
+                    playsInline
+                    className="absolute inset-0 w-full h-full object-cover opacity-20 -z-10"
+                >
+                    <source src="https://cdn.sceneai.art/Hero%20Section%20Video/50b4f304-cdca-4e12-8735-580d225834be.mp4" type="video/mp4" />
+                </video>
+                <div className="absolute inset-0 -z-10 bg-gradient-to-b from-slate-50 via-white/90 to-white"></div>
+
+                <div className="max-w-7xl mx-auto">
+                    <FadeInUp className="flex flex-col items-center mb-32">
+                        <h2 className="text-4xl md:text-5xl font-medium text-slate-900 text-center mb-8">
+                            Ready to automate <span className="font-serif italic text-slate-800">everything?</span>
+                        </h2>
+                        <div className="flex flex-col sm:flex-row gap-4">
+                            <button className="bg-slate-900 hover:bg-slate-800 text-white text-sm font-medium px-6 py-3 rounded-full shadow-md transition-all">
+                                Get started
+                            </button>
+                            <button className="bg-white text-slate-900 border border-slate-200 hover:bg-slate-50 text-sm font-medium px-6 py-3 rounded-full transition-all">
+                                Learn more
+                            </button>
+                        </div>
+                    </FadeInUp>
+
+                    <FadeInUp className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-24">
+                        <div>
+                            <div className="mb-6"><Logo /></div>
+                            <p className="text-sm text-slate-500 max-w-xs">
+                                Making intelligence accessible and actionable for modern teams.
+                            </p>
+                        </div>
+                        <div>
+                            <h4 className="font-semibold text-slate-900 mb-4">Product</h4>
+                            <ul className="space-y-3">
+                                <li><a href="#" className="text-sm text-slate-500 hover:text-slate-900 transition-colors">Features</a></li>
+                                <li><a href="#" className="text-sm text-slate-500 hover:text-slate-900 transition-colors">Integrations</a></li>
+                                <li><a href="#" className="text-sm text-slate-500 hover:text-slate-900 transition-colors">Pricing</a></li>
+                                <li><a href="#" className="text-sm text-slate-500 hover:text-slate-900 transition-colors">Changelog</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 className="font-semibold text-slate-900 mb-4">Company</h4>
+                            <ul className="space-y-3">
+                                <li><a href="#" className="text-sm text-slate-500 hover:text-slate-900 transition-colors">About Us</a></li>
+                                <li><a href="#" className="text-sm text-slate-500 hover:text-slate-900 transition-colors">Careers</a></li>
+                                <li><a href="#" className="text-sm text-slate-500 hover:text-slate-900 transition-colors">Blog</a></li>
+                                <li><a href="#" className="text-sm text-slate-500 hover:text-slate-900 transition-colors">Contact</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 className="font-semibold text-slate-900 mb-4">Legal</h4>
+                            <ul className="space-y-3">
+                                <li><a href="#" className="text-sm text-slate-500 hover:text-slate-900 transition-colors">Privacy Policy</a></li>
+                                <li><a href="#" className="text-sm text-slate-500 hover:text-slate-900 transition-colors">Terms of Service</a></li>
+                                <li><a href="#" className="text-sm text-slate-500 hover:text-slate-900 transition-colors">Cookie Policy</a></li>
+                            </ul>
+                        </div>
+                    </FadeInUp>
+
+                    <div className="flex flex-col md:flex-row justify-center items-center gap-4 text-xs text-slate-400 border-t border-slate-100 pt-8">
+                        <p>© 2026 Plety Inc. All rights reserved.</p>
+                        <div className="hidden md:block w-1 h-1 bg-slate-300 rounded-full"></div>
+                        <div className="flex gap-4">
+                            <a href="#" className="hover:text-slate-600 transition-colors">Twitter</a>
+                            <a href="#" className="hover:text-slate-600 transition-colors">GitHub</a>
+                            <a href="#" className="hover:text-slate-600 transition-colors">LinkedIn</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        );
+
+        const App = () => {
+            return (
+                <div className="w-full">
+                    <Navbar />
+                    <Hero />
+                    <Feature1 />
+                    <Feature2 />
+                    <FAQ />
+                    <Footer />
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

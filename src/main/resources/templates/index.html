@@ -1,0 +1,333 @@
+<!doctype html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{fragments/base}"
+>
+  <head>
+    <title>Trang chủ</title>
+  </head>
+  <body>
+    <div layout:fragment="content">
+      <main class="main-content">
+        <!-- 1. HERO SECTION -->
+        <section class="hero-section">
+          <div class="hero-container">
+            <div class="hero-grid">
+              <!-- Cột trái: Nội dung chữ -->
+              <div class="hero-text animate-hidden fade-left">
+                <h1 class="hero-heading">Hành trình của bạn</h1>
+                <h1 class="hero-subheading">Bắt đầu từ nước Đức...</h1>
+                <p class="hero-desc">
+                  Viger EDU đồng hành cùng bạn từ lựa chọn ngành học, chuẩn bị
+                  hồ sơ đến khi đặt chân đến giảng đường Đức — với đội ngũ
+                  chuyên gia đã từng học tập và làm việc tại đây.
+                </p>
+
+                <!-- Hàng thống kê -->
+                <div class="hero-stats" id="counter-section">
+                  <div class="hero-stat">
+                    <p class="stat-number">
+                      <span class="counter-value" data-target="500">0</span>+
+                    </p>
+                    <p class="stat-label">Học viên nhập học</p>
+                  </div>
+                  <div class="hero-stat">
+                    <p class="stat-number">
+                      <span class="counter-value" data-target="95">0</span>%
+                    </p>
+                    <p class="stat-label">Tỉ lệ xin Visa thành công</p>
+                  </div>
+                  <div class="hero-stat">
+                    <p class="stat-number">
+                      <span class="counter-value" data-target="10">0</span>+
+                    </p>
+                    <p class="stat-label">Năm kinh nghiệm tư vấn</p>
+                  </div>
+                </div>
+
+                <!-- Nút bấm -->
+                <div class="hero-buttons">
+                  <button class="btn-red">Đặt lịch tư vấn miễn phí</button>
+                  <a href="#" class="btn-outline-custom">Xem lộ trình du học</a>
+                </div>
+              </div>
+
+              <!-- Cột phải: Ảnh -->
+              <div class="hero-image animate-hidden fade-right delay-200">
+                <img
+                  th:src="@{/img/trangchu.png}"
+                  src="/img/trangchu.png"
+                  alt="Du học sinh Đức"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. THANH ĐỐI TÁC TRƯỜNG ĐẠI HỌC -->
+        <div class="yellow-banner animate-hidden">
+          <div class="partner-list">
+            <span>Technical University of Munich (TUM)</span>
+            <span>Ludwig-Maximilians-Universität München (LMU Munich)</span>
+            <span>Ruprecht-Karls-Universität Heidelberg</span>
+            <span>Freie Universität Berlin</span>
+          </div>
+        </div>
+
+        <!-- 3. ABOUT US SECTION -->
+        <section class="about-section">
+          <div class="about-container">
+            <div class="about-grid">
+              <!-- Cột trái: Văn bản -->
+              <div class="about-text animate-hidden fade-left">
+                <div class="about-label">
+                  <span class="subtitle-line"></span>
+                  <span class="about-label-text">Về chúng tôi</span>
+                </div>
+                <h2 class="about-heading">
+                  Người bạn đồng hành đáng tin cậy nhất trên con đường đến Đức
+                </h2>
+                <p class="about-desc">
+                  Chúng tôi không chỉ tư vấn — chúng tôi đồng hành. Đội ngũ
+                  Viger EDU gồm các chuyên gia tốt nghiệp từ các trường đại học
+                  Đức hàng đầu, hiểu rõ từng bước của hành trình từ ngày đầu đến
+                  ngày nhập học.
+                </p>
+                <a href="#" class="link-custom">Tìm hiểu về chúng tôi</a>
+              </div>
+
+              <!-- Cột phải: Lưới hình ảnh -->
+              <div class="about-images animate-hidden fade-right delay-200">
+                <div class="grid-images">
+                  <img
+                    src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=600&q=80"
+                    class="grid-img"
+                    alt="Trường Đức 1"
+                  />
+                  <img
+                    src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=600&auto=format&fit=crop"
+                    class="grid-img"
+                    alt="Trường Đức 2"
+                  />
+                  <div class="stat-box">
+                    <h3>300+</h3>
+                    <p>Đối tác trường Đại học</p>
+                  </div>
+                  <img
+                    src="https://images.unsplash.com/photo-1607237138185-eedd9c632b0b?q=80&w=600&auto=format&fit=crop"
+                    class="grid-img"
+                    alt="Khuôn viên trường"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4. QUY TRÌNH DU HỌC -->
+        <section class="process-section">
+          <div class="page-container">
+            <!-- Tiêu đề -->
+            <div class="section-pretitle animate-hidden">
+              <span class="process-subtitle-line"></span>
+              <span style="opacity: 0.9">Quy trình du học</span>
+            </div>
+            <h2 class="section-title animate-hidden delay-100">05 bước đến giảng đường nước Đức</h2>
+
+            <!-- Trục thời gian 5 bước -->
+            <div class="timeline-wrap">
+              <div class="timeline-line"></div>
+              <div class="timeline-grid">
+                <!-- Bước 1 -->
+                <div class="timeline-step animate-hidden delay-100">
+                  <div class="circle-step">01</div>
+                  <h4 class="step-title">Tư vấn miễn phí</h4>
+                  <p class="step-desc">
+                    Đánh giá hồ sơ và định hướng lộ trình phù hợp
+                  </p>
+                </div>
+                <!-- Bước 2 -->
+                <div class="timeline-step animate-hidden delay-200">
+                  <div class="circle-step">02</div>
+                  <h4 class="step-title">Luyện tiếng Đức</h4>
+                  <p class="step-desc">
+                    Đạt trình độ ngôn ngữ theo yêu cầu của trường
+                  </p>
+                </div>
+                <!-- Bước 3 -->
+                <div class="timeline-step animate-hidden delay-300">
+                  <div class="circle-step">03</div>
+                  <h4 class="step-title">Chuẩn bị hồ sơ</h4>
+                  <p class="step-desc">Hoàn thiện đầy đủ giấy tờ và nộp đơn</p>
+                </div>
+                <!-- Bước 4 -->
+                <div class="timeline-step animate-hidden delay-400">
+                  <div class="circle-step">04</div>
+                  <h4 class="step-title">Xin visa</h4>
+                  <p class="step-desc">Hỗ trợ toàn bộ thủ tục visa sinh viên</p>
+                </div>
+                <!-- Bước 5 -->
+                <div class="timeline-step animate-hidden delay-500">
+                  <div class="circle-step">05</div>
+                  <h4 class="step-title">Nhập học & ổn định</h4>
+                  <p class="step-desc">Đồng hành từ ngày đầu đến Đức</p>
+                </div>
+              </div>
+            </div>
+
+            <a href="#" class="link-white link-more">Xem lộ trình chi tiết</a>
+          </div>
+        </section>
+
+        <!-- 5. HỌC VIÊN CHIA SẺ -->
+        <section class="testimonial-section">
+          <div class="page-container">
+            <!-- Tiêu đề -->
+            <div class="section-pretitle animate-hidden">
+              <span class="subtitle-line-grey"></span>
+              <span style="color: #555">Học viên chia sẻ</span>
+            </div>
+            <h2 class="section-title animate-hidden delay-100" style="color: #222">
+              Những hành trình<br />đáng tự hào
+            </h2>
+
+            <!-- Danh sách thẻ cảm nhận -->
+            <div class="testimonial-grid">
+              <!-- Thẻ 1 -->
+              <div class="testimonial-item animate-hidden delay-100">
+                <div class="testimonial-card">
+                  <div class="quote-icon">&ldquo;</div>
+                  <p class="testimonial-text">
+                    Viger EDU đã giúp tôi hoàn thiện hồ sơ chỉ trong 3 tuần.
+                    Motivationsschreiben của tôi được chỉnh sửa kỹ lưỡng đến
+                    từng câu chữ. Kết quả là tôi nhận được thư chấp nhận từ TU
+                    Berlin ngay vòng đầu.
+                  </p>
+                  <div class="author-box">
+                    <!-- Icon User SVG -->
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="feather feather-user"
+                    >
+                      <path
+                        d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"
+                      ></path>
+                      <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <span>Học viên A</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Thẻ 2 -->
+              <div class="testimonial-item animate-hidden delay-200">
+                <div class="testimonial-card">
+                  <div class="quote-icon">&ldquo;</div>
+                  <p class="testimonial-text">
+                    Viger EDU đã giúp tôi hoàn thiện hồ sơ chỉ trong 3 tuần.
+                    Motivationsschreiben của tôi được chỉnh sửa kỹ lưỡng đến
+                    từng câu chữ. Kết quả là tôi nhận được thư chấp nhận từ TU
+                    Berlin ngay vòng đầu.
+                  </p>
+                  <div class="author-box">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="feather feather-user"
+                    >
+                      <path
+                        d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"
+                      ></path>
+                      <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <span>Học viên A</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Thẻ 3 -->
+              <div class="testimonial-item animate-hidden delay-300">
+                <div class="testimonial-card">
+                  <div class="quote-icon">&ldquo;</div>
+                  <p class="testimonial-text">
+                    Viger EDU đã giúp tôi hoàn thiện hồ sơ chỉ trong 3 tuần.
+                    Motivationsschreiben của tôi được chỉnh sửa kỹ lưỡng đến
+                    từng câu chữ. Kết quả là tôi nhận được thư chấp nhận từ TU
+                    Berlin ngay vòng đầu.
+                  </p>
+                  <div class="author-box">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="feather feather-user"
+                    >
+                      <path
+                        d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"
+                      ></path>
+                      <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <span>Học viên A</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- 6. ĐĂNG KÝ TƯ VẤN (CTA SECTION) -->
+        <section class="cta-section">
+          <div class="page-container">
+            <div class="cta-content animate-hidden scale-up">
+              <!-- Tiêu đề phụ -->
+              <div class="section-pretitle" style="justify-content: center; color: white;">
+                <span class="cta-subtitle-line"></span>
+                <span style="letter-spacing: 0.5px">Bắt đầu hành trình của riêng bạn</span>
+              </div>
+
+              <!-- Tiêu đề chính -->
+              <h2 class="section-title cta-title" style="margin-top: 1rem;">
+                KHỞI ĐẦU HÀNH TRÌNH CHINH PHỤC TƯƠNG LAI
+              </h2>
+
+              <!-- Lời kêu gọi -->
+              <p class="cta-desc" style="font-size: 1.15rem; margin-top: 1.5rem;">
+                Liên hệ với chúng tôi ngay hôm nay để được tư vấn lộ trình học tập và sự nghiệp vững chắc tại nước ngoài.
+              </p>
+              
+              <!-- Nút Bắt đầu ngay -->
+              <div class="animate-hidden scale-up delay-200" style="margin-top: 2.5rem; display: flex; justify-content: center;">
+                <a class="cta-pill" href="/lien-he" style="padding: 0.8rem 2.5rem; font-size: 1.1rem;">
+                  <span>Bắt đầu ngay</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <th:block layout:fragment="scripts">
+      <script th:src="@{/js/counters.js}"></script>
+      <script th:src="@{/js/animations.js}"></script>
+    </th:block>
+  </body>
+</html>
