@@ -1,0 +1,385 @@
+<!doctype html>
+<html
+  lang="vi"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{fragments/base}"
+>
+  <head>
+    <title>Hệ thống giáo dục - VIGER EDU</title>
+    <style>
+      .overview-layout {
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+        padding: 6rem 1.5rem;
+        max-width: 80rem;
+        margin: 0 auto;
+      }
+      @media (min-width: 1024px) {
+        .overview-layout {
+          flex-direction: row;
+        }
+      }
+
+      .overview-main {
+        flex: 1;
+      }
+
+      .overview-sidebar {
+        width: 100%;
+      }
+      @media (min-width: 1024px) {
+        .overview-sidebar {
+          width: 380px;
+          flex-shrink: 0;
+        }
+      }
+
+      /* Grid of cards */
+      .blog-grid-new {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      @media (min-width: 768px) {
+        .blog-grid-new {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      .card-new {
+        background: var(--text-primary);
+        border-radius: var(--radius-xl);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+        cursor: pointer;
+        text-decoration: none;
+      }
+      .card-new:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-xl);
+      }
+      .card-new-img {
+        height: 220px;
+        overflow: hidden;
+        position: relative;
+      }
+      .card-new-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+      .card-new:hover .card-new-img img {
+        transform: scale(1.05);
+      }
+      .card-new-body {
+        padding: 1.5rem;
+        color: var(--bg-white);
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+      }
+      .card-new-meta {
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.7);
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.5rem;
+        text-transform: uppercase;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+      }
+      .card-new-title {
+        font-size: 1.15rem;
+        font-weight: 700;
+        line-height: 1.4;
+        margin: 0;
+      }
+
+      /* Sidebar Styles */
+      .sidebar-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-bottom: 1.5rem;
+        padding-left: 0.75rem;
+        border-left: 4px solid var(--accent-main);
+        color: var(--text-primary);
+      }
+      .sidebar-list {
+        background: var(--bg-main);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-xl);
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+      }
+      .sidebar-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        text-decoration: none;
+        color: var(--text-primary);
+        transition: transform 0.2s ease;
+      }
+      .sidebar-item:hover {
+        transform: translateX(5px);
+      }
+      .sidebar-item-num {
+        background: var(--text-primary);
+        color: var(--bg-white);
+        font-weight: 700;
+        width: 32px;
+        height: 32px;
+        border-radius: var(--radius-sm);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition: background 0.2s ease;
+      }
+      .sidebar-item-text {
+        font-size: 0.95rem;
+        font-weight: 700;
+        line-height: 1.4;
+        transition: color 0.2s ease;
+        margin-top: 5px;
+      }
+      .sidebar-item:hover .sidebar-item-num {
+        background: var(--accent-main);
+      }
+      .sidebar-item:hover .sidebar-item-text {
+        color: var(--accent-main);
+      }
+
+      .sidebar-banner {
+        margin-top: 2rem;
+        border-radius: var(--radius-xl);
+        overflow: hidden;
+        border: 1px solid var(--border-color);
+      }
+      .sidebar-banner img {
+        width: 100%;
+        height: auto;
+        display: block;
+        transition: transform 0.3s ease;
+      }
+      .sidebar-banner:hover img {
+        transform: scale(1.02);
+      }
+    </style>
+  </head>
+  <body>
+    <div layout:fragment="content">
+      <main class="main-content">
+        <!-- HEADER BANNER -->
+        <section
+          class="cta-section animate-hidden"
+          style="
+            margin: 0;
+            border-radius: 0;
+            padding: 10rem 0 6rem;
+            background-image:
+              linear-gradient(
+                135deg,
+                rgba(20, 20, 20, 0.9) 0%,
+                rgba(193, 18, 31, 0.8) 100%
+              ),
+              url(&quot;https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1600&q=80&quot;);
+            background-size: cover;
+            background-position: center;
+            border-bottom: 4px solid var(--accent-alt);
+          "
+        >
+          <div class="page-container">
+            <div class="text-center animate-hidden">
+              <div
+                class="section-pretitle"
+                style="justify-content: center; margin-bottom: 1rem"
+              >
+                <span
+                  style="
+                    color: var(--accent-alt);
+                    font-size: 0.9rem;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                  "
+                  >Mô hình học thuật thế giới</span
+                >
+              </div>
+              <h1
+                class="hero-heading"
+                style="color: white; margin-bottom: 1rem"
+              >
+                HỆ THỐNG GIÁO DỤC ĐỨC
+              </h1>
+              <p
+                class="cta-desc"
+                style="
+                  max-width: 750px;
+                  margin: 1.5rem auto 0;
+                  font-weight: 300;
+                "
+              >
+                Khám phá cấu trúc của một trong những hệ thống giáo dục minh
+                bạch, linh hoạt và chất lượng nhất thế giới, được phân luồng rõ
+                ràng để phù hợp với mọi định hướng phát triển của sinh viên.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- LAYOUT CHÍNH: MAIN + SIDEBAR -->
+        <div class="overview-layout">
+          <!-- CỘT TRÁI: DANH SÁCH THẺ BÀI VIẾT -->
+          <div class="overview-main">
+            <div
+              class="section-pretitle animate-hidden"
+              style="margin-bottom: 1.5rem"
+            >
+              <span
+                style="
+                  color: var(--accent-alt-hover);
+                  background-color: #fff9e6;
+                  padding: 0.35rem 1rem;
+                  border-radius: var(--radius-full);
+                  font-size: 0.85rem;
+                  font-weight: 600;
+                  text-transform: uppercase;
+                "
+                >Các loại hình đào tạo</span
+              >
+            </div>
+
+            <div class="blog-grid-new">
+              <!-- Thẻ Bài 1 -->
+              <a href="#" class="card-new animate-hidden delay-100">
+                <div class="card-new-img">
+                  <img
+                    src="https://images.unsplash.com/photo-1599940824399-b87987ceb72a?auto=format&fit=crop&w=800&q=80"
+                    alt="Đại học Tổng hợp"
+                  />
+                </div>
+                <div class="card-new-body">
+                  <div class="card-new-meta">
+                    <span>Đại học Tổng hợp (Universität)</span>
+                  </div>
+                  <h3 class="card-new-title">
+                    Nền tảng học thuật và nghiên cứu chuyên sâu, phù hợp với các
+                    nhà khoa học tương lai.
+                  </h3>
+                </div>
+              </a>
+
+              <!-- Thẻ Bài 2 -->
+              <a href="#" class="card-new animate-hidden delay-200">
+                <div class="card-new-img">
+                  <img
+                    src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=800&auto=format&fit=crop"
+                    alt="Đại học Ứng dụng"
+                  />
+                </div>
+                <div class="card-new-body">
+                  <div class="card-new-meta">
+                    <span>Đại học Ứng dụng (Fachhochschule)</span>
+                  </div>
+                  <h3 class="card-new-title">
+                    Gắn liền lý thuyết với thực tiễn doanh nghiệp, rèn luyện kỹ
+                    năng làm việc thực tế.
+                  </h3>
+                </div>
+              </a>
+
+              <!-- Thẻ Bài 3 -->
+              <a href="#" class="card-new animate-hidden delay-100">
+                <div class="card-new-img">
+                  <img
+                    src="https://images.unsplash.com/photo-1510519138130-1c09893d5c19?auto=format&fit=crop&w=800&q=80"
+                    alt="Trường Nghệ thuật"
+                  />
+                </div>
+                <div class="card-new-body">
+                  <div class="card-new-meta">
+                    <span>Cao đẳng Nghệ thuật & Âm nhạc</span>
+                  </div>
+                  <h3 class="card-new-title">
+                    Nơi nuôi dưỡng và phát triển các tài năng sáng tạo nghệ
+                    thuật, điện ảnh và âm nhạc.
+                  </h3>
+                </div>
+              </a>
+
+              <!-- Thẻ Bài 4 -->
+              <a href="#" class="card-new animate-hidden delay-200">
+                <div class="card-new-img">
+                  <img
+                    src="https://images.unsplash.com/photo-1555861496-faa66bfcb118?auto=format&fit=crop&w=800&q=80"
+                    alt="Dự bị Đại học"
+                  />
+                </div>
+                <div class="card-new-body">
+                  <div class="card-new-meta">
+                    <span>Khóa Dự bị Đại học (Studienkolleg)</span>
+                  </div>
+                  <h3 class="card-new-title">
+                    Bước đệm vững chắc giúp sinh viên quốc tế hòa nhập và đạt
+                    chuẩn đầu vào đại học Đức.
+                  </h3>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <!-- CỘT PHẢI: SIDEBAR -->
+          <aside class="overview-sidebar animate-hidden delay-300">
+            <!-- Box Bài Đăng -->
+            <div>
+              <h2 class="sidebar-title">Có thể bạn quan tâm</h2>
+              <div class="sidebar-list">
+                <a href="#" class="sidebar-item">
+                  <div class="sidebar-item-num">1</div>
+                  <div class="sidebar-item-text">
+                    Bảng xếp hạng các trường đại học tốt nhất nước Đức 2026
+                  </div>
+                </a>
+
+                <a href="#" class="sidebar-item">
+                  <div class="sidebar-item-num">2</div>
+                  <div class="sidebar-item-text">
+                    Điều kiện tuyển thẳng đại học Đức cho học sinh Việt Nam
+                  </div>
+                </a>
+
+                <a href="#" class="sidebar-item">
+                  <div class="sidebar-item-num">3</div>
+                  <div class="sidebar-item-text">
+                    Danh sách các ngành học được miễn 100% học phí
+                  </div>
+                </a>
+
+                <a href="#" class="sidebar-item">
+                  <div class="sidebar-item-num">4</div>
+                  <div class="sidebar-item-text">
+                    Hệ thống chuyển đổi tín chỉ ECTS hoạt động như thế nào?
+                  </div>
+                </a>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </main>
+    </div>
+
+    <th:block layout:fragment="scripts">
+      <script th:src="@{/js/animations.js}"></script>
+    </th:block>
+  </body>
+</html>

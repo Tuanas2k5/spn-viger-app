@@ -4,10 +4,10 @@
     <footer class="foot" th:fragment="footer-main">
       <div class="foot-container">
         <!-- Cột trái: Logo + Text + Socials -->
-        <div class="foot-left">
+        <div class="foot-left animate-hidden">
           <a class="brand foot-brand" href="#">
             <img th:src="@{/img/logo.png}" src="/img/logo.png" alt="Logo" />
-            <div class="brand-text">
+            <div class="brand-text" style="display: flex; flex-direction: column; line-height: 1.2;">
               <span id="brand-title">VIGER.EDU.VN</span>
               <span id="brand-sub">From Vietnam to Europe</span>
             </div>
@@ -55,7 +55,7 @@
         </div>
 
         <!-- Cột phải: Links -->
-        <div class="foot-right">
+        <div class="foot-right animate-hidden delay-100">
           <nav class="foot-nav">
             <a href="#">Về chúng tôi</a>
             <a href="#">Giáo dục tại Đức</a>
@@ -63,10 +63,10 @@
             <a href="#">Chương trình học</a>
             <a href="#">Blog</a>
           </nav>
-          <div class="foot-copy">
-            Copyright &copy; <span id="current-year">2026</span> VIGER.EDU.VN
-            <script>document.getElementById("current-year").textContent = new Date().getFullYear();</script>
-          </div>
+        </div>
+        <div class="foot-copy animate-hidden delay-200">
+          Copyright &copy; <span id="current-year">2026</span> VIGER.EDU.VN. All rights reserved.
+          <script>document.getElementById("current-year").textContent = new Date().getFullYear();</script>
         </div>
       </div>
     </footer>

@@ -1,0 +1,492 @@
+<!doctype html>
+<html
+  lang="vi"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{fragments/base}"
+>
+  <head>
+    <title>Tổng quan Giáo dục Đức - VIGER EDU</title>
+    <style>
+      .overview-layout {
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+        padding: 6rem 1.5rem;
+        max-width: 80rem;
+        margin: 0 auto;
+      }
+      @media (min-width: 1024px) {
+        .overview-layout {
+          flex-direction: row;
+        }
+      }
+
+      .overview-main {
+        flex: 1;
+      }
+
+      .overview-sidebar {
+        width: 100%;
+      }
+      @media (min-width: 1024px) {
+        .overview-sidebar {
+          width: 380px;
+          flex-shrink: 0;
+        }
+      }
+
+      /* Grid of cards */
+      .blog-grid-new {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      @media (min-width: 768px) {
+        .blog-grid-new {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      .card-new {
+        background: var(--text-primary);
+        border-radius: var(--radius-xl);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+        cursor: pointer;
+        text-decoration: none;
+      }
+      .card-new:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-xl);
+      }
+      .card-new-img {
+        height: 220px;
+        overflow: hidden;
+        position: relative;
+      }
+      .card-new-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+      .card-new:hover .card-new-img img {
+        transform: scale(1.05);
+      }
+      .card-new-body {
+        padding: 1.5rem;
+        color: var(--bg-white);
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+      }
+      .card-new-meta {
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.7);
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.5rem;
+      }
+      .card-new-meta svg {
+        width: 14px;
+        height: 14px;
+        margin-right: 6px;
+      }
+      .card-new-title {
+        font-size: 1.15rem;
+        font-weight: 700;
+        line-height: 1.4;
+        margin: 0;
+      }
+
+      /* Pagination */
+      .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 3rem;
+      }
+      .page-link {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: var(--radius-full);
+        background: var(--text-primary);
+        color: var(--bg-white);
+        font-weight: 700;
+        font-size: 0.9rem;
+        text-decoration: none;
+        transition: all 0.2s ease;
+      }
+      .page-link:hover,
+      .page-link.active {
+        background: var(--accent-main);
+      }
+      .page-dots {
+        font-size: 1.25rem;
+        color: var(--text-primary);
+        font-weight: 700;
+        letter-spacing: 2px;
+        margin: 0 0.5rem;
+      }
+
+      /* Sidebar Styles */
+      .sidebar-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-bottom: 1.5rem;
+        padding-left: 0.75rem;
+        border-left: 4px solid var(--accent-main);
+        color: var(--text-primary);
+      }
+      .sidebar-list {
+        background: var(--bg-main);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-xl);
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+      }
+      .sidebar-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        text-decoration: none;
+        color: var(--text-primary);
+        transition: transform 0.2s ease;
+      }
+      .sidebar-item:hover {
+        transform: translateX(5px);
+      }
+      .sidebar-item-num {
+        background: var(--text-primary);
+        color: var(--bg-white);
+        font-weight: 700;
+        width: 32px;
+        height: 32px;
+        border-radius: var(--radius-sm);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition: background 0.2s ease;
+      }
+      .sidebar-item-text {
+        font-size: 0.95rem;
+        font-weight: 700;
+        line-height: 1.4;
+        transition: color 0.2s ease;
+        margin-top: 5px;
+      }
+      .sidebar-item:hover .sidebar-item-num {
+        background: var(--accent-main);
+      }
+      .sidebar-item:hover .sidebar-item-text {
+        color: var(--accent-main);
+      }
+
+      .sidebar-banner {
+        margin-top: 2rem;
+        border-radius: var(--radius-xl);
+        overflow: hidden;
+        border: 1px solid var(--border-color);
+      }
+      .sidebar-banner img {
+        width: 100%;
+        height: auto;
+        display: block;
+        transition: transform 0.3s ease;
+      }
+      .sidebar-banner:hover img {
+        transform: scale(1.02);
+      }
+    </style>
+  </head>
+  <body>
+    <div layout:fragment="content">
+      <main class="main-content">
+        <!-- HEADER BANNER -->
+        <section
+          class="cta-section animate-hidden"
+          style="
+            margin: 0;
+            border-radius: 0;
+            padding: 10rem 0 6rem;
+            background-image:
+              linear-gradient(
+                135deg,
+                rgba(20, 20, 20, 0.9) 0%,
+                rgba(193, 18, 31, 0.8) 100%
+              ),
+              url(&quot;https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1600&q=80&quot;);
+            background-size: cover;
+            background-position: center;
+            border-bottom: 4px solid var(--accent-alt);
+          "
+        >
+          <div class="page-container">
+            <div class="text-center animate-hidden">
+              <div
+                class="section-pretitle"
+                style="justify-content: center; margin-bottom: 1rem"
+              >
+                <span
+                  style="
+                    color: var(--accent-alt);
+                    font-size: 0.9rem;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                  "
+                  >Bài Viết Chuyên Đề</span
+                >
+              </div>
+              <h1
+                class="hero-heading"
+                style="color: white; margin-bottom: 1rem"
+              >
+                TỔNG QUAN GIÁO DỤC ĐỨC
+              </h1>
+              <p
+                class="cta-desc"
+                style="
+                  max-width: 750px;
+                  margin: 1.5rem auto 0;
+                  font-weight: 300;
+                "
+              >
+                Tập hợp các bài phân tích, chia sẻ kinh nghiệm và kiến thức
+                chuyên sâu về hệ thống giáo dục, văn hóa, và cuộc sống du học
+                sinh tại Đức.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- LAYOUT CHÍNH: MAIN + SIDEBAR -->
+        <div class="overview-layout">
+          <!-- CỘT TRÁI: DANH SÁCH THẺ BÀI VIẾT -->
+          <div class="overview-main">
+            <div class="blog-grid-new">
+              <!-- Thẻ Bài 1 -->
+              <a href="#" class="card-new animate-hidden delay-100">
+                <div class="card-new-img">
+                  <img
+                    src="https://images.unsplash.com/photo-1599940824399-b87987ceb72a?auto=format&fit=crop&w=800&q=80"
+                    alt="Sinh viên"
+                  />
+                </div>
+                <div class="card-new-body">
+                  <div class="card-new-meta">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                    <span>8 tháng 5 2026</span>
+                  </div>
+                  <h3 class="card-new-title">
+                    Sự khác biệt giữa Uni (Đại học Tổng hợp) và FH (Đại học Ứng
+                    dụng)
+                  </h3>
+                </div>
+              </a>
+
+              <!-- Thẻ Bài 2 -->
+              <a href="#" class="card-new animate-hidden delay-200">
+                <div class="card-new-img">
+                  <img
+                    src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=800&auto=format&fit=crop"
+                    alt="Sinh viên"
+                  />
+                </div>
+                <div class="card-new-body">
+                  <div class="card-new-meta">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                    <span>15 tháng 4 2026</span>
+                  </div>
+                  <h3 class="card-new-title">
+                    Du học Đức: Cẩm nang sinh tồn cho người mới
+                  </h3>
+                </div>
+              </a>
+
+              <!-- Thẻ Bài 3 -->
+              <a href="#" class="card-new animate-hidden delay-100">
+                <div class="card-new-img">
+                  <img
+                    src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=800&q=80"
+                    alt="Sinh viên"
+                  />
+                </div>
+                <div class="card-new-body">
+                  <div class="card-new-meta">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                    <span>22 tháng 3 2026</span>
+                  </div>
+                  <h3 class="card-new-title">
+                    Chi phí sinh hoạt thực tế của du học sinh tại Đức
+                  </h3>
+                </div>
+              </a>
+
+              <!-- Thẻ Bài 4 -->
+              <a href="#" class="card-new animate-hidden delay-200">
+                <div class="card-new-img">
+                  <img
+                    src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80"
+                    alt="Sinh viên"
+                  />
+                </div>
+                <div class="card-new-body">
+                  <div class="card-new-meta">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                    <span>10 tháng 2 2026</span>
+                  </div>
+                  <h3 class="card-new-title">
+                    Quy định làm thêm và cơ hội việc làm sau tốt nghiệp
+                  </h3>
+                </div>
+              </a>
+            </div>
+
+            <!-- Phân trang -->
+            <div class="pagination animate-hidden">
+              <a href="#" class="page-link active">1</a>
+              <a href="#" class="page-link">2</a>
+              <span class="page-dots">...</span>
+              <a href="#" class="page-link">4</a>
+              <a
+                href="#"
+                class="page-link"
+                style="
+                  background: transparent;
+                  color: var(--text-primary);
+                  border-color: transparent;
+                "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="3"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- CỘT PHẢI: SIDEBAR -->
+          <aside class="overview-sidebar animate-hidden delay-300">
+            <!-- Box Bài Đăng Mới Nhất -->
+            <div>
+              <h2 class="sidebar-title">Bài Đăng Mới Nhất</h2>
+              <div class="sidebar-list">
+                <a href="#" class="sidebar-item">
+                  <div class="sidebar-item-num">1</div>
+                  <div class="sidebar-item-text">
+                    Du học Đức: Cẩm nang sinh tồn cho người mới
+                  </div>
+                </a>
+
+                <a href="#" class="sidebar-item">
+                  <div class="sidebar-item-num">2</div>
+                  <div class="sidebar-item-text">
+                    Phân luồng từ sớm cùng du học Đức
+                  </div>
+                </a>
+
+                <a href="#" class="sidebar-item">
+                  <div class="sidebar-item-num">3</div>
+                  <div class="sidebar-item-text">
+                    Chi phí du học Đức mới nhất
+                  </div>
+                </a>
+
+                <a href="#" class="sidebar-item">
+                  <div class="sidebar-item-num">4</div>
+                  <div class="sidebar-item-text">
+                    Cơ hội làm việc tại các doanh nghiệp lớn
+                  </div>
+                </a>
+
+                <a href="#" class="sidebar-item">
+                  <div class="sidebar-item-num">5</div>
+                  <div class="sidebar-item-text">
+                    Nên chọn thực tiễn hay học thuật?
+                  </div>
+                </a>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </main>
+    </div>
+
+    <th:block layout:fragment="scripts">
+      <script th:src="@{/js/animations.js}"></script>
+    </th:block>
+  </body>
+</html>

@@ -1,0 +1,285 @@
+<!doctype html>
+<html
+  lang="vi"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{fragments/base}"
+>
+  <head>
+    <title>Nghiên cứu và Ứng dụng - VIGER EDU</title>
+    <style>
+      .overview-layout {
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+        padding: 6rem 1.5rem;
+        max-width: 80rem;
+        margin: 0 auto;
+      }
+      @media (min-width: 1024px) {
+        .overview-layout {
+          flex-direction: row;
+        }
+      }
+      
+      .overview-main {
+        flex: 1;
+      }
+      
+      .overview-sidebar {
+        width: 100%;
+      }
+      @media (min-width: 1024px) {
+        .overview-sidebar {
+          width: 380px;
+          flex-shrink: 0;
+        }
+      }
+
+      /* Grid of cards */
+      .blog-grid-new {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      @media (min-width: 768px) {
+        .blog-grid-new {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      .card-new {
+        background: var(--text-primary);
+        border-radius: var(--radius-xl);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+        text-decoration: none;
+      }
+      .card-new:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-xl);
+      }
+      .card-new-img {
+        height: 220px;
+        overflow: hidden;
+        position: relative;
+      }
+      .card-new-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+      .card-new:hover .card-new-img img {
+        transform: scale(1.05);
+      }
+      .card-new-body {
+        padding: 1.5rem;
+        color: var(--bg-white);
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+      }
+      .card-new-meta {
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.7);
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.5rem;
+        text-transform: uppercase;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+      }
+      .card-new-title {
+        font-size: 1.15rem;
+        font-weight: 700;
+        line-height: 1.4;
+        margin: 0;
+      }
+      
+      /* Sidebar Styles */
+      .sidebar-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-bottom: 1.5rem;
+        padding-left: 0.75rem;
+        border-left: 4px solid var(--accent-main);
+        color: var(--text-primary);
+      }
+      .sidebar-list {
+        background: var(--bg-main);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-xl);
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+      }
+      .sidebar-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        text-decoration: none;
+        color: var(--text-primary);
+        transition: transform 0.2s ease;
+      }
+      .sidebar-item:hover {
+        transform: translateX(5px);
+      }
+      .sidebar-item-num {
+        background: var(--text-primary);
+        color: var(--bg-white);
+        font-weight: 700;
+        width: 32px;
+        height: 32px;
+        border-radius: var(--radius-sm);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition: background 0.2s ease;
+      }
+      .sidebar-item-text {
+        font-size: 0.95rem;
+        font-weight: 700;
+        line-height: 1.4;
+        transition: color 0.2s ease;
+        margin-top: 5px;
+      }
+      .sidebar-item:hover .sidebar-item-num {
+        background: var(--accent-main);
+      }
+      .sidebar-item:hover .sidebar-item-text {
+        color: var(--accent-main);
+      }
+    </style>
+  </head>
+  <body>
+    <div layout:fragment="content">
+      <main class="main-content">
+        <!-- HEADER BANNER -->
+        <section class="cta-section animate-hidden" style="margin: 0; border-radius: 0; padding: 10rem 0 6rem; background-image: linear-gradient(135deg, rgba(20, 20, 20, 0.9) 0%, rgba(193, 18, 31, 0.8) 100%), url('https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=1600&q=80'); background-size: cover; background-position: center; border-bottom: 4px solid var(--accent-alt);">
+          <div class="page-container">
+            <div class="text-center animate-hidden">
+              <div class="section-pretitle" style="justify-content: center; margin-bottom: 1rem;">
+                <span style="color: var(--accent-alt); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">Quốc gia của Đổi mới & Sáng tạo</span>
+              </div>
+              <h1 class="hero-heading" style="color: white; margin-bottom: 1rem;">NGHIÊN CỨU & ỨNG DỤNG</h1>
+              <p class="cta-desc" style="max-width: 750px; margin: 1.5rem auto 0; font-weight: 300;">
+                Với hơn 1.000 viện nghiên cứu và sự hợp tác chặt chẽ cùng các tập đoàn công nghiệp hàng đầu, Đức là môi trường lý tưởng để biến các ý tưởng khoa học thành giải pháp thực tiễn.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- LAYOUT CHÍNH: MAIN + SIDEBAR -->
+        <div class="overview-layout">
+          
+          <!-- CỘT TRÁI: DANH SÁCH THẺ BÀI VIẾT -->
+          <div class="overview-main">
+            <div class="section-pretitle animate-hidden" style="margin-bottom: 1.5rem;">
+              <span style="color: var(--accent-alt-hover); background-color: #fff9e6; padding: 0.35rem 1rem; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 600; text-transform: uppercase;">Môi trường phát triển</span>
+            </div>
+            
+            <div class="blog-grid-new">
+              
+              <!-- Thẻ Bài 1 -->
+              <a href="#" class="card-new animate-hidden delay-100">
+                <div class="card-new-img">
+                  <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80" alt="Viện nghiên cứu" />
+                </div>
+                <div class="card-new-body">
+                  <div class="card-new-meta">
+                    <span>Viện Nghiên cứu Độc lập</span>
+                  </div>
+                  <h3 class="card-new-title">Các tổ chức danh tiếng như Max Planck và Fraunhofer dẫn đầu thế giới về khoa học cơ bản và ứng dụng.</h3>
+                </div>
+              </a>
+
+              <!-- Thẻ Bài 2 -->
+              <a href="#" class="card-new animate-hidden delay-200">
+                <div class="card-new-img">
+                  <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=800&q=80" alt="Doanh nghiệp" />
+                </div>
+                <div class="card-new-body">
+                  <div class="card-new-meta">
+                    <span>Hợp tác Doanh nghiệp</span>
+                  </div>
+                  <h3 class="card-new-title">Sinh viên trực tiếp tham gia dự án R&D của các tập đoàn lớn (BMW, Siemens, Bosch) ngay khi ngồi trên ghế nhà trường.</h3>
+                </div>
+              </a>
+
+              <!-- Thẻ Bài 3 -->
+              <a href="#" class="card-new animate-hidden delay-100">
+                <div class="card-new-img">
+                  <img src="https://images.unsplash.com/photo-1574170609519-d1d8d4b71f60?auto=format&fit=crop&w=800&q=80" alt="Cơ sở hạ tầng" />
+                </div>
+                <div class="card-new-body">
+                  <div class="card-new-meta">
+                    <span>Cơ sở vật chất tối tân</span>
+                  </div>
+                  <h3 class="card-new-title">Hệ thống phòng thí nghiệm siêu máy tính và thư viện dữ liệu khổng lồ hỗ trợ tối đa cho sinh viên khoa học.</h3>
+                </div>
+              </a>
+
+              <!-- Thẻ Bài 4 -->
+              <a href="#" class="card-new animate-hidden delay-200">
+                <div class="card-new-img">
+                  <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80" alt="Khởi nghiệp" />
+                </div>
+                <div class="card-new-body">
+                  <div class="card-new-meta">
+                    <span>Hệ sinh thái Start-up</span>
+                  </div>
+                  <h3 class="card-new-title">Các trường đại học cấp vốn và hỗ trợ pháp lý để sinh viên phát triển ý tưởng công nghệ thành công ty khởi nghiệp.</h3>
+                </div>
+              </a>
+
+            </div>
+          </div>
+
+          <!-- CỘT PHẢI: SIDEBAR (KHÔNG CÓ BANNER HÌNH ẢNH) -->
+          <aside class="overview-sidebar animate-hidden delay-300">
+            <!-- Box Bài Đăng -->
+            <div>
+              <h2 class="sidebar-title">Có thể bạn quan tâm</h2>
+              <div class="sidebar-list">
+                
+                <a href="#" class="sidebar-item">
+                  <div class="sidebar-item-num">1</div>
+                  <div class="sidebar-item-text">Hướng dẫn xin học bổng DAAD dành cho hệ Thạc sĩ & Nghiên cứu sinh</div>
+                </a>
+                
+                <a href="#" class="sidebar-item">
+                  <div class="sidebar-item-num">2</div>
+                  <div class="sidebar-item-text">Top 5 khối ngành khoa học kỹ thuật mũi nhọn tại Đức hiện nay</div>
+                </a>
+                
+                <a href="#" class="sidebar-item">
+                  <div class="sidebar-item-num">3</div>
+                  <div class="sidebar-item-text">Dual Study (Học kép): Vừa học lý thuyết, vừa nhận lương thực hành</div>
+                </a>
+                
+                <a href="#" class="sidebar-item">
+                  <div class="sidebar-item-num">4</div>
+                  <div class="sidebar-item-text">Cơ hội việc làm mảng R&D sau khi tốt nghiệp tại Châu Âu</div>
+                </a>
+                
+              </div>
+            </div>
+          </aside>
+
+        </div>
+      </main>
+    </div>
+
+    <th:block layout:fragment="scripts">
+      <script th:src="@{/js/animations.js}"></script>
+    </th:block>
+  </body>
+</html>

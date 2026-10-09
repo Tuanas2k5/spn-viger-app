@@ -5,7 +5,10 @@
       <div class="brand-group">
         <a class="brand" href="/">
           <img th:src="@{/img/logo.png}" src="/img/logo.png" alt="Logo" />
-          <div class="brand-text">
+          <div
+            class="brand-text"
+            style="display: flex; flex-direction: column; line-height: 1.2"
+          >
             <span id="brand-title">VIGER.EDU.VN</span>
             <span id="brand-sub">From Vietnam to Europe</span>
           </div>
@@ -26,34 +29,44 @@
         <nav class="menu">
           <a href="/ve-chung-toi"><span id="nav-home">Về chúng tôi</span></a>
           <div class="menu-dropdown">
-            <a href="#"
+            <a href="/giao-duc-tai-duc"
               ><span id="nav-about">Giáo dục tại Đức</span>
               <svg class="caret" viewBox="0 0 9 6" aria-hidden="true">
                 <path d="M0.7 1.1 L4.5 4.6 L8.3 1.1" />
               </svg>
             </a>
             <div class="dropdown-content">
-              <a href="#">Tổng quan</a>
-              <a href="#">Hệ thống giáo dục</a>
-              <a href="#">Nghiên cứu và Ứng dụng</a>
-              <a href="#">Chi phí và Cơ hội</a>
-              <a href="#">Cơ hội nghề nghiệp</a>
+              <a href="/giao-duc-tai-duc/tong-quan">Tổng quan</a>
+              <a href="/giao-duc-tai-duc/he-thong-giao-duc"
+                >Hệ thống giáo dục</a
+              >
+              <a href="/giao-duc-tai-duc/nghien-cuu-va-ung-dung"
+                >Nghiên cứu và Ứng dụng</a
+              >
+              <a href="/giao-duc-tai-duc/chi-phi-va-co-hoi"
+                >Chi phí và Cơ hội</a
+              >
+              <a href="/giao-duc-tai-duc/co-hoi-nghe-nghiep"
+                >Cơ hội nghề nghiệp</a
+              >
             </div>
           </div>
           <div class="menu-dropdown">
-            <a href="#"
+            <a href="/tu-van"
               ><span id="nav-consult">Tư vấn</span>
               <svg class="caret" viewBox="0 0 9 6" aria-hidden="true">
                 <path d="M0.7 1.1 L4.5 4.6 L8.3 1.1" />
               </svg>
             </a>
             <div class="dropdown-content">
-              <a href="#">Du học Đại học</a>
-              <a href="#">Du học Cao học</a>
-              <a href="#">Quy trình Tư vấn</a>
+              <a href="/tu-van/du-hoc-dai-hoc">Du học Đại học</a>
+              <a href="/tu-van/du-hoc-cao-hoc">Du học Cao học</a>
+              <a href="/tu-van/quy-trinh-tu-van">Quy trình Tư vấn</a>
             </div>
           </div>
-          <a href="#"><span id="nav-programs">Chương trình học</span></a>
+          <a href="/chuong-trinh-hoc"
+            ><span id="nav-programs">Chương trình học</span></a
+          >
           <div class="menu-dropdown">
             <a href="#"
               ><span id="nav-blog">Blog</span>
@@ -68,7 +81,9 @@
             </div>
           </div>
         </nav>
-        <a class="cta-pill" href="/lien-he"><span id="nav-cta">Bắt đầu ngay</span></a>
+        <a class="cta-pill" href="/lien-he"
+          ><span id="nav-cta">Bắt đầu ngay</span></a
+        >
       </div>
     </header>
   </body>
