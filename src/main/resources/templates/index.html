@@ -11,14 +11,28 @@
     <div layout:fragment="content">
       <main class="main-content">
         <!-- 1. HERO SECTION -->
-        <section class="hero-section" style="background: linear-gradient(rgba(18, 38, 63, 0.85), rgba(18, 38, 63, 0.9)), url('https://images.unsplash.com/photo-1618259278412-2819cbdea4dc?q=80&w=1121&auto=format&fit=crop') no-repeat center center; background-size: cover; color: white;">
+        <section
+          class="hero-section"
+          style="
+            background:
+              linear-gradient(rgba(18, 38, 63, 0.85), rgba(18, 38, 63, 0.9)),
+              url(&quot;https://images.unsplash.com/photo-1618259278412-2819cbdea4dc?q=80&w=1121&auto=format&fit=crop&quot;)
+                no-repeat center center;
+            background-size: cover;
+            color: white;
+          "
+        >
           <div class="hero-container">
             <div class="hero-grid">
               <!-- Cột trái: Nội dung chữ -->
               <div class="hero-text animate-hidden">
-                <h1 class="hero-heading" style="color: white;">Hành trình của bạn</h1>
-                <h1 class="hero-subheading" style="color: var(--accent-alt);">Bắt đầu từ nước Đức...</h1>
-                <p class="hero-desc" style="color: rgba(255, 255, 255, 0.9);">
+                <h1 class="hero-heading" style="color: white">
+                  Hành trình của bạn
+                </h1>
+                <h1 class="hero-subheading" style="color: var(--accent-alt)">
+                  Bắt đầu từ nước Đức...
+                </h1>
+                <p class="hero-desc" style="color: rgba(255, 255, 255, 0.9)">
                   Viger EDU đồng hành cùng bạn từ lựa chọn ngành học, chuẩn bị
                   hồ sơ đến khi đặt chân đến giảng đường Đức — với đội ngũ
                   chuyên gia đã từng học tập và làm việc tại đây.
@@ -95,7 +109,9 @@
                   Đức hàng đầu, hiểu rõ từng bước của hành trình từ ngày đầu đến
                   ngày nhập học.
                 </p>
-                <a href="/ve-chung-toi" class="link-custom">Tìm hiểu về chúng tôi</a>
+                <a href="/ve-chung-toi" class="link-custom"
+                  >Tìm hiểu về chúng tôi</a
+                >
               </div>
 
               <!-- Cột phải: Lưới hình ảnh -->
@@ -131,7 +147,7 @@
           <div class="page-container">
             <!-- Tiêu đề -->
             <div class="text-center animate-hidden">
-              <div class="section-pretitle" style="margin: 0 auto 1rem;">
+              <div class="section-pretitle" style="margin: 0 auto 1rem">
                 <span>✨ Quy trình du học</span>
               </div>
               <h2 class="section-title">05 bước đến giảng đường nước Đức</h2>
@@ -144,13 +160,17 @@
                 <div class="timeline-step animate-hidden delay-100">
                   <div class="circle-step">01</div>
                   <h4 class="step-title">Tư vấn miễn phí</h4>
-                  <p class="step-desc">Đánh giá hồ sơ và định hướng lộ trình phù hợp</p>
+                  <p class="step-desc">
+                    Đánh giá hồ sơ và định hướng lộ trình phù hợp
+                  </p>
                 </div>
                 <!-- Bước 2 -->
                 <div class="timeline-step animate-hidden delay-200">
                   <div class="circle-step">02</div>
                   <h4 class="step-title">Luyện tiếng Đức</h4>
-                  <p class="step-desc">Đạt trình độ ngôn ngữ theo yêu cầu của trường</p>
+                  <p class="step-desc">
+                    Đạt trình độ ngôn ngữ theo yêu cầu của trường
+                  </p>
                 </div>
                 <!-- Bước 3 -->
                 <div class="timeline-step animate-hidden delay-300">
@@ -172,7 +192,7 @@
                 </div>
               </div>
             </div>
-            
+
             <div class="text-center animate-hidden">
               <a href="#" class="link-more">Xem lộ trình chi tiết</a>
             </div>
@@ -192,110 +212,64 @@
               <!-- Thẻ 1 -->
               <div class="testimonial-item animate-hidden delay-100">
                 <div class="testimonial-card">
-                  <div class="quote-icon">&ldquo;</div>
                   <p class="testimonial-text">
-                    Viger EDU đã giúp tôi hoàn thiện hồ sơ chỉ trong 3 tuần.
-                    Motivationsschreiben của tôi được chỉnh sửa kỹ lưỡng đến
-                    từng câu chữ. Kết quả là tôi nhận được thư chấp nhận từ TU
-                    Berlin ngay vòng đầu.
+                    Nhờ có VIGER EDU, em đã tìm được ngôi trường đại học phù hợp
+                    nhất tại Đức cho ngành kỹ thuật của mình, sự hỗ trợ từ các
+                    anh chị thực sự tuyệt vời!
                   </p>
                   <div class="author-box">
-                    <!-- Icon User SVG -->
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="feather feather-user"
-                    >
-                      <path
-                        d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"
-                      ></path>
-                      <circle cx="12" cy="7" r="4"></circle>
-                    </svg>
-                    <span>Học viên A</span>
+                    <img
+                      th:src="@{/img/duc_nguyen.jpg}"
+                      src="/img/duc_nguyen.jpg"
+                      alt="Du học sinh Đức"
+                      style="
+                        width: 36px;
+                        height: 36px;
+                        border-radius: var(--radius-full);
+                      "
+                    />
+                    <span>Duc Nguyen</span>
                   </div>
                 </div>
               </div>
 
               <!-- Thẻ 2 -->
-              <div class="testimonial-item animate-hidden delay-200">
+              <div class="testimonial-item animate-hidden delay-100">
                 <div class="testimonial-card">
-                  <div class="quote-icon">&ldquo;</div>
                   <p class="testimonial-text">
-                    Sự hỗ trợ nhiệt tình từ các anh chị Viger EDU đã giúp mình
-                    vượt qua vòng phỏng vấn APS một cách xuất sắc. Mình không
-                    chỉ học được kiến thức mà còn cả sự tự tin.
+                    Em chưa từng nghĩ việc du học lại có thể dễ dàng đến thế!
+                    VIGER EDU đã giúp mọi thủ tục trở nên vô cùng nhanh chóng và
+                    nhẹ nhàng.
                   </p>
                   <div class="author-box">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="feather feather-user"
-                    >
-                      <path
-                        d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"
-                      ></path>
-                      <circle cx="12" cy="7" r="4"></circle>
-                    </svg>
-                    <span>Học viên B</span>
+                    <img
+                      th:src="@{/img/mai_tran.jpg}"
+                      src="/img/mai_tran.jpg"
+                      alt="Du học sinh Đức"
+                      style="
+                        width: 36px;
+                        height: 36px;
+                        border-radius: var(--radius-full);
+                      "
+                    />
+                    <span>Mai Tran</span>
                   </div>
                 </div>
               </div>
 
-              <!-- Thẻ 3 -->
-              <div class="testimonial-item animate-hidden delay-300">
-                <div class="testimonial-card">
-                  <div class="quote-icon">&ldquo;</div>
-                  <p class="testimonial-text">
-                    Nhờ Viger EDU, giấc mơ du học Đức của mình đã trở thành
-                    hiện thực. Lộ trình rõ ràng và chi tiết, mình luôn biết
-                    bước tiếp theo cần làm gì. Cảm ơn đội ngũ rất nhiều!
-                  </p>
-                  <div class="author-box">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="feather feather-user"
-                    >
-                      <path
-                        d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"
-                      ></path>
-                      <circle cx="12" cy="7" r="4"></circle>
-                    </svg>
-                    <span>Học viên C</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+              
         </section>
 
         <!-- 6. ĐĂNG KÝ TƯ VẤN (CTA SECTION) -->
         <section class="cta-section animate-hidden">
           <div class="page-container">
-            <div class="section-pretitle" style="justify-content: center;">
+            <div class="section-pretitle" style="justify-content: center">
               <span>✨ Bắt đầu hành trình của riêng bạn</span>
             </div>
             <h2 class="cta-title">Khởi đầu hành trình chinh phục tương lai</h2>
             <p class="cta-desc">
-              Liên hệ với chúng tôi ngay hôm nay để được tư vấn lộ trình học tập và sự nghiệp vững chắc tại nước ngoài.
+              Liên hệ với chúng tôi ngay hôm nay để được tư vấn lộ trình học tập
+              và sự nghiệp vững chắc tại nước ngoài.
             </p>
             <a class="cta-pill" href="/lien-he">Bắt đầu ngay</a>
           </div>

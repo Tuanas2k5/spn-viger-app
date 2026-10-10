@@ -548,6 +548,11 @@ img {
   height: 200px;
   width: 100%;
   object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.grid-img:hover {
+  transform: scale(1.05);
 }
 
 .stat-box {
@@ -559,6 +564,12 @@ img {
   justify-content: center;
   align-items: center;
   text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-box:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
 }
 
 .stat-box h3 {
@@ -704,6 +715,12 @@ img {
   display: flex;
   flex-direction: column;
   box-shadow: var(--shadow-sm);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
 }
 
 .quote-icon {
@@ -956,4 +973,6 @@ img {
   font-family: "Playfair Display", serif;
   font-weight: 700;
 }
+
+
 

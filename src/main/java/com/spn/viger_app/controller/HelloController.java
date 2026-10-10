@@ -27,27 +27,27 @@ public class HelloController {
 
     @GetMapping("/giao-duc-tai-duc/tong-quan")
     public String overview() {
-        return "overview";
+        return "education/overview";
     }
 
     @GetMapping("/giao-duc-tai-duc/he-thong-giao-duc")
     public String educationSystem() {
-        return "education-system";
+        return "education/education-system";
     }
 
     @GetMapping("/giao-duc-tai-duc/nghien-cuu-va-ung-dung")
     public String researchApplied() {
-        return "research-applied";
+        return "education/research-applied";
     }
 
     @GetMapping("/giao-duc-tai-duc/chi-phi-va-co-hoi")
     public String costsOpportunities() {
-        return "costs-opportunities";
+        return "education/costs-opportunities";
     }
 
     @GetMapping("/giao-duc-tai-duc/co-hoi-nghe-nghiep")
     public String careerOpportunities() {
-        return "career-opportunities";
+        return "education/career-opportunities";
     }
 
     @GetMapping("/tu-van")
@@ -57,21 +57,26 @@ public class HelloController {
 
     @GetMapping("/tu-van/du-hoc-dai-hoc")
     public String consultBachelor() {
-        return "consult-bachelor";
+        return "consult/consult-bachelor";
     }
 
     @GetMapping("/tu-van/du-hoc-cao-hoc")
     public String consultMaster() {
-        return "consult-master";
+        return "consult/consult-master";
     }
 
     @GetMapping("/tu-van/quy-trinh-tu-van")
     public String consultProcess() {
-        return "consult-process";
+        return "consult/consult-process";
     }
 
     @GetMapping("/chuong-trinh-hoc")
     public String programs() {
         return "programs";
+    }
+
+    @GetMapping("/blog")
+    public String blog() {
+        return "blog";
     }
 }
