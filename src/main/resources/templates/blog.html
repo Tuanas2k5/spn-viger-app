@@ -489,18 +489,37 @@
     <div layout:fragment="content">
       <main class="main-content">
         <!-- 1. HERO -->
-        <section class="blog-hero animate-hidden">
-          <div class="blog-hero-bg">
-            <img
-              src="https://images.unsplash.com/photo-1599839619722-39751411ea63?q=80&w=1920&auto=format&fit=crop"
-              alt="Blog background"
-            />
-          </div>
+        <section
+          class="cta-section animate-hidden"
+          style="
+            margin: 0;
+            border-radius: 0;
+            padding: 10rem 0 6rem;
+            background-image:
+              linear-gradient(
+                135deg,
+                rgba(20, 20, 20, 0.9) 0%,
+                rgba(238, 193, 98, 0.8) 100%
+              ),
+              url(&quot;https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1600&q=80&quot;);
+            background-size: cover;
+            background-position: center;
+            border-bottom: 4px solid var(--accent-alt);
+          "
+        >
           <div class="blog-hero-content">
             <p class="blog-hero-pretitle">Blog du học Đức</p>
-            <h1>KIẾN THỨC DU HỌC ĐỨC</h1>
-            <p class="blog-hero-sub">Đồng hành cùng bạn</p>
-            <p class="blog-hero-desc">
+            <h1 class="hero-heading" style="color: white; margin-bottom: 1rem">
+              KIẾN THỨC DU HỌC ĐỨC
+            </h1>
+            <p
+              class="cta-desc"
+              style="
+                max-width: 750px;
+                margin: 1.5rem auto 2.5rem;
+                font-weight: 300;
+              "
+            >
               Kinh nghiệm, lộ trình, học bổng, visa và chi phí du học Đức được
               biên soạn theo hướng dễ hiểu, thực tế và hữu ích nhất.
             </p>

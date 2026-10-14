@@ -1,23 +1,23 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap");
+﻿@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap");
 
 /* ===================================================================
-   0. DESIGN TOKENS (Tông màu Viger Edu x Phong cách Hiện đại)
+   0. DESIGN TOKENS (TÃ´ng mÃ u Viger Edu x Phong cÃ¡ch Hiá»‡n Ä‘áº¡i)
    =================================================================== */
 :root {
-  --bg-main: #fdfbf7; /* Trắng ấm nhẹ */
+  --bg-main: #fdfbf7; /* Tráº¯ng áº¥m nháº¹ */
   --bg-white: #ffffff;
 
-  --text-primary: #12263f; /* Xanh Navy đậm - Tông cũ */
-  --text-secondary: #4a5c71; /* Xanh Navy nhạt */
-  --text-muted: #7a8b9c; /* Xám xanh */
+  --text-primary: #12263f; /* Xanh Navy Ä‘áº­m - TÃ´ng cÅ© */
+  --text-secondary: #4a5c71; /* Xanh Navy nháº¡t */
+  --text-muted: #7a8b9c; /* XÃ¡m xanh */
 
   --border-color: #e2e8f0;
   --border-light: #f1f5f9;
 
-  --accent-main: #c1121f; /* Đỏ Viger */
-  --accent-hover: #780000; /* Đỏ sẫm */
+  --accent-main: #c1121f; /* Äá» Viger */
+  --accent-hover: #780000; /* Äá» sáº«m */
 
-  --accent-alt: #ffb703; /* Vàng cam Viger */
+  --accent-alt: #ffb703; /* VÃ ng cam Viger */
   --accent-alt-hover: #e09f00;
 
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
@@ -25,7 +25,7 @@
     0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   --shadow-xl:
     0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  --shadow-2xl: 0 25px 50px -12px rgba(18, 38, 63, 0.15); /* Bóng đổ ám xanh navy */
+  --shadow-2xl: 0 25px 50px -12px rgba(18, 38, 63, 0.15); /* BÃ³ng Ä‘á»• Ã¡m xanh navy */
 
   --radius-full: 9999px;
   --radius-xl: 1rem;
@@ -75,7 +75,7 @@ h6,
   font-family: "Inter", sans-serif;
   font-style: italic;
   font-weight: 400;
-  color: var(--accent-main); /* Chữ nghiêng màu đỏ Viger */
+  color: var(--accent-main); /* Chá»¯ nghiÃªng mÃ u Ä‘á» Viger */
 }
 
 a {
@@ -136,7 +136,7 @@ img {
 
 #brand-sub {
   font-size: 0.75rem;
-  color: var(--accent-alt); /* Vàng cam */
+  color: var(--accent-alt); /* VÃ ng cam */
   font-weight: 500;
 }
 
@@ -223,7 +223,7 @@ img {
   transform: translateX(4px);
 }
 
-/* Nút CTA Header */
+/* NÃºt CTA Header */
 .cta-pill {
   background-color: var(--accent-main);
   color: var(--bg-white);
@@ -232,7 +232,6 @@ img {
   padding: 0.625rem 1.25rem;
   border-radius: var(--radius-full);
   box-shadow: var(--shadow-sm);
-  margin-left: auto;
   transition: all 0.3s ease;
 }
 
@@ -243,8 +242,47 @@ img {
   box-shadow: 0 4px 14px rgba(193, 18, 31, 0.3);
 }
 
+
+/* Right-side header actions */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-left: auto;
+}
+
+/* Language toggle button */
+.lang-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: none;
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-full);
+  padding: 0.35rem 0.75rem;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  transition: all 0.2s ease;
+}
+
+.lang-toggle:hover {
+  border-color: var(--accent-main);
+  color: var(--accent-main);
+}
+
+.lang-toggle .lang-sep {
+  color: var(--border-color);
+  font-weight: 400;
+}
+
+.lang-toggle .lang-active {
+  color: var(--accent-main);
+}
 /* ===================================================================
-   4. CHUNG CHO CÁC SECTION
+   4. CHUNG CHO CÃC SECTION
    =================================================================== */
 .page-container {
   max-width: 80rem; /* 1280px = max-w-7xl */
@@ -346,7 +384,7 @@ img {
 .stat-number {
   font-size: 2.25rem;
   font-weight: 700;
-  color: var(--accent-alt); /* Nhấn bằng màu vàng */
+  color: var(--accent-alt); /* Nháº¥n báº±ng mÃ u vÃ ng */
   margin-bottom: 0.25rem;
 }
 
@@ -397,7 +435,7 @@ img {
   box-shadow: var(--shadow-md);
 }
 
-/* Hiển thị lại hình ảnh với viền mờ bo tròn */
+/* Hiá»ƒn thá»‹ láº¡i hÃ¬nh áº£nh vá»›i viá»n má» bo trÃ²n */
 .hero-image {
   display: block;
   position: relative;
@@ -412,7 +450,7 @@ img {
 }
 
 /* ===================================================================
-   6. THANH ĐỐI TÁC (Marquee màu Vàng)
+   6. THANH Äá»I TÃC (Marquee mÃ u VÃ ng)
    =================================================================== */
 .yellow-banner {
   background-color: var(--accent-alt);
@@ -447,7 +485,7 @@ img {
   padding: 0 3rem;
   font-size: 1.1rem;
   font-weight: 600;
-  color: #fff; /* Chữ trắng trên nền vàng */
+  color: #fff; /* Chá»¯ tráº¯ng trÃªn ná»n vÃ ng */
   opacity: 0.9;
 }
 
@@ -492,7 +530,7 @@ img {
 
 .about-label-text {
   color: var(--accent-alt-hover);
-  background-color: #fff9e6; /* Vàng nhạt */
+  background-color: #fff9e6; /* VÃ ng nháº¡t */
   padding: 0.35rem 1rem;
   border-radius: var(--radius-full);
   font-size: 0.85rem;
@@ -593,7 +631,7 @@ img {
 
 .process-section .section-pretitle {
   color: var(--accent-main);
-  background-color: #fdf2f2; /* Đỏ nhạt */
+  background-color: #fdf2f2; /* Äá» nháº¡t */
   padding: 0.35rem 1rem;
   border-radius: var(--radius-full);
   font-size: 0.85rem;
@@ -906,7 +944,7 @@ img {
 }
 
 /* ===================================================================
-   12. RESPONSIVE BỔ SUNG & BURGER MENU
+   12. RESPONSIVE Bá»” SUNG & BURGER MENU
    =================================================================== */
 @media (max-width: 1024px) {
   .navpanel {

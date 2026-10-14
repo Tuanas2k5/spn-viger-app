@@ -5,7 +5,7 @@
   layout:decorate="~{fragments/base}"
 >
   <head>
-    <title>Trang chủ</title>
+    <title>Trang ch&#7911;</title>
   </head>
   <body>
     <div layout:fragment="content">
@@ -24,117 +24,155 @@
         >
           <div class="hero-container">
             <div class="hero-grid">
-              <!-- Cột trái: Nội dung chữ -->
               <div class="hero-text animate-hidden">
                 <h1 class="hero-heading" style="color: white">
-                  Hành trình của bạn
+                  <span data-i18n="idx-hero-heading"
+                    >H&#224;nh tr&#236;nh c&#7911;a b&#7841;n</span
+                  >
                 </h1>
                 <h1 class="hero-subheading" style="color: var(--accent-alt)">
-                  Bắt đầu từ nước Đức...
+                  <span data-i18n="idx-hero-subheading"
+                    >B&#7855;t &#273;&#7847;u t&#7915; n&#432;&#7899;c
+                    &#272;&#7913;c...</span
+                  >
                 </h1>
                 <p class="hero-desc" style="color: rgba(255, 255, 255, 0.9)">
-                  Viger EDU đồng hành cùng bạn từ lựa chọn ngành học, chuẩn bị
-                  hồ sơ đến khi đặt chân đến giảng đường Đức — với đội ngũ
-                  chuyên gia đã từng học tập và làm việc tại đây.
+                  <span data-i18n="idx-hero-desc"
+                    >Viger EDU &#273;&#7891;ng h&#224;nh c&#249;ng b&#7841;n
+                    t&#7915; l&#7921;a ch&#7885;n ng&#224;nh h&#7885;c,
+                    chu&#7849;n b&#7883; h&#7891; s&#417; &#273;&#7871;n khi
+                    &#273;&#7863;t ch&#226;n &#273;&#7871;n gi&#7843;ng
+                    &#273;&#432;&#7901;ng &#272;&#7913;c &#8212; v&#7899;i
+                    &#273;&#7897;i ng&#361; chuy&#234;n gia &#273;&#227;
+                    t&#7915;ng h&#7885;c t&#7853;p v&#224; l&#224;m vi&#7879;c
+                    t&#7841;i &#273;&#226;y.</span
+                  >
                 </p>
-
-                <!-- Hàng thống kê -->
                 <div class="hero-stats" id="counter-section">
                   <div class="hero-stat">
                     <p class="stat-number">
                       <span class="counter-value" data-target="500">0</span>+
                     </p>
-                    <p class="stat-label">Học viên nhập học</p>
+                    <p class="stat-label" data-i18n="idx-stat-students">
+                      H&#7885;c vi&#234;n nh&#7853;p h&#7885;c
+                    </p>
                   </div>
                   <div class="hero-stat">
                     <p class="stat-number">
                       <span class="counter-value" data-target="95">0</span>%
                     </p>
-                    <p class="stat-label">Xin Visa thành công</p>
+                    <p class="stat-label" data-i18n="idx-stat-visa">
+                      Xin Visa th&#224;nh c&#244;ng
+                    </p>
                   </div>
                   <div class="hero-stat">
                     <p class="stat-number">
                       <span class="counter-value" data-target="10">0</span>+
                     </p>
-                    <p class="stat-label">Năm kinh nghiệm</p>
+                    <p class="stat-label" data-i18n="idx-stat-years">
+                      N&#259;m kinh nghi&#7879;m
+                    </p>
                   </div>
                 </div>
-
-                <!-- Nút bấm -->
                 <div class="hero-buttons">
-                  <button class="btn-red">Đặt lịch tư vấn miễn phí</button>
-                  <a href="#" class="btn-outline-custom">Xem lộ trình du học</a>
+                  <a href="/lien-he"
+                    ><button class="btn-red" data-i18n="idx-btn-consult">
+                      &#272;&#7863;t l&#7883;ch t&#432; v&#7845;n mi&#7877;n
+                      ph&#237;
+                    </button></a
+                  >
+                  <a
+                    href="#"
+                    id="btn-roadmap"
+                    class="btn-outline-custom"
+                    data-i18n="idx-btn-roadmap"
+                    >Xem l&#7897; tr&#236;nh du h&#7885;c</a
+                  >
                 </div>
               </div>
-
-              <!-- Cột phải: Ảnh -->
               <div class="hero-image animate-hidden delay-200">
                 <img
                   th:src="@{/img/trangchu.png}"
                   src="/img/trangchu.png"
-                  alt="Du học sinh Đức"
+                  alt="Du h&#7885;c sinh &#272;&#7913;c"
                 />
               </div>
             </div>
           </div>
         </section>
 
-        <!-- 2. THANH ĐỐI TÁC TRƯỜNG ĐẠI HỌC -->
+        <!-- 2. PARTNER BANNER -->
         <div class="yellow-banner">
           <div class="partner-list">
             <span>Technical University of Munich (TUM)</span>
-            <span>Ludwig-Maximilians-Universität München (LMU)</span>
-            <span>Ruprecht-Karls-Universität Heidelberg</span>
-            <span>Freie Universität Berlin</span>
+            <span>Ludwig-Maximilians-Universit&#228;t M&#252;nchen (LMU)</span>
+            <span>Ruprecht-Karls-Universit&#228;t Heidelberg</span>
+            <span>Freie Universit&#228;t Berlin</span>
             <span>Technical University of Munich (TUM)</span>
-            <span>Ludwig-Maximilians-Universität München (LMU)</span>
+            <span>Ludwig-Maximilians-Universit&#228;t M&#252;nchen (LMU)</span>
           </div>
         </div>
 
-        <!-- 3. ABOUT US SECTION -->
+        <!-- 3. ABOUT SECTION -->
         <section class="about-section">
           <div class="page-container">
             <div class="about-grid">
-              <!-- Cột trái: Văn bản -->
               <div class="about-text animate-hidden">
                 <div class="about-label">
-                  <span class="about-label-text">✨ Về chúng tôi</span>
+                  <span class="about-label-text" data-i18n="idx-about-label"
+                    >&#10024; V&#7873; ch&#250;ng t&#244;i</span
+                  >
                 </div>
                 <h2 class="about-heading">
-                  Người bạn đồng hành đáng tin cậy nhất trên con đường đến Đức
+                  <span data-i18n="idx-about-heading"
+                    >Ng&#432;&#7901;i b&#7841;n &#273;&#7891;ng h&#224;nh
+                    &#273;&#225;ng tin c&#7853;y nh&#7845;t tr&#234;n con
+                    &#273;&#432;&#7901;ng &#273;&#7871;n &#272;&#7913;c</span
+                  >
                 </h2>
                 <p class="about-desc">
-                  Chúng tôi không chỉ tư vấn — chúng tôi đồng hành. Đội ngũ
-                  Viger EDU gồm các chuyên gia tốt nghiệp từ các trường đại học
-                  Đức hàng đầu, hiểu rõ từng bước của hành trình từ ngày đầu đến
-                  ngày nhập học.
+                  <span data-i18n="idx-about-desc"
+                    >Ch&#250;ng t&#244;i kh&#244;ng ch&#7881; t&#432; v&#7845;n
+                    &#8212; ch&#250;ng t&#244;i &#273;&#7891;ng h&#224;nh.
+                    &#272;&#7897;i ng&#361; Viger EDU g&#7891;m c&#225;c
+                    chuy&#234;n gia t&#7889;t nghi&#7879;p t&#7915; c&#225;c
+                    tr&#432;&#7901;ng &#273;&#7841;i h&#7885;c &#272;&#7913;c
+                    h&#224;ng &#273;&#7847;u, hi&#7875;u r&#245; t&#7915;ng
+                    b&#432;&#7899;c c&#7911;a h&#224;nh tr&#236;nh t&#7915;
+                    ng&#224;y &#273;&#7847;u &#273;&#7871;n ng&#224;y nh&#7853;p
+                    h&#7885;c.</span
+                  >
                 </p>
-                <a href="/ve-chung-toi" class="link-custom"
-                  >Tìm hiểu về chúng tôi</a
+                <a
+                  href="/ve-chung-toi"
+                  class="link-custom"
+                  data-i18n="idx-about-link"
+                  >T&#236;m hi&#7875;u v&#7873; ch&#250;ng t&#244;i</a
                 >
               </div>
-
-              <!-- Cột phải: Lưới hình ảnh -->
               <div class="about-images animate-hidden delay-200">
                 <div class="grid-images">
                   <img
                     src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=600&q=80"
                     class="grid-img"
-                    alt="Trường Đức 1"
+                    alt="Tr&#432;&#7901;ng &#272;&#7913;c 1"
                   />
                   <img
                     src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=600&auto=format&fit=crop"
                     class="grid-img"
-                    alt="Trường Đức 2"
+                    alt="Tr&#432;&#7901;ng &#272;&#7913;c 2"
                   />
                   <div class="stat-box">
                     <h3>300+</h3>
-                    <p>Đối tác trường Đại học</p>
+                    <p data-i18n="idx-stat-partners">
+                      &#272;&#7889;i t&#225;c tr&#432;&#7901;ng &#272;&#7841;i
+                      h&#7885;c
+                    </p>
                   </div>
                   <img
                     src="https://images.unsplash.com/photo-1607237138185-eedd9c632b0b?q=80&w=600&auto=format&fit=crop"
                     class="grid-img"
-                    alt="Khuôn viên trường"
+                    alt="Khu&#244;n vi&#234;n tr&#432;&#7901;ng"
                   />
                 </div>
               </div>
@@ -142,86 +180,112 @@
           </div>
         </section>
 
-        <!-- 4. QUY TRÌNH DU HỌC -->
+        <!-- 4. PROCESS SECTION -->
         <section class="process-section">
           <div class="page-container">
-            <!-- Tiêu đề -->
             <div class="text-center animate-hidden">
               <div class="section-pretitle" style="margin: 0 auto 1rem">
-                <span>✨ Quy trình du học</span>
+                <span data-i18n="idx-process-pretitle"
+                  >&#10024; Quy tr&#236;nh du h&#7885;c</span
+                >
               </div>
-              <h2 class="section-title">05 bước đến giảng đường nước Đức</h2>
+              <h2 class="section-title" data-i18n="idx-process-title">
+                05 b&#432;&#7899;c &#273;&#7871;n gi&#7843;ng
+                &#273;&#432;&#7901;ng n&#432;&#7899;c &#272;&#7913;c
+              </h2>
             </div>
-
-            <!-- Trục thời gian 5 bước -->
             <div class="timeline-wrap">
               <div class="timeline-grid">
-                <!-- Bước 1 -->
                 <div class="timeline-step animate-hidden delay-100">
                   <div class="circle-step">01</div>
-                  <h4 class="step-title">Tư vấn miễn phí</h4>
-                  <p class="step-desc">
-                    Đánh giá hồ sơ và định hướng lộ trình phù hợp
+                  <h4 class="step-title" data-i18n="idx-step1-title">
+                    T&#432; v&#7845;n mi&#7877;n ph&#237;
+                  </h4>
+                  <p class="step-desc" data-i18n="idx-step1-desc">
+                    &#272;&#225;nh gi&#225; h&#7891; s&#417; v&#224;
+                    &#273;&#7883;nh h&#432;&#7899;ng l&#7897; tr&#236;nh
+                    ph&#249; h&#7907;p
                   </p>
                 </div>
-                <!-- Bước 2 -->
                 <div class="timeline-step animate-hidden delay-200">
                   <div class="circle-step">02</div>
-                  <h4 class="step-title">Luyện tiếng Đức</h4>
-                  <p class="step-desc">
-                    Đạt trình độ ngôn ngữ theo yêu cầu của trường
+                  <h4 class="step-title" data-i18n="idx-step2-title">
+                    Luy&#7879;n ti&#7871;ng &#272;&#7913;c
+                  </h4>
+                  <p class="step-desc" data-i18n="idx-step2-desc">
+                    &#272;&#7841;t tr&#236;nh &#273;&#7897; ng&#244;n ng&#7919;
+                    theo y&#234;u c&#7847;u c&#7911;a tr&#432;&#7901;ng
                   </p>
                 </div>
-                <!-- Bước 3 -->
                 <div class="timeline-step animate-hidden delay-300">
                   <div class="circle-step">03</div>
-                  <h4 class="step-title">Chuẩn bị hồ sơ</h4>
-                  <p class="step-desc">Hoàn thiện đầy đủ giấy tờ và nộp đơn</p>
+                  <h4 class="step-title" data-i18n="idx-step3-title">
+                    Chu&#7849;n b&#7883; h&#7891; s&#417;
+                  </h4>
+                  <p class="step-desc" data-i18n="idx-step3-desc">
+                    Ho&#224;n thi&#7879;n &#273;&#7847;y &#273;&#7911;
+                    gi&#7845;y t&#7901; v&#224; n&#7897;p &#273;&#417;n
+                  </p>
                 </div>
-                <!-- Bước 4 -->
                 <div class="timeline-step animate-hidden delay-400">
                   <div class="circle-step">04</div>
-                  <h4 class="step-title">Xin visa</h4>
-                  <p class="step-desc">Hỗ trợ toàn bộ thủ tục visa sinh viên</p>
+                  <h4 class="step-title" data-i18n="idx-step4-title">
+                    Xin visa
+                  </h4>
+                  <p class="step-desc" data-i18n="idx-step4-desc">
+                    H&#7895; tr&#7907; to&#224;n b&#7897; th&#7911; t&#7909;c
+                    visa sinh vi&#234;n
+                  </p>
                 </div>
-                <!-- Bước 5 -->
                 <div class="timeline-step animate-hidden delay-500">
                   <div class="circle-step">05</div>
-                  <h4 class="step-title">Nhập học & ổn định</h4>
-                  <p class="step-desc">Đồng hành từ ngày đầu đến Đức</p>
+                  <h4 class="step-title" data-i18n="idx-step5-title">
+                    Nh&#7853;p h&#7885;c &amp; &#7893;n &#273;&#7883;nh
+                  </h4>
+                  <p class="step-desc" data-i18n="idx-step5-desc">
+                    &#272;&#7891;ng h&#224;nh t&#7915; ng&#224;y &#273;&#7847;u
+                    &#273;&#7871;n &#272;&#7913;c
+                  </p>
                 </div>
               </div>
             </div>
-
             <div class="text-center animate-hidden">
-              <a href="#" class="link-more">Xem lộ trình chi tiết</a>
+              <a
+                href="/tu-van/quy-trinh-tu-van"
+                class="link-more"
+                data-i18n="idx-process-link"
+                >Xem l&#7897; tr&#236;nh chi ti&#7871;t</a
+              >
             </div>
           </div>
         </section>
 
-        <!-- 5. HỌC VIÊN CHIA SẺ -->
+        <!-- 5. TESTIMONIALS -->
         <section class="testimonial-section">
           <div class="page-container">
-            <!-- Tiêu đề -->
-            <h2 class="section-title animate-hidden">
-              Những hành trình đáng tự hào
+            <h2
+              class="section-title animate-hidden"
+              data-i18n="idx-testimonial-title"
+            >
+              Nh&#7919;ng h&#224;nh tr&#236;nh &#273;&#225;ng t&#7921; h&#224;o
             </h2>
-
-            <!-- Danh sách thẻ cảm nhận -->
             <div class="testimonial-grid">
-              <!-- Thẻ 1 -->
               <div class="testimonial-item animate-hidden delay-100">
                 <div class="testimonial-card">
-                  <p class="testimonial-text">
-                    Nhờ có VIGER EDU, em đã tìm được ngôi trường đại học phù hợp
-                    nhất tại Đức cho ngành kỹ thuật của mình, sự hỗ trợ từ các
-                    anh chị thực sự tuyệt vời!
+                  <p class="testimonial-text" data-i18n="idx-testimonial-1">
+                    Nh&#7901; c&#243; VIGER EDU, em &#273;&#227; t&#236;m
+                    &#273;&#432;&#7907;c ng&#244;i tr&#432;&#7901;ng
+                    &#273;&#7841;i h&#7885;c ph&#249; h&#7907;p nh&#7845;t
+                    t&#7841;i &#272;&#7913;c cho ng&#224;nh k&#7929; thu&#7853;t
+                    c&#7911;a m&#236;nh, s&#7921; h&#7895; tr&#7907; t&#7915;
+                    c&#225;c anh ch&#7883; th&#7921;c s&#7921; tuy&#7879;t
+                    v&#7901;i!
                   </p>
                   <div class="author-box">
                     <img
                       th:src="@{/img/duc_nguyen.jpg}"
                       src="/img/duc_nguyen.jpg"
-                      alt="Du học sinh Đức"
+                      alt="Duc Nguyen"
                       style="
                         width: 36px;
                         height: 36px;
@@ -232,20 +296,20 @@
                   </div>
                 </div>
               </div>
-
-              <!-- Thẻ 2 -->
               <div class="testimonial-item animate-hidden delay-100">
                 <div class="testimonial-card">
-                  <p class="testimonial-text">
-                    Em chưa từng nghĩ việc du học lại có thể dễ dàng đến thế!
-                    VIGER EDU đã giúp mọi thủ tục trở nên vô cùng nhanh chóng và
-                    nhẹ nhàng.
+                  <p class="testimonial-text" data-i18n="idx-testimonial-2">
+                    Em ch&#432;a t&#7915;ng ngh&#297; vi&#7879;c du h&#7885;c
+                    l&#7841;i c&#243; th&#7875; d&#7877; d&#224;ng
+                    &#273;&#7871;n th&#7871;! VIGER EDU &#273;&#227; gi&#250;p
+                    m&#7885;i th&#7911; t&#7909;c tr&#7903; n&#234;n v&#244;
+                    c&#249;ng nhanh ch&#243;ng v&#224; nh&#7865; nh&#224;ng.
                   </p>
                   <div class="author-box">
                     <img
                       th:src="@{/img/mai_tran.jpg}"
                       src="/img/mai_tran.jpg"
-                      alt="Du học sinh Đức"
+                      alt="Mai Tran"
                       style="
                         width: 36px;
                         height: 36px;
@@ -256,30 +320,197 @@
                   </div>
                 </div>
               </div>
-
-              
+            </div>
+          </div>
         </section>
 
-        <!-- 6. ĐĂNG KÝ TƯ VẤN (CTA SECTION) -->
+        <!-- 6. CTA SECTION -->
         <section class="cta-section animate-hidden">
           <div class="page-container">
             <div class="section-pretitle" style="justify-content: center">
-              <span>✨ Bắt đầu hành trình của riêng bạn</span>
+              <span data-i18n="idx-cta-pretitle"
+                >&#10024; B&#7855;t &#273;&#7847;u h&#224;nh tr&#236;nh
+                c&#7911;a ri&#234;ng b&#7841;n</span
+              >
             </div>
-            <h2 class="cta-title">Khởi đầu hành trình chinh phục tương lai</h2>
-            <p class="cta-desc">
-              Liên hệ với chúng tôi ngay hôm nay để được tư vấn lộ trình học tập
-              và sự nghiệp vững chắc tại nước ngoài.
+            <h2 class="cta-title" data-i18n="idx-cta-title">
+              Kh&#7903;i &#273;&#7847;u h&#224;nh tr&#236;nh chinh ph&#7909;c
+              t&#432;&#417;ng lai
+            </h2>
+            <p class="cta-desc" data-i18n="idx-cta-desc">
+              Li&#234;n h&#7879; v&#7899;i ch&#250;ng t&#244;i ngay h&#244;m nay
+              &#273;&#7875; &#273;&#432;&#7907;c t&#432; v&#7845;n l&#7897;
+              tr&#236;nh h&#7885;c t&#7853;p v&#224; s&#7921; nghi&#7879;p
+              v&#7919;ng ch&#7855;c t&#7841;i n&#432;&#7899;c ngo&#224;i.
             </p>
-            <a class="cta-pill" href="/lien-he">Bắt đầu ngay</a>
+            <a class="cta-pill" href="/lien-he" data-i18n="idx-cta-btn"
+              >B&#7855;t &#273;&#7847;u ngay</a
+            >
           </div>
         </section>
       </main>
+
+      <!-- Modal lộ trình du học -->
+      <style>
+        @keyframes modalFadeIn {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+        @keyframes modalFadeOut {
+          from {
+            opacity: 1;
+          }
+          to {
+            opacity: 0;
+          }
+        }
+        @keyframes modalSlideIn {
+          from {
+            opacity: 0;
+            transform: scale(0.88) translateY(24px);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+          }
+        }
+        @keyframes modalSlideOut {
+          from {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+          }
+          to {
+            opacity: 0;
+            transform: scale(0.88) translateY(24px);
+          }
+        }
+        #roadmap-modal {
+          display: none;
+          position: fixed;
+          inset: 0;
+          z-index: 9999;
+          background: rgba(0, 0, 0, 0.75);
+          backdrop-filter: blur(6px);
+          -webkit-backdrop-filter: blur(6px);
+          align-items: center;
+          justify-content: center;
+          padding: 1.5rem;
+        }
+        #roadmap-modal.is-opening {
+          display: flex;
+          animation: modalFadeIn 0.25s ease forwards;
+        }
+        #roadmap-modal.is-open {
+          display: flex;
+        }
+        #roadmap-modal.is-closing {
+          display: flex;
+          animation: modalFadeOut 0.22s ease forwards;
+        }
+        #roadmap-modal-inner {
+          position: relative;
+          max-width: 900px;
+          width: 100%;
+        }
+        #roadmap-modal.is-opening #roadmap-modal-inner {
+          animation: modalSlideIn 0.32s cubic-bezier(0.34, 1.3, 0.64, 1)
+            forwards;
+        }
+        #roadmap-modal.is-closing #roadmap-modal-inner {
+          animation: modalSlideOut 0.22s ease forwards;
+        }
+        #roadmap-modal-close {
+          position: absolute;
+          top: -2.75rem;
+          right: 0;
+          background: rgba(255, 255, 255, 0.12);
+          border: 1.5px solid rgba(255, 255, 255, 0.3);
+          color: #fff;
+          font-size: 1.5rem;
+          width: 2.25rem;
+          height: 2.25rem;
+          border-radius: 50%;
+          cursor: pointer;
+          line-height: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition:
+            background 0.2s,
+            transform 0.2s;
+        }
+        #roadmap-modal-close:hover {
+          background: rgba(255, 255, 255, 0.25);
+          transform: rotate(90deg) scale(1.1);
+        }
+        #roadmap-modal img {
+          width: 100%;
+          border-radius: 1rem;
+          box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55);
+          display: block;
+        }
+      </style>
+
+      <div id="roadmap-modal">
+        <div id="roadmap-modal-inner">
+          <button id="roadmap-modal-close" aria-label="Đóng">&times;</button>
+          <img
+            src="/img/lttv.jpg"
+            th:src="@{/img/lttv.jpg}"
+            alt="L&#7897; tr&#236;nh t&#432; v&#7845;n"
+          />
+        </div>
+      </div>
     </div>
 
     <th:block layout:fragment="scripts">
       <script th:src="@{/js/counters.js}"></script>
       <script th:src="@{/js/animations.js}"></script>
+      <script>
+        (function () {
+          var modal = document.getElementById("roadmap-modal");
+          var btnOpen = document.getElementById("btn-roadmap");
+          var btnClose = document.getElementById("roadmap-modal-close");
+          var ANIM_MS = 220; // must match CSS animation duration
+
+          function openModal(e) {
+            e.preventDefault();
+            modal.classList.remove("is-closing", "is-open");
+            modal.classList.add("is-opening");
+            document.body.style.overflow = "hidden";
+            setTimeout(function () {
+              modal.classList.remove("is-opening");
+              modal.classList.add("is-open");
+            }, 320);
+          }
+
+          function closeModal() {
+            modal.classList.remove("is-opening", "is-open");
+            modal.classList.add("is-closing");
+            setTimeout(function () {
+              modal.classList.remove("is-closing");
+              modal.style.display = "none";
+              // Reset display so CSS 'is-opening' can set flex again
+              modal.style.display = "";
+              document.body.style.overflow = "";
+            }, ANIM_MS);
+          }
+
+          btnOpen.addEventListener("click", openModal);
+          btnClose.addEventListener("click", closeModal);
+          modal.addEventListener("click", function (e) {
+            if (e.target === modal) closeModal();
+          });
+          document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape" && modal.classList.contains("is-open"))
+              closeModal();
+          });
+        })();
+      </script>
     </th:block>
   </body>
 </html>
