@@ -25,10 +25,6 @@ public class HelloController {
         return "education";
     }
 
-    @GetMapping("/giao-duc-tai-duc/tong-quan")
-    public String overview() {
-        return "education/overview";
-    }
 
     @GetMapping("/giao-duc-tai-duc/he-thong-giao-duc")
     public String educationSystem() {

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${post.title} + ' - Xem trước bài viết'">Xem trước bài viết</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --bg-body: #f8fafc;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-dark);
+            line-height: 1.8;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 860px;
+            margin: 0 auto;
+        }
+
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 18px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border: 1px solid var(--border-color);
+            background: #ffffff;
+            color: var(--text-dark);
+        }
+
+        .btn:hover {
+            background-color: #f1f5f9;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+        }
+
+        .article-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            padding: 45px;
+        }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+
+        .article-title {
+            font-size: 32px;
+            font-weight: 800;
+            line-height: 1.3;
+            margin-bottom: 25px;
+            color: var(--text-dark);
+        }
+
+        .article-excerpt {
+            font-size: 17px;
+            font-style: italic;
+            color: #475569;
+            background-color: #f8fafc;
+            border-left: 4px solid var(--primary);
+            padding: 15px 20px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 30px;
+        }
+
+        /* Render styles cho nội dung HTML từ CKEditor */
+        .ck-content {
+            font-size: 16px;
+            color: #334155;
+        }
+
+        .ck-content h1, .ck-content h2, .ck-content h3, .ck-content h4 {
+            color: var(--text-dark);
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .ck-content h1 { font-size: 26px; }
+        .ck-content h2 { font-size: 22px; }
+        .ck-content h3 { font-size: 19px; }
+
+        .ck-content p {
+            margin-bottom: 16px;
+        }
+
+        .ck-content b, .ck-content strong {
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .ck-content i, .ck-content em {
+            font-style: italic;
+        }
+
+        .ck-content ul, .ck-content ol {
+            margin-left: 25px;
+            margin-bottom: 18px;
+        }
+
+        .ck-content li {
+            margin-bottom: 6px;
+        }
+
+        .ck-content blockquote {
+            border-left: 4px solid #cbd5e1;
+            padding: 12px 20px;
+            margin: 20px 0;
+            color: #475569;
+            background-color: #f8fafc;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .ck-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .ck-content a {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        .ck-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .ck-content table th, .ck-content table td {
+            border: 1px solid var(--border-color);
+            padding: 10px 14px;
+        }
+
+        .ck-content table th {
+            background-color: #f1f5f9;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="top-nav">
+        <a th:href="@{/admin/posts}" class="btn">
+            <i class="fa-solid fa-arrow-left"></i> Về danh sách bài viết
+        </a>
+        <a th:href="@{/admin/posts/edit/{id}(id=${post.id})}" class="btn btn-primary">
+            <i class="fa-solid fa-pen-to-square"></i> Chỉnh sửa bài này
+        </a>
+    </div>
+
+    <article class="article-card">
+        <div class="article-meta">
+            <span th:if="${post.category != null}">
+                <i class="fa-solid fa-folder-open"></i> <span th:text="${post.category.name}">Chuyên mục</span>
+            </span>
+            <span>
+                <i class="fa-solid fa-calendar"></i> <span th:text="${#temporals.format(post.createdAt, 'dd/MM/yyyy HH:mm')}">16/10/2026</span>
+            </span>
+            <span>
+                <i class="fa-solid fa-globe"></i> <code>/bai-viet/<span th:text="${post.slug}"></span></code>
+            </span>
+        </div>
+
+        <h1 class="article-title" th:text="${post.title}">Tiêu đề bài viết</h1>
+
+        <div th:if="${post.excerpt != null && !post.excerpt.isEmpty()}" class="article-excerpt" th:text="${post.excerpt}">
+            Tóm tắt bài viết...
+        </div>
+
+        <!-- Render toàn bộ chuỗi HTML lưu trong DB (th:utext không escape các thẻ HTML) -->
+        <div class="ck-content" th:utext="${post.content}">
+            <p>Nội dung bài viết sẽ hiển thị ở đây...</p>
+        </div>
+    </article>
+</div>
+
+</body>
+</html>

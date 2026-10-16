@@ -214,6 +214,7 @@
     </style>
   </head>
   <body>
+    <div th:replace="~{fragments/header :: header-main}"></div>
     <div layout:fragment="content">
       <main class="main-content">
         <!-- HEADER BANNER -->
@@ -277,15 +278,26 @@
         <div class="overview-layout">
           <!-- CỘT TRÁI: DANH SÁCH THẺ BÀI VIẾT -->
           <div class="overview-main">
-            <div class="blog-grid-new">
-              <!-- Thẻ Bài 1 -->
-              <a href="#" class="card-new animate-hidden delay-100">
+            <!-- Sử dụng Grid lặp các bài viết từ model truyền xuống -->
+            <div
+              class="blog-grid-new"
+              th:if="${posts != null and !posts.isEmpty()}"
+            >
+              <!-- Vòng lặp Thymeleaf: lặp qua từng post trong danh sách 'posts' -->
+              <a
+                th:each="post : ${posts}"
+                th:href="@{'/bai-viet/' + ${post.slug}}"
+                class="card-new animate-hidden delay-100"
+              >
+                <!-- Ảnh đại diện -->
                 <div class="card-new-img">
+                  <!-- Giả định bạn có trường imageUrl, nếu không có thể thay bằng trường tương ứng -->
                   <img
-                    src="https://images.unsplash.com/photo-1599940824399-b87987ceb72a?auto=format&fit=crop&w=800&q=80"
-                    alt="Sinh viên"
+                    th:src="${post.imageUrl != null} ? @{${post.imageUrl}} : 'https://images.unsplash.com/photo-1599940824399-b87987ceb72a?auto=format&fit=crop&w=800&q=80'"
+                    th:alt="${post.title}"
                   />
                 </div>
+
                 <div class="card-new-body">
                   <div class="card-new-meta">
                     <svg
@@ -301,139 +313,68 @@
                         d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                       />
                     </svg>
-                    <span>8 tháng 5 2026</span>
+                    <!-- Hiển thị ngày đăng, giả định trường 'createdAt' là Date/LocalDateTime -->
+                    <span
+                      th:text="${#dates.format(post.createdAt, 'dd MMMM yyyy')}"
+                      >8 tháng 5 2026</span
+                    >
                   </div>
-                  <h3 class="card-new-title">
+                  <!-- Hiển thị tiêu đề bài viết -->
+                  <h3 class="card-new-title" th:text="${post.title}">
                     Sự khác biệt giữa Uni (Đại học Tổng hợp) và FH (Đại học Ứng
                     dụng)
                   </h3>
                 </div>
               </a>
-
-              <!-- Thẻ Bài 2 -->
-              <a href="#" class="card-new animate-hidden delay-200">
-                <div class="card-new-img">
-                  <img
-                    src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=800&auto=format&fit=crop"
-                    alt="Sinh viên"
-                  />
-                </div>
-                <div class="card-new-body">
-                  <div class="card-new-meta">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      stroke-width="2"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
-                    <span>15 tháng 4 2026</span>
-                  </div>
-                  <h3 class="card-new-title">
-                    Du học Đức: Cẩm nang sinh tồn cho người mới
-                  </h3>
-                </div>
-              </a>
-
-              <!-- Thẻ Bài 3 -->
-              <a href="#" class="card-new animate-hidden delay-100">
-                <div class="card-new-img">
-                  <img
-                    src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=800&q=80"
-                    alt="Sinh viên"
-                  />
-                </div>
-                <div class="card-new-body">
-                  <div class="card-new-meta">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      stroke-width="2"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
-                    <span>22 tháng 3 2026</span>
-                  </div>
-                  <h3 class="card-new-title">
-                    Chi phí sinh hoạt thực tế của du học sinh tại Đức
-                  </h3>
-                </div>
-              </a>
-
-              <!-- Thẻ Bài 4 -->
-              <a href="#" class="card-new animate-hidden delay-200">
-                <div class="card-new-img">
-                  <img
-                    src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80"
-                    alt="Sinh viên"
-                  />
-                </div>
-                <div class="card-new-body">
-                  <div class="card-new-meta">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      stroke-width="2"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
-                    <span>10 tháng 2 2026</span>
-                  </div>
-                  <h3 class="card-new-title">
-                    Quy định làm thêm và cơ hội việc làm sau tốt nghiệp
-                  </h3>
-                </div>
-              </a>
             </div>
 
-            <!-- Phân trang -->
-            <div class="pagination animate-hidden">
-              <a href="#" class="page-link active">1</a>
-              <a href="#" class="page-link">2</a>
-              <span class="page-dots">...</span>
-              <a href="#" class="page-link">4</a>
+            <!-- Khối thông báo khi không có bài viết nào trong chuyên mục -->
+            <div
+              th:if="${posts == null or posts.isEmpty()}"
+              style="
+                text-align: center;
+                padding: 3rem;
+                background: var(--bg-white);
+                border-radius: var(--radius-xl);
+                border: 1px solid var(--border-color);
+              "
+            >
+              <p style="color: var(--text-muted); font-size: 1.1rem">
+                Chưa có bài viết nào trong chuyên mục này.
+              </p>
+            </div>
+
+            <!-- Phân trang (Giả định bạn có cấu hình phân trang Pageable trong Spring Boot) -->
+            <div class="pagination animate-hidden" th:if="${totalPages > 1}">
+              <!-- Nút Previous -->
               <a
-                href="#"
+                th:if="${currentPage > 1}"
+                th:href="@{'/giao-duc-tai-duc/tong-quan?page=' + ${currentPage - 1}}"
                 class="page-link"
-                style="
-                  background: transparent;
-                  color: var(--text-primary);
-                  border-color: transparent;
-                "
+                style="background: transparent; color: var(--text-primary)"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  stroke-width="3"
+                &laquo;
+              </a>
+
+              <!-- Danh sách các trang -->
+              <th:block th:each="i : ${#numbers.sequence(1, totalPages)}">
+                <a
+                  th:href="@{'/giao-duc-tai-duc/tong-quan?page=' + ${i}}"
+                  th:text="${i}"
+                  th:classappend="${i == currentPage} ? 'active' : ''"
+                  class="page-link"
+                  >1</a
                 >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
+              </th:block>
+
+              <!-- Nút Next -->
+              <a
+                th:if="${currentPage < totalPages}"
+                th:href="@{'/giao-duc-tai-duc/tong-quan?page=' + ${currentPage + 1}}"
+                class="page-link"
+                style="background: transparent; color: var(--text-primary)"
+              >
+                &raquo;
               </a>
             </div>
           </div>

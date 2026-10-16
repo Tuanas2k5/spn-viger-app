@@ -1,8 +1,8 @@
 package com.spn.viger_app.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,11 +11,6 @@ import java.util.List;
  */
 @Entity
 @Table(name = "categories")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class Category {
 
     @Id
@@ -40,5 +35,85 @@ public class Category {
      * mappedBy trỏ đến trường "category" trong entity Post.
      */
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
-    private List<Post> posts;
+    private List<Post> posts = new ArrayList<>();
+
+    public Category() {
+    }
+
+    public Category(Long id, String name, String slug, List<Post> posts) {
+        this.id = id;
+        this.name = name;
+        this.slug = slug;
+        this.posts = posts;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
+
+    public static CategoryBuilder builder() {
+        return new CategoryBuilder();
+    }
+
+    public static class CategoryBuilder {
+        private Long id;
+        private String name;
+        private String slug;
+        private List<Post> posts;
+
+        CategoryBuilder() {
+        }
+
+        public CategoryBuilder id(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public CategoryBuilder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public CategoryBuilder slug(String slug) {
+            this.slug = slug;
+            return this;
+        }
+
+        public CategoryBuilder posts(List<Post> posts) {
+            this.posts = posts;
+            return this;
+        }
+
+        public Category build() {
+            return new Category(id, name, slug, posts);
+        }
+    }
 }
