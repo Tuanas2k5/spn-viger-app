@@ -1,0 +1,620 @@
+<!doctype html>
+<html
+  lang="vi"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{fragments/base}"
+>
+  <head>
+    <title th:text="${post.title} + ' - VIGER EDU'">
+      Chi tiết bài viết - VIGER EDU
+    </title>
+    <style>
+      /* Layout trang bài viết chi tiết */
+      .post-detail-wrapper {
+        background-color: var(--bg-main);
+        padding-top: 8rem;
+        padding-bottom: 5rem;
+      }
+
+      .post-detail-container {
+        max-width: 80rem;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+      }
+
+      /* Breadcrumb */
+      .post-breadcrumb {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.875rem;
+        color: var(--text-muted);
+        margin-bottom: 2rem;
+      }
+      .post-breadcrumb a {
+        color: var(--text-secondary);
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+      .post-breadcrumb a:hover {
+        color: var(--accent-main);
+      }
+      .post-breadcrumb span.separator {
+        color: var(--border-color);
+      }
+      .post-breadcrumb span.current {
+        color: var(--text-primary);
+        font-weight: 600;
+        max-width: 350px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      /* Grid chính: Bài viết & Sidebar */
+      .post-grid-layout {
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+      }
+      @media (min-width: 1024px) {
+        .post-grid-layout {
+          flex-direction: row;
+          align-items: flex-start;
+        }
+      }
+
+      .post-main-col {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .post-sidebar-col {
+        width: 100%;
+      }
+      @media (min-width: 1024px) {
+        .post-sidebar-col {
+          width: 380px;
+          flex-shrink: 0;
+          position: sticky;
+          top: 6rem;
+        }
+      }
+
+      /* Thẻ Article chính */
+      .article-card {
+        background: var(--bg-white);
+        border-radius: var(--radius-2xl);
+        border: 1px solid var(--border-color);
+        box-shadow: var(--shadow-sm);
+        padding: 2rem 1.5rem;
+        overflow: hidden;
+      }
+      @media (min-width: 768px) {
+        .article-card {
+          padding: 3.5rem;
+        }
+      }
+
+      /* Header bài viết */
+      .article-header {
+        margin-bottom: 2.5rem;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 2rem;
+      }
+
+      .article-category-badge {
+        display: inline-block;
+        background: #fff9e6;
+        color: var(--accent-alt-hover);
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: 0.4rem 1rem;
+        border-radius: var(--radius-full);
+        margin-bottom: 1.25rem;
+      }
+
+      .article-title {
+        font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+        font-weight: 800;
+        color: var(--text-primary);
+        line-height: 1.3;
+        margin: 0 0 1.5rem 0;
+      }
+
+      .article-meta-bar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 1.25rem;
+        font-size: 0.875rem;
+        color: var(--text-muted);
+      }
+
+      .article-meta-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .article-meta-item svg {
+        width: 16px;
+        height: 16px;
+        color: var(--accent-main);
+      }
+
+      /* Featured Image */
+      .article-featured-img {
+        margin-bottom: 2.5rem;
+        border-radius: var(--radius-xl);
+        overflow: hidden;
+        box-shadow: var(--shadow-md);
+      }
+      .article-featured-img img {
+        width: 100%;
+        max-height: 480px;
+        object-fit: cover;
+        display: block;
+      }
+
+      /* Excerpt Lead */
+      .article-excerpt-box {
+        font-size: 1.15rem;
+        font-style: italic;
+        line-height: 1.7;
+        color: var(--text-secondary);
+        background: #f8fafc;
+        border-left: 4px solid var(--accent-main);
+        padding: 1.25rem 1.75rem;
+        border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+        margin-bottom: 2.5rem;
+      }
+
+      /* Rich Content Body */
+      .article-content {
+        font-size: 1.05rem;
+        line-height: 1.85;
+        color: #2d3748;
+      }
+
+      .article-content h1,
+      .article-content h2,
+      .article-content h3,
+      .article-content h4 {
+        color: var(--text-primary);
+        font-weight: 700;
+        margin-top: 2.5rem;
+        margin-bottom: 1rem;
+        line-height: 1.35;
+      }
+
+      .article-content h2 {
+        font-size: 1.5rem;
+        border-left: 4px solid var(--accent-alt);
+        padding-left: 0.75rem;
+      }
+
+      .article-content h3 {
+        font-size: 1.25rem;
+      }
+
+      .article-content p {
+        margin-bottom: 1.5rem;
+      }
+
+      .article-content strong,
+      .article-content b {
+        font-weight: 700;
+        color: var(--text-primary);
+      }
+
+      .article-content ul,
+      .article-content ol {
+        margin-bottom: 1.5rem;
+        padding-left: 1.5rem;
+      }
+
+      .article-content li {
+        margin-bottom: 0.5rem;
+      }
+
+      .article-content blockquote {
+        margin: 2rem 0;
+        padding: 1rem 1.5rem;
+        background-color: #f8fafc;
+        border-left: 4px solid var(--accent-main);
+        border-radius: 0 var(--radius-md) var(--radius-md) 0;
+        color: var(--text-secondary);
+        font-style: italic;
+      }
+
+      .article-content img {
+        max-width: 100%;
+        height: auto;
+        border-radius: var(--radius-xl);
+        margin: 2rem auto;
+        display: block;
+        box-shadow: var(--shadow-md);
+      }
+
+      .article-content a {
+        color: var(--accent-main);
+        text-decoration: underline;
+        font-weight: 500;
+      }
+      .article-content a:hover {
+        color: var(--accent-hover);
+      }
+
+      .article-content table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 2rem 0;
+        border-radius: var(--radius-md);
+        overflow: hidden;
+      }
+      .article-content table th,
+      .article-content table td {
+        border: 1px solid var(--border-color);
+        padding: 0.75rem 1rem;
+        text-align: left;
+      }
+      .article-content table th {
+        background-color: #f1f5f9;
+        font-weight: 700;
+        color: var(--text-primary);
+      }
+
+      /* Article Footer & Author Box */
+      .article-footer {
+        margin-top: 3.5rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--border-color);
+      }
+
+      .author-box {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+        background: #fdfbf7;
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-xl);
+        padding: 1.75rem;
+        align-items: center;
+        text-align: center;
+      }
+      @media (min-width: 640px) {
+        .author-box {
+          flex-direction: row;
+          text-align: left;
+        }
+      }
+
+      .author-avatar {
+        width: 72px;
+        height: 72px;
+        border-radius: var(--radius-full);
+        background: var(--text-primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        overflow: hidden;
+        border: 3px solid var(--accent-alt);
+      }
+      .author-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .author-info h4 {
+        margin: 0 0 0.25rem 0;
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--text-primary);
+      }
+      .author-info p {
+        margin: 0;
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        line-height: 1.5;
+      }
+
+      /* Sidebar Styles */
+      .sidebar-card {
+        background: var(--bg-white);
+        border-radius: var(--radius-xl);
+        border: 1px solid var(--border-color);
+        box-shadow: var(--shadow-sm);
+        padding: 1.75rem;
+        margin-bottom: 2rem;
+      }
+
+      .sidebar-title {
+        font-size: 1.15rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-bottom: 1.25rem;
+        padding-left: 0.75rem;
+        border-left: 4px solid var(--accent-main);
+        color: var(--text-primary);
+      }
+
+      .related-post-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+      }
+
+      .related-post-item {
+        display: flex;
+        gap: 1rem;
+        text-decoration: none;
+        color: var(--text-primary);
+        transition: transform 0.2s ease;
+      }
+      .related-post-item:hover {
+        transform: translateX(4px);
+      }
+
+      .related-post-thumb {
+        width: 80px;
+        height: 64px;
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        flex-shrink: 0;
+        background: #e2e8f0;
+      }
+      .related-post-thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .related-post-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .related-post-title {
+        font-size: 0.92rem;
+        font-weight: 600;
+        line-height: 1.35;
+        margin-bottom: 0.35rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        transition: color 0.2s ease;
+      }
+      .related-post-item:hover .related-post-title {
+        color: var(--accent-main);
+      }
+      .related-post-date {
+        font-size: 0.78rem;
+        color: var(--text-muted);
+      }
+
+      /* Sidebar CTA Box */
+      .sidebar-cta {
+        background: linear-gradient(135deg, #12263f 0%, #1e3a5f 100%);
+        color: white;
+        border-radius: var(--radius-xl);
+        padding: 2rem 1.5rem;
+        text-align: center;
+      }
+      .sidebar-cta h3 {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+        color: #ffffff;
+      }
+      .sidebar-cta p {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.8);
+        line-height: 1.5;
+        margin-bottom: 1.5rem;
+      }
+      .sidebar-cta .btn-cta {
+        display: inline-block;
+        background: var(--accent-main);
+        color: white;
+        font-weight: 700;
+        font-size: 0.9rem;
+        padding: 0.75rem 1.5rem;
+        border-radius: var(--radius-full);
+        text-decoration: none;
+        transition: all 0.2s ease;
+      }
+      .sidebar-cta .btn-cta:hover {
+        background: var(--accent-hover);
+        transform: translateY(-2px);
+      }
+    </style>
+  </head>
+  <body>
+    <div layout:fragment="content">
+      <main class="post-detail-wrapper">
+        <div class="post-detail-container">
+          <!-- BREADCRUMB -->
+          <nav class="post-breadcrumb animate-hidden">
+            <a th:href="@{/}">Trang chủ</a>
+            <span class="separator">/</span>
+            <a
+              th:if="${post.category != null}"
+              th:href="@{/giao-duc-tai-duc/tong-quan}"
+              th:text="${post.category.name}"
+              >Chuyên mục</a
+            >
+            <a th:if="${post.category == null}" th:href="@{/blog}">Bài viết</a>
+            <span class="separator">/</span>
+            <span class="current" th:text="${post.title}"
+              >Tiêu đề bài viết</span
+            >
+          </nav>
+
+          <!-- GRID CHÍNH -->
+          <div class="post-grid-layout">
+            <!-- CỘT TRÁI: NỘI DUNG BÀI VIẾT -->
+            <div class="post-main-col">
+              <article class="article-card animate-hidden">
+                <!-- Header -->
+                <header class="article-header">
+                  <div th:if="${post.category != null}">
+                    <span
+                      class="article-category-badge"
+                      th:text="${post.category.name}"
+                      >Tổng quan</span
+                    >
+                  </div>
+                  <h1 class="article-title" th:text="${post.title}">
+                    Tiêu đề bài viết
+                  </h1>
+                  <div class="article-meta-bar">
+                    <div class="article-meta-item">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                        />
+                      </svg>
+                      <span>VIGER EDU</span>
+                    </div>
+                    <div class="article-meta-item">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                        />
+                      </svg>
+                      <span
+                        th:text="${post.createdAt != null ? (#temporals.format(post.createdAt, 'dd') + ' tháng ' + #temporals.format(post.createdAt, 'MM, yyyy')) : ''}"
+                        >06 tháng 05, 2026</span
+                      >
+                    </div>
+                  </div>
+                </header>
+
+                <!-- Ảnh đại diện nổi bật (nếu có) -->
+                <div
+                  class="article-featured-img"
+                  th:if="${post.featuredImage != null and !#strings.isEmpty(post.featuredImage)}"
+                >
+                  <img
+                    th:src="@{${post.featuredImage}}"
+                    th:alt="${post.title}"
+                  />
+                </div>
+
+                <!-- Tóm tắt ngắn (Excerpt nếu có) -->
+                <div
+                  class="article-excerpt-box"
+                  th:if="${post.excerpt != null and !#strings.isEmpty(post.excerpt)}"
+                  th:text="${post.excerpt}"
+                >
+                  Tóm tắt ngắn gọn nội dung bài viết...
+                </div>
+
+                <!-- Nội dung bài viết phong phú (render HTML từ DB không escape) -->
+                <div
+                  class="article-content ck-content"
+                  th:utext="${post.content}"
+                >
+                  <p>Nội dung bài viết đang được cập nhật...</p>
+                </div>
+
+                <!-- Tác giả & Giới thiệu VIGER EDU -->
+                <footer class="article-footer">
+                  <div class="author-box">
+                    <div class="author-avatar">
+                      <img th:src="@{/img/favicon.png}" alt="VIGER EDU" />
+                    </div>
+                    <div class="author-info">
+                      <h4>VIGER.EDU.VN</h4>
+                      <p>
+                        Đồng hành cùng học sinh, sinh viên Việt Nam trên con
+                        đường chinh phục giáo dục Đức chất lượng cao, miễn học
+                        phí và mở rộng cơ hội phát triển sự nghiệp toàn cầu.
+                      </p>
+                    </div>
+                  </div>
+                </footer>
+              </article>
+            </div>
+
+            <!-- CỘT PHẢI: SIDEBAR -->
+            <aside class="post-sidebar-col">
+              <!-- Box Bài viết liên quan -->
+              <div
+                class="sidebar-card animate-hidden delay-100"
+                th:if="${relatedPosts != null and !relatedPosts.isEmpty()}"
+              >
+                <h3 class="sidebar-title">Bài Viết Liên Quan</h3>
+                <div class="related-post-list">
+                  <a
+                    th:each="relPost : ${relatedPosts}"
+                    th:href="@{'/bai-viet/' + ${relPost.slug}}"
+                    class="related-post-item"
+                  >
+                    <div class="related-post-thumb">
+                      <img
+                        th:src="${relPost.featuredImage != null and !#strings.isEmpty(relPost.featuredImage)} ? @{${relPost.featuredImage}} : 'https://images.unsplash.com/photo-1599940824399-b87987ceb72a?auto=format&fit=crop&w=200&q=80'"
+                        th:alt="${relPost.title}"
+                      />
+                    </div>
+                    <div class="related-post-info">
+                      <div
+                        class="related-post-title"
+                        th:text="${relPost.title}"
+                      >
+                        Tiêu đề bài liên quan
+                      </div>
+                      <div
+                        class="related-post-date"
+                        th:text="${relPost.createdAt != null ? (#temporals.format(relPost.createdAt, 'dd/MM/yyyy')) : ''}"
+                      >
+                        06/05/2026
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Box CTA Tư vấn -->
+              <div class="sidebar-cta animate-hidden delay-200">
+                <h3>Cần Tư Vấn Du Học Đức?</h3>
+                <p>
+                  Nhận lộ trình du học cá nhân hóa hoàn toàn miễn phí từ các
+                  chuyên gia giáo dục Đức tại VIGER EDU.
+                </p>
+                <a th:href="@{/lien-he}" class="btn-cta">Đăng ký tư vấn ngay</a>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <th:block layout:fragment="scripts">
+      <script th:src="@{/js/animations.js}"></script>
+    </th:block>
+  </body>
+</html>

@@ -15,5 +15,5 @@ import com.spn.viger_app.entity.Category;
 public interface PostRepository extends JpaRepository<Post, Long> {
     Optional<Post> findBySlug(String slug);
     boolean existsBySlug(String slug);
-    List<Post> findByCategory(Optional<Category> category);
+    List<Post> findByCategory(Category category);
 }
