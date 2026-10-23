@@ -1,5 +1,8 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+>
   <body>
     <header class="bar" th:fragment="header-main">
       <div class="brand-group">
@@ -63,15 +66,36 @@
           ><span id="nav-programs">Chương trình học</span></a
         >
         <div class="menu-dropdown">
-          <a href="/blog"><span id="nav-blog">Blog</span> 
+          <a href="/blog"
+            ><span id="nav-blog">Blog</span>
             <svg class="caret" viewBox="0 0 9 6" aria-hidden="true">
               <path d="M0.7 1.1 L4.5 4.6 L8.3 1.1" />
             </svg>
           </a>
           <div class="dropdown-content">
-            <a href="/blog">Tất cả bài viết</a>
+            <a href="/blog/hieu-ve-duc">Hiểu về Đức</a>
+            <a href="/blog/cuoc-song-o-duc">Cuộc sống ở Đức</a>
+          </div>
+        </div>
+        <div class="menu-dropdown" sec:authorize="hasRole('ADMIN')">
+          <a href="/#"
+            ><span id="nav-admin">Phần quản trị</span>
+            <svg class="caret" viewBox="0 0 9 6" aria-hidden="true">
+              <path d="M0.7 1.1 L4.5 4.6 L8.3 1.1" />
+            </svg>
+          </a>
+          <div class="dropdown-content">
             <a href="/admin/posts">Quản trị bài viết</a>
             <a href="/admin/posts/new">+ Viết bài mới (CKEditor)</a>
+            <form
+              th:action="@{/logout}"
+              method="post"
+              id="logoutForm"
+              style="display: none"
+            ></form>
+            <button type="submit" form="logoutForm" class="logout-link">
+              Đăng xuất
+            </button>
           </div>
         </div>
       </nav>

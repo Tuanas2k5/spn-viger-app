@@ -2,12 +2,19 @@ package com.spn.viger_app.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.security.web.csrf.CsrfToken;
 
 @Controller
 public class HelloController {
     @GetMapping("/")
     public String index() {
         return "index";
+    }
+
+    @GetMapping("/login")
+    public String login(CsrfToken csrfToken) {
+        csrfToken.getToken(); 
+        return "login";
     }
 
     @GetMapping("/ve-chung-toi")
@@ -25,54 +32,13 @@ public class HelloController {
         return "education";
     }
 
-
-    @GetMapping("/giao-duc-tai-duc/he-thong-giao-duc")
-    public String educationSystem() {
-        return "education/education-system";
-    }
-
-    @GetMapping("/giao-duc-tai-duc/nghien-cuu-va-ung-dung")
-    public String researchApplied() {
-        return "education/research-applied";
-    }
-
-    @GetMapping("/giao-duc-tai-duc/chi-phi-va-co-hoi")
-    public String costsOpportunities() {
-        return "education/costs-opportunities";
-    }
-
-    @GetMapping("/giao-duc-tai-duc/co-hoi-nghe-nghiep")
-    public String careerOpportunities() {
-        return "education/career-opportunities";
-    }
-
     @GetMapping("/tu-van")
     public String consult() {
         return "consult";
     }
 
-    @GetMapping("/tu-van/du-hoc-dai-hoc")
-    public String consultBachelor() {
-        return "consult/consult-bachelor";
-    }
-
-    @GetMapping("/tu-van/du-hoc-cao-hoc")
-    public String consultMaster() {
-        return "consult/consult-master";
-    }
-
     @GetMapping("/tu-van/quy-trinh-tu-van")
     public String consultProcess() {
         return "consult/consult-process";
-    }
-
-    @GetMapping("/chuong-trinh-hoc")
-    public String programs() {
-        return "programs";
-    }
-
-    @GetMapping("/blog")
-    public String blog() {
-        return "blog";
     }
 }

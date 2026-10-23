@@ -1,0 +1,556 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Đăng nhập — VIGER.EDU.VN</title>
+    <link
+      rel="icon"
+      type="image/png"
+      th:href="@{/img/favicon.png}"
+      href="/img/favicon.png"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          "Inter",
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(
+          135deg,
+          #0f172a 0%,
+          #1e293b 50%,
+          #0f172a 100%
+        );
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Animated background orbs */
+      body::before,
+      body::after {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(80px);
+        opacity: 0.15;
+        animation: float 8s ease-in-out infinite;
+      }
+
+      body::before {
+        width: 500px;
+        height: 500px;
+        background: #3b82f6;
+        top: -150px;
+        right: -100px;
+      }
+
+      body::after {
+        width: 400px;
+        height: 400px;
+        background: #8b5cf6;
+        bottom: -100px;
+        left: -80px;
+        animation-delay: -4s;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translate(0, 0) scale(1);
+        }
+        50% {
+          transform: translate(30px, -30px) scale(1.1);
+        }
+      }
+
+      .login-container {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: 420px;
+        padding: 20px;
+      }
+
+      .login-card {
+        background: rgba(30, 41, 59, 0.7);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(148, 163, 184, 0.1);
+        border-radius: 24px;
+        padding: 48px 40px;
+        box-shadow:
+          0 25px 50px rgba(0, 0, 0, 0.4),
+          inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        animation: cardIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+      }
+
+      @keyframes cardIn {
+        from {
+          opacity: 0;
+          transform: translateY(30px) scale(0.96);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      .login-logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        margin-bottom: 12px;
+      }
+
+      .login-logo img {
+        height: 42px;
+        width: auto;
+      }
+
+      .login-logo-text {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.2;
+      }
+
+      .login-logo-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #f1f5f9;
+        letter-spacing: 1px;
+      }
+
+      .login-logo-sub {
+        font-size: 11px;
+        font-weight: 400;
+        color: #94a3b8;
+        letter-spacing: 0.5px;
+      }
+
+      .login-heading {
+        text-align: center;
+        margin-bottom: 32px;
+      }
+
+      .login-heading h1 {
+        font-size: 24px;
+        font-weight: 600;
+        color: #f1f5f9;
+        margin-bottom: 6px;
+      }
+
+      .login-heading p {
+        font-size: 14px;
+        color: #94a3b8;
+      }
+
+      /* Alert messages */
+      .alert {
+        padding: 12px 16px;
+        border-radius: 12px;
+        font-size: 13px;
+        font-weight: 500;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        animation: alertIn 0.4s ease both 0.3s;
+        opacity: 0;
+      }
+
+      @keyframes alertIn {
+        to {
+          opacity: 1;
+        }
+      }
+
+      .alert-error {
+        background: rgba(239, 68, 68, 0.12);
+        border: 1px solid rgba(239, 68, 68, 0.25);
+        color: #fca5a5;
+      }
+
+      .alert-success {
+        background: rgba(34, 197, 94, 0.12);
+        border: 1px solid rgba(34, 197, 94, 0.25);
+        color: #86efac;
+      }
+
+      .alert svg {
+        flex-shrink: 0;
+        width: 18px;
+        height: 18px;
+      }
+
+      /* Form */
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group label {
+        display: block;
+        font-size: 13px;
+        font-weight: 500;
+        color: #cbd5e1;
+        margin-bottom: 8px;
+      }
+
+      .input-wrapper {
+        position: relative;
+      }
+
+      .input-wrapper svg {
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 18px;
+        height: 18px;
+        color: #64748b;
+        pointer-events: none;
+        transition: color 0.2s;
+      }
+
+      .input-wrapper input {
+        width: 100%;
+        padding: 12px 48px 12px 44px;
+        background: rgba(15, 23, 42, 0.6);
+        border: 1px solid rgba(148, 163, 184, 0.15);
+        border-radius: 12px;
+        font-size: 14px;
+        font-family: inherit;
+        color: #f1f5f9;
+        outline: none;
+        transition: all 0.25s ease;
+      }
+
+      .input-wrapper input::placeholder {
+        color: #475569;
+      }
+
+      .input-wrapper input:focus {
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+        background: rgba(15, 23, 42, 0.8);
+      }
+
+      .toggle-password {
+        position: absolute;
+        right: 8px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 6px;
+        background: none;
+        border: 0;
+        border-radius: 8px;
+        color: #64748b;
+        cursor: pointer;
+        transition:
+          color 0.2s,
+          background-color 0.2s;
+      }
+
+      .toggle-password:hover {
+        color: #cbd5e1;
+        background: rgba(148, 163, 184, 0.1);
+      }
+
+      .toggle-password:focus-visible {
+        outline: 2px solid #3b82f6;
+        outline-offset: 1px;
+      }
+
+      .toggle-password svg {
+        position: static;
+        transform: none;
+        left: auto;
+        width: 18px;
+        height: 18px;
+        pointer-events: none;
+      }
+
+      input[type="password"]::-ms-reveal,
+      input[type="password"]::-ms-clear {
+        display: none;
+      }
+
+      .input-wrapper:has(input:focus) > svg {
+        color: #3b82f6;
+      }
+
+      .btn-login {
+        width: 100%;
+        padding: 13px 24px;
+        background: linear-gradient(135deg, #3b82f6, #2563eb);
+        color: #fff;
+        font-size: 15px;
+        font-weight: 600;
+        font-family: inherit;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        margin-top: 8px;
+      }
+
+      .btn-login::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.1),
+          transparent
+        );
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      .btn-login:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.35);
+      }
+
+      .btn-login:hover::before {
+        opacity: 1;
+      }
+
+      .btn-login:active {
+        transform: translateY(0);
+      }
+
+      .back-link {
+        display: block;
+        text-align: center;
+        margin-top: 24px;
+        font-size: 13px;
+        color: #64748b;
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+
+      .back-link:hover {
+        color: #94a3b8;
+      }
+
+      .back-link svg {
+        width: 14px;
+        height: 14px;
+        vertical-align: -2px;
+        margin-right: 4px;
+      }
+
+      /* Responsive */
+      @media (max-width: 480px) {
+        .login-card {
+          padding: 36px 24px;
+          border-radius: 20px;
+        }
+
+        .login-heading h1 {
+          font-size: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-container">
+      <div class="login-card">
+        <!-- Logo -->
+        <div class="login-logo">
+          <img th:src="@{/img/logo.png}" alt="VIGER.EDU.VN" />
+          <div class="login-logo-text">
+            <span class="login-logo-title">VIGER.EDU.VN</span>
+            <span class="login-logo-sub">From Vietnam to Europe</span>
+          </div>
+        </div>
+
+        <!-- Heading -->
+        <div class="login-heading">
+          <h1>Đăng nhập quản trị</h1>
+          <p>Vui lòng đăng nhập để truy cập hệ thống CMS</p>
+        </div>
+
+        <!-- Error alert -->
+        <div th:if="${param.error}" class="alert alert-error">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <line x1="15" y1="9" x2="9" y2="15" />
+            <line x1="9" y1="9" x2="15" y2="15" />
+          </svg>
+          <span>Tên đăng nhập hoặc mật khẩu không chính xác.</span>
+        </div>
+
+        <!-- Logout success alert -->
+        <div th:if="${param.logout}" class="alert alert-success">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+            <polyline points="22 4 12 14.01 9 11.01" />
+          </svg>
+          <span>Bạn đã đăng xuất thành công.</span>
+        </div>
+
+        <!-- Login Form -->
+        <form th:action="@{/login}" method="POST" autocomplete="off">
+          <div class="form-group">
+            <label for="username">Tên đăng nhập</label>
+            <div class="input-wrapper">
+              <input
+                type="text"
+                id="username"
+                name="username"
+                placeholder="Nhập tên đăng nhập"
+                required
+                autofocus
+              />
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Mật khẩu</label>
+            <div class="input-wrapper">
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Nhập mật khẩu"
+                required
+              />
+
+              <!-- Icon ổ khóa (giữ nguyên) -->
+              <svg
+                class="icon-lock"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+              </svg>
+
+              <!-- Nút con mắt -->
+              <button
+                type="button"
+                class="toggle-password"
+                aria-label="Hiện mật khẩu"
+                aria-pressed="false"
+              >
+                <!-- Mắt mở (đang ẩn mật khẩu) -->
+                <svg
+                  class="eye-open"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+                <!-- Mắt gạch chéo (đang hiện mật khẩu) -->
+                <svg
+                  class="eye-closed"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  style="display: none"
+                >
+                  <path
+                    d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"
+                  />
+                  <path
+                    d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"
+                  />
+                  <path d="M14.12 14.12a3 3 0 1 1-4.24-4.24" />
+                  <line x1="1" y1="1" x2="23" y2="23" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-login" id="btn-login">
+            Đăng nhập
+          </button>
+        </form>
+
+        <a th:href="@{/}" class="back-link">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <line x1="19" y1="12" x2="5" y2="12" />
+            <polyline points="12 19 5 12 12 5" />
+          </svg>
+          Quay lại trang chủ
+        </a>
+      </div>
+    </div>
+    <script>
+      document.querySelectorAll(".toggle-password").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var input = btn.parentElement.querySelector("input");
+          var show = input.type === "password";
+
+          input.type = show ? "text" : "password";
+          btn.setAttribute("aria-pressed", show);
+          btn.setAttribute(
+            "aria-label",
+            show ? "Ẩn mật khẩu" : "Hiện mật khẩu",
+          );
+          btn.querySelector(".eye-open").style.display = show ? "none" : "";
+          btn.querySelector(".eye-closed").style.display = show ? "" : "none";
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -241,6 +241,7 @@
         <div class="overview-layout">
           <!-- CỘT TRÁI: DANH SÁCH THẺ BÀI VIẾT -->
           <div class="overview-main">
+            <!-- Badge Chuyên mục -->
             <div
               class="section-pretitle animate-hidden"
               style="margin-bottom: 1.5rem"
@@ -255,122 +256,173 @@
                   font-weight: 600;
                   text-transform: uppercase;
                 "
-                >Các loại hình đào tạo</span
+                >Chuyên đề &amp; Bài viết</span
               >
             </div>
 
-            <div class="blog-grid-new">
-              <!-- Thẻ Bài 1 -->
-              <a href="#" class="card-new animate-hidden delay-100">
+            <!-- Sử dụng Grid lặp các bài viết từ model truyền xuống -->
+            <div
+              class="blog-grid-new"
+              th:if="${posts != null and !posts.isEmpty()}"
+            >
+              <!-- Vòng lặp Thymeleaf: lặp qua từng post trong danh sách 'posts' -->
+              <a
+                th:each="post : ${posts}"
+                th:href="@{'/bai-viet/' + ${post.slug}}"
+                class="card-new animate-hidden delay-100"
+              >
+                <!-- Ảnh đại diện -->
                 <div class="card-new-img">
                   <img
-                    src="https://images.unsplash.com/photo-1599940824399-b87987ceb72a?auto=format&fit=crop&w=800&q=80"
-                    alt="Đại học Tổng hợp"
+                    th:src="${post.featuredImage != null and !#strings.isEmpty(post.featuredImage)} ? @{${post.featuredImage}} : 'https://images.unsplash.com/photo-1599940824399-b87987ceb72a?auto=format&fit=crop&w=800&q=80'"
+                    th:alt="${post.title}"
                   />
                 </div>
+
+                <!-- Nội dung Thẻ Bài Viết (Màu nền xám đen) -->
                 <div class="card-new-body">
-                  <div class="card-new-meta">
-                    <span>Đại học Tổng hợp (Universität)</span>
+                  <div>
+                    <div class="card-new-meta">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
+                      <!-- Hiển thị ngày đăng (createdAt dạng LocalDateTime) -->
+                      <span
+                        th:text="${post.createdAt != null ? (#temporals.format(post.createdAt, 'dd') + ' tháng ' + #temporals.format(post.createdAt, 'MM, yyyy')) : ''}"
+                        >8 tháng 5 2026</span
+                      >
+                    </div>
+
+                    <!-- Hiển thị tiêu đề bài viết -->
+                    <h3 class="card-new-title" th:text="${post.title}">
+                      Du học Đức: Cẩm nang sinh tồn cho người mới
+                    </h3>
+
+                    <!-- Tóm tắt ngắn gọn nếu có -->
+                    <p
+                      class="card-new-desc"
+                      th:if="${post.excerpt != null and !#strings.isEmpty(post.excerpt)}"
+                      th:text="${post.excerpt}"
+                    ></p>
                   </div>
-                  <h3 class="card-new-title">
-                    Nền tảng học thuật và nghiên cứu chuyên sâu, phù hợp với các
-                    nhà khoa học tương lai.
-                  </h3>
+
+                  <div class="card-new-footer">
+                    <span class="card-new-link"> Xem chi tiết &rarr; </span>
+                  </div>
                 </div>
               </a>
+            </div>
 
-              <!-- Thẻ Bài 2 -->
-              <a href="#" class="card-new animate-hidden delay-200">
-                <div class="card-new-img">
-                  <img
-                    src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=800&auto=format&fit=crop"
-                    alt="Đại học Ứng dụng"
-                  />
-                </div>
-                <div class="card-new-body">
-                  <div class="card-new-meta">
-                    <span>Đại học Ứng dụng (Fachhochschule)</span>
-                  </div>
-                  <h3 class="card-new-title">
-                    Gắn liền lý thuyết với thực tiễn doanh nghiệp, rèn luyện kỹ
-                    năng làm việc thực tế.
-                  </h3>
-                </div>
+            <!-- Khối thông báo khi không có bài viết nào trong chuyên mục -->
+            <div
+              th:if="${posts == null or posts.isEmpty()}"
+              style="
+                text-align: center;
+                padding: 3.5rem 1.5rem;
+                background: var(--bg-white);
+                border-radius: var(--radius-xl);
+                border: 1px solid var(--border-color);
+              "
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="1.5"
+                style="
+                  width: 44px;
+                  height: 44px;
+                  color: var(--text-muted);
+                  margin-bottom: 0.75rem;
+                "
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+                />
+              </svg>
+              <p
+                style="color: var(--text-muted); font-size: 1.05rem; margin: 0"
+              >
+                Chưa có bài viết nào trong chuyên mục này.
+              </p>
+            </div>
+
+            <!-- Phân trang (Giả định bạn có cấu hình phân trang Pageable trong Spring Boot) -->
+            <div class="pagination animate-hidden" th:if="${totalPages > 1}">
+              <!-- Nút Previous -->
+              <a
+                th:if="${currentPage > 1}"
+                th:href="@{'/giao-duc-tai-duc/he-thong-giao-duc?page=' + ${currentPage - 1}}"
+                class="page-link"
+                style="background: transparent; color: var(--text-primary)"
+              >
+                &laquo;
               </a>
 
-              <!-- Thẻ Bài 3 -->
-              <a href="#" class="card-new animate-hidden delay-100">
-                <div class="card-new-img">
-                  <img
-                    src="https://images.unsplash.com/photo-1510519138130-1c09893d5c19?auto=format&fit=crop&w=800&q=80"
-                    alt="Trường Nghệ thuật"
-                  />
-                </div>
-                <div class="card-new-body">
-                  <div class="card-new-meta">
-                    <span>Cao đẳng Nghệ thuật & Âm nhạc</span>
-                  </div>
-                  <h3 class="card-new-title">
-                    Nơi nuôi dưỡng và phát triển các tài năng sáng tạo nghệ
-                    thuật, điện ảnh và âm nhạc.
-                  </h3>
-                </div>
-              </a>
+              <!-- Danh sách các trang -->
+              <th:block th:each="i : ${#numbers.sequence(1, totalPages)}">
+                <a
+                  th:href="@{'/giao-duc-tai-duc/he-thong-giao-duc?page=' + ${i}}"
+                  th:text="${i}"
+                  th:classappend="${i == currentPage} ? 'active' : ''"
+                  class="page-link"
+                  >1</a
+                >
+              </th:block>
 
-              <!-- Thẻ Bài 4 -->
-              <a href="#" class="card-new animate-hidden delay-200">
-                <div class="card-new-img">
-                  <img
-                    src="https://images.unsplash.com/photo-1555861496-faa66bfcb118?auto=format&fit=crop&w=800&q=80"
-                    alt="Dự bị Đại học"
-                  />
-                </div>
-                <div class="card-new-body">
-                  <div class="card-new-meta">
-                    <span>Khóa Dự bị Đại học (Studienkolleg)</span>
-                  </div>
-                  <h3 class="card-new-title">
-                    Bước đệm vững chắc giúp sinh viên quốc tế hòa nhập và đạt
-                    chuẩn đầu vào đại học Đức.
-                  </h3>
-                </div>
+              <!-- Nút Next -->
+              <a
+                th:if="${currentPage < totalPages}"
+                th:href="@{'/giao-duc-tai-duc/he-thong-giao-duc?page=' + ${currentPage + 1}}"
+                class="page-link"
+                style="background: transparent; color: var(--text-primary)"
+              >
+                &raquo;
               </a>
             </div>
           </div>
 
           <!-- CỘT PHẢI: SIDEBAR -->
           <aside class="overview-sidebar animate-hidden delay-300">
-            <!-- Box Bài Đăng -->
             <div>
-              <h2 class="sidebar-title">Có thể bạn quan tâm</h2>
-              <div class="sidebar-list">
-                <a href="#" class="sidebar-item">
-                  <div class="sidebar-item-num">1</div>
-                  <div class="sidebar-item-text">
-                    Bảng xếp hạng các trường đại học tốt nhất nước Đức 2026
-                  </div>
-                </a>
+              <h2 class="sidebar-title">Bài Đăng Mới Nhất</h2>
 
-                <a href="#" class="sidebar-item">
-                  <div class="sidebar-item-num">2</div>
-                  <div class="sidebar-item-text">
-                    Điều kiện tuyển thẳng đại học Đức cho học sinh Việt Nam
+              <div
+                class="sidebar-list"
+                th:if="${latestPosts != null and !latestPosts.isEmpty()}"
+              >
+                <a
+                  th:each="p, stat : ${latestPosts}"
+                  th:href="@{'/bai-viet/' + ${p.slug}}"
+                  class="sidebar-item"
+                >
+                  <div class="sidebar-item-num" th:text="${stat.count}">1</div>
+                  <div class="sidebar-item-text" th:text="${p.title}">
+                    Tiêu đề bài viết
                   </div>
                 </a>
+              </div>
 
-                <a href="#" class="sidebar-item">
-                  <div class="sidebar-item-num">3</div>
-                  <div class="sidebar-item-text">
-                    Danh sách các ngành học được miễn 100% học phí
-                  </div>
-                </a>
-
-                <a href="#" class="sidebar-item">
-                  <div class="sidebar-item-num">4</div>
-                  <div class="sidebar-item-text">
-                    Hệ thống chuyển đổi tín chỉ ECTS hoạt động như thế nào?
-                  </div>
-                </a>
+              <div
+                class="sidebar-list"
+                th:if="${latestPosts == null or latestPosts.isEmpty()}"
+              >
+                <span style="color: var(--text-muted); font-size: 0.9rem">
+                  Chưa có bài viết nào.
+                </span>
               </div>
             </div>
           </aside>

@@ -223,6 +223,28 @@ img {
   transform: translateX(4px);
 }
 
+.dropdown-content .logout-link {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  background: none;
+  border: 0;
+  border-radius: 0.5rem;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-align: left;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dropdown-content .logout-link:hover {
+  background-color: var(--bg-main);
+  color: var(--accent-main);
+  transform: translateX(4px);
+}
+
 /* NÃºt CTA Header */
 .cta-pill {
   background-color: var(--accent-main);
@@ -241,7 +263,6 @@ img {
   transform: translateY(-2px);
   box-shadow: 0 4px 14px rgba(193, 18, 31, 0.3);
 }
-
 
 /* Right-side header actions */
 .header-actions {
@@ -602,7 +623,9 @@ img {
   justify-content: center;
   align-items: center;
   text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .stat-box:hover {
@@ -753,7 +776,9 @@ img {
   display: flex;
   flex-direction: column;
   box-shadow: var(--shadow-sm);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .testimonial-card:hover {
@@ -990,13 +1015,13 @@ img {
 
 /* Social Buttons Contact Page */
 .contact-social-btn {
-  width: 40px; 
-  height: 40px; 
-  background: var(--bg-main); 
-  border-radius: 50%; 
-  display: flex; 
-  align-items: center; 
-  justify-content: center; 
+  width: 40px;
+  height: 40px;
+  background: var(--bg-main);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: var(--text-secondary);
   transition: all 0.3s ease;
 }
@@ -1012,5 +1037,88 @@ img {
   font-weight: 700;
 }
 
+/* ===================================================================
+   14. LOGIN FORM: INPUT + NÚT HIỆN MẬT KHẨU
+   =================================================================== */
+.form-group {
+  margin-bottom: 1.25rem;
+}
 
+.form-group label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
 
+.input-wrapper {
+  position: relative;
+}
+
+.input-wrapper input {
+  width: 100%;
+  padding: 0.75rem 2.75rem 0.75rem 2.75rem; /* trái: ổ khóa, phải: con mắt */
+  font: inherit;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  background: var(--bg-white);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.input-wrapper input:focus {
+  border-color: var(--accent-main);
+  box-shadow: 0 0 0 3px rgba(193, 18, 31, 0.12);
+}
+
+/* Icon ổ khóa: bên trái */
+.input-wrapper .icon-lock {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+/* Nút con mắt: bên phải */
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  background: none;
+  border: 0;
+  border-radius: var(--radius-full);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.toggle-password:hover {
+  color: var(--accent-main);
+  background-color: var(--bg-main);
+}
+
+.toggle-password:focus-visible {
+  outline: 2px solid var(--accent-main);
+  outline-offset: 2px;
+}
+
+.toggle-password svg {
+  width: 20px;
+  height: 20px;
+}

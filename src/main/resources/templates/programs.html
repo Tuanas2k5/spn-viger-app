@@ -8,113 +8,224 @@
   <head>
     <title>Chương trình Đào tạo - VIGER EDU</title>
     <style>
-      .programs-section {
+      /* ===== Layout 2 cột: main + sidebar ===== */
+      .overview-layout {
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
         padding: 6rem 1.5rem;
-        background: var(--bg-white);
-      }
-      .programs-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 2.5rem;
         max-width: 80rem;
-        margin: 4rem auto 0;
+        margin: 0 auto;
       }
-      @media (min-width: 768px) {
-        .programs-grid {
-          grid-template-columns: 1fr 1fr;
+      @media (min-width: 1024px) {
+        .overview-layout {
+          flex-direction: row;
         }
       }
-      .program-card {
-        background: var(--bg-main);
+      .overview-main {
+        flex: 1;
+        min-width: 0;
+      }
+      .overview-sidebar {
+        width: 100%;
+      }
+      @media (min-width: 1024px) {
+        .overview-sidebar {
+          width: 380px;
+          flex-shrink: 0;
+        }
+      }
+
+      /* ===== Lưới thẻ bài viết ===== */
+      .blog-grid-new {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      @media (min-width: 768px) {
+        .blog-grid-new {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      .card-new {
+        background: #2b303a;
         border-radius: var(--radius-xl);
         overflow: hidden;
-        border: 1px solid var(--border-light);
+        display: flex;
+        flex-direction: column;
         transition:
           transform 0.3s ease,
           box-shadow 0.3s ease;
-        display: flex;
-        flex-direction: column;
+        cursor: pointer;
+        text-decoration: none;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        height: 100%;
       }
-      .program-card:hover {
+      .card-new:hover {
         transform: translateY(-5px);
-        box-shadow: var(--shadow-xl);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+        border-color: rgba(255, 183, 3, 0.3);
       }
-      .program-img {
-        height: 260px;
+      .card-new-img {
+        height: 220px;
         overflow: hidden;
+        position: relative;
+        background: #1a1d24;
       }
-      .program-img img {
+      .card-new-img img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         transition: transform 0.5s ease;
       }
-      .program-card:hover .program-img img {
+      .card-new:hover .card-new-img img {
         transform: scale(1.05);
       }
-      .program-body {
-        padding: 2.5rem 2rem;
+      .card-new-body {
+        padding: 1.5rem;
+        background-color: #2b303a;
+        color: var(--bg-white);
         flex: 1;
         display: flex;
         flex-direction: column;
-      }
-      .program-tag {
-        background: rgba(193, 18, 31, 0.1);
-        color: var(--accent-main);
-        font-size: 0.8rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        padding: 0.4rem 0.85rem;
-        border-radius: var(--radius-full);
-        align-self: flex-start;
-        margin-bottom: 1.25rem;
-      }
-      .program-title {
-        font-size: 1.6rem;
-        font-weight: 800;
-        color: var(--text-primary);
-        margin-bottom: 1rem;
-        line-height: 1.3;
-      }
-      .program-desc {
-        color: var(--text-secondary);
-        font-size: 1rem;
-        line-height: 1.6;
-        margin-bottom: 2rem;
-        flex: 1;
-      }
-      .program-footer {
-        border-top: 1px solid var(--border-color);
-        padding-top: 1.5rem;
-        display: flex;
         justify-content: space-between;
-        align-items: center;
       }
-      .program-duration {
-        font-size: 0.95rem;
-        color: var(--text-secondary);
-        font-weight: 600;
+      .card-new-meta {
+        font-size: 0.82rem;
+        color: rgba(255, 255, 255, 0.7);
         display: flex;
         align-items: center;
-        gap: 0.5rem;
+        gap: 6px;
+        margin-bottom: 0.75rem;
       }
-      .program-duration svg {
-        width: 18px;
-        height: 18px;
-        color: var(--accent-main);
+      .card-new-meta svg {
+        width: 15px;
+        height: 15px;
+        color: var(--accent-alt);
+        flex-shrink: 0;
       }
-      .btn-readmore {
-        color: var(--accent-main);
+      .card-new-title {
+        font-size: 1.15rem;
         font-weight: 700;
-        font-size: 0.95rem;
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
+        line-height: 1.45;
+        margin: 0 0 0.75rem;
+        color: #fff;
         transition: color 0.2s ease;
       }
-      .btn-readmore:hover {
-        color: var(--accent-main-hover);
+      .card-new:hover .card-new-title {
+        color: var(--accent-alt);
+      }
+      .card-new-desc {
+        font-size: 0.875rem;
+        color: rgba(255, 255, 255, 0.75);
+        line-height: 1.6;
+        margin-bottom: 1rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .card-new-footer {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: auto;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .card-new-link {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--accent-alt);
+        transition: transform 0.2s ease;
+      }
+      .card-new:hover .card-new-link {
+        transform: translateX(4px);
+      }
+
+      /* ===== Phân trang ===== */
+      .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 3rem;
+      }
+      .page-link {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: var(--radius-full);
+        background: var(--text-primary);
+        color: var(--bg-white);
+        font-weight: 700;
+        font-size: 0.9rem;
+        transition: all 0.2s ease;
+      }
+      .page-link:hover,
+      .page-link.active {
+        background: var(--accent-main);
+      }
+
+      /* ===== Sidebar ===== */
+      .sidebar-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-bottom: 1.5rem;
+        padding-left: 0.75rem;
+        border-left: 4px solid var(--accent-main);
+        color: var(--text-primary);
+      }
+      .sidebar-list {
+        background: var(--bg-main);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-xl);
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+      }
+      .sidebar-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        color: var(--text-primary);
+        transition: transform 0.2s ease;
+      }
+      .sidebar-item:hover {
+        transform: translateX(5px);
+      }
+      .sidebar-item-num {
+        background: var(--text-primary);
+        color: var(--bg-white);
+        font-weight: 700;
+        width: 32px;
+        height: 32px;
+        border-radius: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition: background 0.2s ease;
+      }
+      .sidebar-item-text {
+        font-size: 0.95rem;
+        font-weight: 700;
+        line-height: 1.4;
+        margin-top: 5px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        transition: color 0.2s ease;
+      }
+      .sidebar-item:hover .sidebar-item-num {
+        background: var(--accent-main);
+      }
+      .sidebar-item:hover .sidebar-item-text {
+        color: var(--accent-main);
       }
     </style>
   </head>
@@ -178,244 +289,196 @@
           </div>
         </section>
 
-        <!-- PROGRAMS GRID -->
-        <section class="programs-section">
-          <div class="page-container">
-            <div class="text-center animate-hidden">
-              <h2 class="section-title">Khám Phá Các Chương Trình Nổi Bật</h2>
-              <p
+        <!-- LAYOUT CHÍNH: MAIN + SIDEBAR -->
+        <div class="overview-layout">
+          <!-- CỘT TRÁI: DANH SÁCH THẺ BÀI VIẾT -->
+          <div class="overview-main">
+            <!-- Badge Chuyên mục -->
+            <div
+              class="section-pretitle animate-hidden"
+              style="margin-bottom: 1.5rem"
+            >
+              <span
                 style="
-                  color: var(--text-secondary);
-                  max-width: 600px;
-                  margin: 0 auto;
-                  font-size: 1.1rem;
+                  color: var(--accent-alt-hover);
+                  background-color: #fff9e6;
+                  padding: 0.35rem 1rem;
+                  border-radius: var(--radius-full);
+                  font-size: 0.85rem;
+                  font-weight: 600;
+                  text-transform: uppercase;
+                "
+                >Chuyên đề &amp; Bài viết</span
+              >
+            </div>
+
+            <!-- Sử dụng Grid lặp các bài viết từ model truyền xuống -->
+            <div
+              class="blog-grid-new"
+              th:if="${posts != null and !posts.isEmpty()}"
+            >
+              <!-- Vòng lặp Thymeleaf: lặp qua từng post trong danh sách 'posts' -->
+              <a
+                th:each="post : ${posts}"
+                th:href="@{'/bai-viet/' + ${post.slug}}"
+                class="card-new animate-hidden delay-100"
+              >
+                <!-- Ảnh đại diện -->
+                <div class="card-new-img">
+                  <img
+                    th:src="${post.featuredImage != null and !#strings.isEmpty(post.featuredImage)} ? @{${post.featuredImage}} : 'https://images.unsplash.com/photo-1599940824399-b87987ceb72a?auto=format&fit=crop&w=800&q=80'"
+                    th:alt="${post.title}"
+                  />
+                </div>
+
+                <!-- Nội dung Thẻ Bài Viết (Màu nền xám đen) -->
+                <div class="card-new-body">
+                  <div>
+                    <div class="card-new-meta">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
+                      <!-- Hiển thị ngày đăng (createdAt dạng LocalDateTime) -->
+                      <span
+                        th:text="${post.createdAt != null ? (#temporals.format(post.createdAt, 'dd') + ' tháng ' + #temporals.format(post.createdAt, 'MM, yyyy')) : ''}"
+                        >8 tháng 5 2026</span
+                      >
+                    </div>
+
+                    <!-- Hiển thị tiêu đề bài viết -->
+                    <h3 class="card-new-title" th:text="${post.title}">
+                      Du học Đức: Cẩm nang sinh tồn cho người mới
+                    </h3>
+
+                    <!-- Tóm tắt ngắn gọn nếu có -->
+                    <p
+                      class="card-new-desc"
+                      th:if="${post.excerpt != null and !#strings.isEmpty(post.excerpt)}"
+                      th:text="${post.excerpt}"
+                    ></p>
+                  </div>
+
+                  <div class="card-new-footer">
+                    <span class="card-new-link"> Xem chi tiết &rarr; </span>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <!-- Khối thông báo khi không có bài viết nào trong chuyên mục -->
+            <div
+              th:if="${posts == null or posts.isEmpty()}"
+              style="
+                text-align: center;
+                padding: 3.5rem 1.5rem;
+                background: var(--bg-white);
+                border-radius: var(--radius-xl);
+                border: 1px solid var(--border-color);
+              "
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="1.5"
+                style="
+                  width: 44px;
+                  height: 44px;
+                  color: var(--text-muted);
+                  margin-bottom: 0.75rem;
                 "
               >
-                Tại Đức, bằng cấp được công nhận trên toàn thế giới với chất
-                lượng giảng dạy và cơ sở vật chất đẳng cấp.
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+                />
+              </svg>
+              <p
+                style="color: var(--text-muted); font-size: 1.05rem; margin: 0"
+              >
+                Chưa có bài viết nào trong chuyên mục này.
               </p>
             </div>
 
-            <div class="programs-grid">
-              <!-- 1. Dự bị Đại học -->
-              <div class="program-card animate-hidden delay-100">
-                <div class="program-img">
-                  <img
-                    src="https://studienkollegs-in.de/wp-content/uploads/2019/02/studienkolleg-paderborn-unterricht-tkurs.jpg"
-                    alt="Dự bị Đại học (Studienkolleg)"
-                  />
-                </div>
-                <div class="program-body">
-                  <span class="program-tag">Bước đệm vững chắc</span>
-                  <h3 class="program-title">Dự bị Đại học (Studienkolleg)</h3>
-                  <p class="program-desc">
-                    Khóa học 1 năm bắt buộc dành cho sinh viên quốc tế chưa đủ
-                    điều kiện tuyển thẳng. Giúp bạn trang bị nền tảng tiếng Đức
-                    và kiến thức chuyên ngành trước khi bước vào giảng đường Đại
-                    học.
-                  </p>
-                  <div class="program-footer">
-                    <div class="program-duration">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg>
-                      Thời gian: 1 Năm
-                    </div>
-                    <a href="/tu-van/du-hoc-dai-hoc" class="btn-readmore"
-                      >Tìm hiểu
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M9 5l7 7-7 7"
-                        /></svg
-                    ></a>
-                  </div>
-                </div>
-              </div>
+            <!-- Phân trang (Giả định bạn có cấu hình phân trang Pageable trong Spring Boot) -->
+            <div class="pagination animate-hidden" th:if="${totalPages > 1}">
+              <!-- Nút Previous -->
+              <a
+                th:if="${currentPage > 1}"
+                th:href="@{'/chuong-trinh-hoc?page=' + ${currentPage - 1}}"
+                class="page-link"
+                style="background: transparent; color: var(--text-primary)"
+              >
+                &laquo;
+              </a>
 
-              <!-- 2. Cử nhân -->
-              <div class="program-card animate-hidden delay-200">
-                <div class="program-img">
-                  <img
-                    src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=800&q=80"
-                    alt="Cử nhân (Bachelor)"
-                  />
-                </div>
-                <div class="program-body">
-                  <span class="program-tag">Miễn 100% học phí</span>
-                  <h3 class="program-title">Cử nhân (Bachelor)</h3>
-                  <p class="program-desc">
-                    Miễn 100% học phí tại hầu hết các trường công lập. Môi
-                    trường học tập mang tính thực tiễn cao, tự do thiết kế lộ
-                    trình học tập và tích lũy tín chỉ linh hoạt.
-                  </p>
-                  <div class="program-footer">
-                    <div class="program-duration">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg>
-                      Thời gian: 3 - 4 Năm
-                    </div>
-                    <a href="/tu-van/du-hoc-dai-hoc" class="btn-readmore"
-                      >Tìm hiểu
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M9 5l7 7-7 7"
-                        /></svg
-                    ></a>
-                  </div>
-                </div>
-              </div>
+              <!-- Danh sách các trang -->
+              <th:block th:each="i : ${#numbers.sequence(1, totalPages)}">
+                <a
+                  th:href="@{'/chuong-trinh-hoc?page=' + ${i}}"
+                  th:text="${i}"
+                  th:classappend="${i == currentPage} ? 'active' : ''"
+                  class="page-link"
+                  >1</a
+                >
+              </th:block>
 
-              <!-- 3. Thạc sĩ -->
-              <div class="program-card animate-hidden delay-300">
-                <div class="program-img">
-                  <img
-                    src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=800&q=80"
-                    alt="Thạc sĩ (Master)"
-                  />
-                </div>
-                <div class="program-body">
-                  <span class="program-tag">Nâng tầm sự nghiệp</span>
-                  <h3 class="program-title">Thạc sĩ (Master)</h3>
-                  <p class="program-desc">
-                    Chương trình học chuyên sâu với hàng trăm lựa chọn học hoàn
-                    toàn bằng tiếng Anh hoặc tiếng Đức. Gia tăng lợi thế cạnh
-                    tranh với mức lương khởi điểm hấp dẫn.
-                  </p>
-                  <div class="program-footer">
-                    <div class="program-duration">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg>
-                      Thời gian: 1.5 - 2 Năm
-                    </div>
-                    <a href="/tu-van/du-hoc-cao-hoc" class="btn-readmore"
-                      >Tìm hiểu
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M9 5l7 7-7 7"
-                        /></svg
-                    ></a>
-                  </div>
-                </div>
-              </div>
-
-              <!-- 4. Du học nghề -->
-              <div class="program-card animate-hidden delay-400">
-                <div class="program-img">
-                  <img
-                    src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80"
-                    alt="Du học Nghề (Ausbildung)"
-                  />
-                </div>
-                <div class="program-body">
-                  <span class="program-tag">Vừa học vừa làm</span>
-                  <h3 class="program-title">Du học Nghề (Ausbildung)</h3>
-                  <p class="program-desc">
-                    Miễn 100% học phí và nhận lương thực hành ngay trong quá
-                    trình học (900€ - 1.300€/tháng). Cơ hội việc làm 100% và
-                    định cư dễ dàng sau 5 năm tại Đức.
-                  </p>
-                  <div class="program-footer">
-                    <div class="program-duration">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg>
-                      Thời gian: 3 Năm
-                    </div>
-                    <a href="/lien-he" class="btn-readmore"
-                      >Tìm hiểu
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M9 5l7 7-7 7"
-                        /></svg
-                    ></a>
-                  </div>
-                </div>
-              </div>
+              <!-- Nút Next -->
+              <a
+                th:if="${currentPage < totalPages}"
+                th:href="@{'/chuong-trinh-hoc?page=' + ${currentPage + 1}}"
+                class="page-link"
+                style="background: transparent; color: var(--text-primary)"
+              >
+                &raquo;
+              </a>
             </div>
           </div>
-        </section>
+
+          <!-- CỘT PHẢI: SIDEBAR -->
+          <aside class="overview-sidebar animate-hidden delay-300">
+            <div>
+              <h2 class="sidebar-title">Bài Đăng Mới Nhất</h2>
+
+              <div
+                class="sidebar-list"
+                th:if="${latestPosts != null and !latestPosts.isEmpty()}"
+              >
+                <a
+                  th:each="p, stat : ${latestPosts}"
+                  th:href="@{'/bai-viet/' + ${p.slug}}"
+                  class="sidebar-item"
+                >
+                  <div class="sidebar-item-num" th:text="${stat.count}">1</div>
+                  <div class="sidebar-item-text" th:text="${p.title}">
+                    Tiêu đề bài viết
+                  </div>
+                </a>
+              </div>
+
+              <div
+                class="sidebar-list"
+                th:if="${latestPosts == null or latestPosts.isEmpty()}"
+              >
+                <span style="color: var(--text-muted); font-size: 0.9rem">
+                  Chưa có bài viết nào.
+                </span>
+              </div>
+            </div>
+          </aside>
+        </div>
 
         <!-- CTA SECTION TỪ INDEX -->
         <section class="cta-section animate-hidden">

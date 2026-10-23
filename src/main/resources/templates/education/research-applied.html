@@ -21,11 +21,11 @@
           flex-direction: row;
         }
       }
-      
+
       .overview-main {
         flex: 1;
       }
-      
+
       .overview-sidebar {
         width: 100%;
       }
@@ -54,7 +54,9 @@
         overflow: hidden;
         display: flex;
         flex-direction: column;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
         cursor: pointer;
         text-decoration: none;
       }
@@ -100,7 +102,7 @@
         line-height: 1.4;
         margin: 0;
       }
-      
+
       /* Sidebar Styles */
       .sidebar-title {
         font-size: 1.25rem;
@@ -163,15 +165,57 @@
     <div layout:fragment="content">
       <main class="main-content">
         <!-- HEADER BANNER -->
-        <section class="cta-section animate-hidden" style="margin: 0; border-radius: 0; padding: 10rem 0 6rem; background-image: linear-gradient(135deg, rgba(20, 20, 20, 0.9) 0%, rgba(193, 18, 31, 0.8) 100%), url('https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=1600&q=80'); background-size: cover; background-position: center; border-bottom: 4px solid var(--accent-alt);">
+        <section
+          class="cta-section animate-hidden"
+          style="
+            margin: 0;
+            border-radius: 0;
+            padding: 10rem 0 6rem;
+            background-image:
+              linear-gradient(
+                135deg,
+                rgba(20, 20, 20, 0.9) 0%,
+                rgba(193, 18, 31, 0.8) 100%
+              ),
+              url(&quot;https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=1600&q=80&quot;);
+            background-size: cover;
+            background-position: center;
+            border-bottom: 4px solid var(--accent-alt);
+          "
+        >
           <div class="page-container">
             <div class="text-center animate-hidden">
-              <div class="section-pretitle" style="justify-content: center; margin-bottom: 1rem;">
-                <span style="color: var(--accent-alt); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">Quốc gia của Đổi mới & Sáng tạo</span>
+              <div
+                class="section-pretitle"
+                style="justify-content: center; margin-bottom: 1rem"
+              >
+                <span
+                  style="
+                    color: var(--accent-alt);
+                    font-size: 0.9rem;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                  "
+                  >Quốc gia của Đổi mới & Sáng tạo</span
+                >
               </div>
-              <h1 class="hero-heading" style="color: white; margin-bottom: 1rem;">NGHIÊN CỨU & ỨNG DỤNG</h1>
-              <p class="cta-desc" style="max-width: 750px; margin: 1.5rem auto 0; font-weight: 300;">
-                Với hơn 1.000 viện nghiên cứu và sự hợp tác chặt chẽ cùng các tập đoàn công nghiệp hàng đầu, Đức là môi trường lý tưởng để biến các ý tưởng khoa học thành giải pháp thực tiễn.
+              <h1
+                class="hero-heading"
+                style="color: white; margin-bottom: 1rem"
+              >
+                NGHIÊN CỨU & ỨNG DỤNG
+              </h1>
+              <p
+                class="cta-desc"
+                style="
+                  max-width: 750px;
+                  margin: 1.5rem auto 0;
+                  font-weight: 300;
+                "
+              >
+                Với hơn 1.000 viện nghiên cứu và sự hợp tác chặt chẽ cùng các
+                tập đoàn công nghiệp hàng đầu, Đức là môi trường lý tưởng để
+                biến các ý tưởng khoa học thành giải pháp thực tiễn.
               </p>
             </div>
           </div>
@@ -179,101 +223,193 @@
 
         <!-- LAYOUT CHÍNH: MAIN + SIDEBAR -->
         <div class="overview-layout">
-          
           <!-- CỘT TRÁI: DANH SÁCH THẺ BÀI VIẾT -->
           <div class="overview-main">
-            <div class="section-pretitle animate-hidden" style="margin-bottom: 1.5rem;">
-              <span style="color: var(--accent-alt-hover); background-color: #fff9e6; padding: 0.35rem 1rem; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 600; text-transform: uppercase;">Môi trường phát triển</span>
+            <!-- Badge Chuyên mục -->
+            <div
+              class="section-pretitle animate-hidden"
+              style="margin-bottom: 1.5rem"
+            >
+              <span
+                style="
+                  color: var(--accent-alt-hover);
+                  background-color: #fff9e6;
+                  padding: 0.35rem 1rem;
+                  border-radius: var(--radius-full);
+                  font-size: 0.85rem;
+                  font-weight: 600;
+                  text-transform: uppercase;
+                "
+                >Chuyên đề &amp; Bài viết</span
+              >
             </div>
-            
-            <div class="blog-grid-new">
-              
-              <!-- Thẻ Bài 1 -->
-              <a href="#" class="card-new animate-hidden delay-100">
+
+            <!-- Sử dụng Grid lặp các bài viết từ model truyền xuống -->
+            <div
+              class="blog-grid-new"
+              th:if="${posts != null and !posts.isEmpty()}"
+            >
+              <!-- Vòng lặp Thymeleaf: lặp qua từng post trong danh sách 'posts' -->
+              <a
+                th:each="post : ${posts}"
+                th:href="@{'/bai-viet/' + ${post.slug}}"
+                class="card-new animate-hidden delay-100"
+              >
+                <!-- Ảnh đại diện -->
                 <div class="card-new-img">
-                  <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80" alt="Viện nghiên cứu" />
+                  <img
+                    th:src="${post.featuredImage != null and !#strings.isEmpty(post.featuredImage)} ? @{${post.featuredImage}} : 'https://images.unsplash.com/photo-1599940824399-b87987ceb72a?auto=format&fit=crop&w=800&q=80'"
+                    th:alt="${post.title}"
+                  />
                 </div>
+
+                <!-- Nội dung Thẻ Bài Viết (Màu nền xám đen) -->
                 <div class="card-new-body">
-                  <div class="card-new-meta">
-                    <span>Viện Nghiên cứu Độc lập</span>
+                  <div>
+                    <div class="card-new-meta">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
+                      <!-- Hiển thị ngày đăng (createdAt dạng LocalDateTime) -->
+                      <span
+                        th:text="${post.createdAt != null ? (#temporals.format(post.createdAt, 'dd') + ' tháng ' + #temporals.format(post.createdAt, 'MM, yyyy')) : ''}"
+                        >8 tháng 5 2026</span
+                      >
+                    </div>
+
+                    <!-- Hiển thị tiêu đề bài viết -->
+                    <h3 class="card-new-title" th:text="${post.title}">
+                      Du học Đức: Cẩm nang sinh tồn cho người mới
+                    </h3>
+
+                    <!-- Tóm tắt ngắn gọn nếu có -->
+                    <p
+                      class="card-new-desc"
+                      th:if="${post.excerpt != null and !#strings.isEmpty(post.excerpt)}"
+                      th:text="${post.excerpt}"
+                    ></p>
                   </div>
-                  <h3 class="card-new-title">Các tổ chức danh tiếng như Max Planck và Fraunhofer dẫn đầu thế giới về khoa học cơ bản và ứng dụng.</h3>
+
+                  <div class="card-new-footer">
+                    <span class="card-new-link"> Xem chi tiết &rarr; </span>
+                  </div>
                 </div>
               </a>
+            </div>
 
-              <!-- Thẻ Bài 2 -->
-              <a href="#" class="card-new animate-hidden delay-200">
-                <div class="card-new-img">
-                  <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=800&q=80" alt="Doanh nghiệp" />
-                </div>
-                <div class="card-new-body">
-                  <div class="card-new-meta">
-                    <span>Hợp tác Doanh nghiệp</span>
-                  </div>
-                  <h3 class="card-new-title">Sinh viên trực tiếp tham gia dự án R&D của các tập đoàn lớn (BMW, Siemens, Bosch) ngay khi ngồi trên ghế nhà trường.</h3>
-                </div>
+            <!-- Khối thông báo khi không có bài viết nào trong chuyên mục -->
+            <div
+              th:if="${posts == null or posts.isEmpty()}"
+              style="
+                text-align: center;
+                padding: 3.5rem 1.5rem;
+                background: var(--bg-white);
+                border-radius: var(--radius-xl);
+                border: 1px solid var(--border-color);
+              "
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="1.5"
+                style="
+                  width: 44px;
+                  height: 44px;
+                  color: var(--text-muted);
+                  margin-bottom: 0.75rem;
+                "
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+                />
+              </svg>
+              <p
+                style="color: var(--text-muted); font-size: 1.05rem; margin: 0"
+              >
+                Chưa có bài viết nào trong chuyên mục này.
+              </p>
+            </div>
+
+            <!-- Phân trang (Giả định bạn có cấu hình phân trang Pageable trong Spring Boot) -->
+            <div class="pagination animate-hidden" th:if="${totalPages > 1}">
+              <!-- Nút Previous -->
+              <a
+                th:if="${currentPage > 1}"
+                th:href="@{'/giao-duc-tai-duc/nghien-cuu-va-ung-dung?page=' + ${currentPage - 1}}"
+                class="page-link"
+                style="background: transparent; color: var(--text-primary)"
+              >
+                &laquo;
               </a>
 
-              <!-- Thẻ Bài 3 -->
-              <a href="#" class="card-new animate-hidden delay-100">
-                <div class="card-new-img">
-                  <img src="https://images.unsplash.com/photo-1574170609519-d1d8d4b71f60?auto=format&fit=crop&w=800&q=80" alt="Cơ sở hạ tầng" />
-                </div>
-                <div class="card-new-body">
-                  <div class="card-new-meta">
-                    <span>Cơ sở vật chất tối tân</span>
-                  </div>
-                  <h3 class="card-new-title">Hệ thống phòng thí nghiệm siêu máy tính và thư viện dữ liệu khổng lồ hỗ trợ tối đa cho sinh viên khoa học.</h3>
-                </div>
-              </a>
+              <!-- Danh sách các trang -->
+              <th:block th:each="i : ${#numbers.sequence(1, totalPages)}">
+                <a
+                  th:href="@{'/giao-duc-tai-duc/nghien-cuu-va-ung-dung?page=' + ${i}}"
+                  th:text="${i}"
+                  th:classappend="${i == currentPage} ? 'active' : ''"
+                  class="page-link"
+                  >1</a
+                >
+              </th:block>
 
-              <!-- Thẻ Bài 4 -->
-              <a href="#" class="card-new animate-hidden delay-200">
-                <div class="card-new-img">
-                  <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80" alt="Khởi nghiệp" />
-                </div>
-                <div class="card-new-body">
-                  <div class="card-new-meta">
-                    <span>Hệ sinh thái Start-up</span>
-                  </div>
-                  <h3 class="card-new-title">Các trường đại học cấp vốn và hỗ trợ pháp lý để sinh viên phát triển ý tưởng công nghệ thành công ty khởi nghiệp.</h3>
-                </div>
+              <!-- Nút Next -->
+              <a
+                th:if="${currentPage < totalPages}"
+                th:href="@{'/giao-duc-tai-duc/nghien-cuu-va-ung-dung?page=' + ${currentPage + 1}}"
+                class="page-link"
+                style="background: transparent; color: var(--text-primary)"
+              >
+                &raquo;
               </a>
-
             </div>
           </div>
 
-          <!-- CỘT PHẢI: SIDEBAR (KHÔNG CÓ BANNER HÌNH ẢNH) -->
+          <!-- CỘT PHẢI: SIDEBAR -->
           <aside class="overview-sidebar animate-hidden delay-300">
-            <!-- Box Bài Đăng -->
             <div>
-              <h2 class="sidebar-title">Có thể bạn quan tâm</h2>
-              <div class="sidebar-list">
-                
-                <a href="#" class="sidebar-item">
-                  <div class="sidebar-item-num">1</div>
-                  <div class="sidebar-item-text">Hướng dẫn xin học bổng DAAD dành cho hệ Thạc sĩ & Nghiên cứu sinh</div>
+              <h2 class="sidebar-title">Bài Đăng Mới Nhất</h2>
+
+              <div
+                class="sidebar-list"
+                th:if="${latestPosts != null and !latestPosts.isEmpty()}"
+              >
+                <a
+                  th:each="p, stat : ${latestPosts}"
+                  th:href="@{'/bai-viet/' + ${p.slug}}"
+                  class="sidebar-item"
+                >
+                  <div class="sidebar-item-num" th:text="${stat.count}">1</div>
+                  <div class="sidebar-item-text" th:text="${p.title}">
+                    Tiêu đề bài viết
+                  </div>
                 </a>
-                
-                <a href="#" class="sidebar-item">
-                  <div class="sidebar-item-num">2</div>
-                  <div class="sidebar-item-text">Top 5 khối ngành khoa học kỹ thuật mũi nhọn tại Đức hiện nay</div>
-                </a>
-                
-                <a href="#" class="sidebar-item">
-                  <div class="sidebar-item-num">3</div>
-                  <div class="sidebar-item-text">Dual Study (Học kép): Vừa học lý thuyết, vừa nhận lương thực hành</div>
-                </a>
-                
-                <a href="#" class="sidebar-item">
-                  <div class="sidebar-item-num">4</div>
-                  <div class="sidebar-item-text">Cơ hội việc làm mảng R&D sau khi tốt nghiệp tại Châu Âu</div>
-                </a>
-                
+              </div>
+
+              <div
+                class="sidebar-list"
+                th:if="${latestPosts == null or latestPosts.isEmpty()}"
+              >
+                <span style="color: var(--text-muted); font-size: 0.9rem">
+                  Chưa có bài viết nào.
+                </span>
               </div>
             </div>
           </aside>
-
         </div>
       </main>
     </div>

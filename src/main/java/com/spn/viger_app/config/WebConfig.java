@@ -33,8 +33,10 @@ public class WebConfig implements WebMvcConfigurer {
             String imgPath = imgUploadDir.toFile().getAbsolutePath().replace("\\", "/");
             if (!imgPath.endsWith("/")) imgPath += "/";
 
+            // registry.addResourceHandler("/uploads/**")
+            //         .addResourceLocations("file:" + uploadPath);
             registry.addResourceHandler("/uploads/**")
-                    .addResourceLocations("file:" + uploadPath);
+                .addResourceLocations("file:" + Paths.get("uploads").toAbsolutePath() + "/");
 
             registry.addResourceHandler("/img/uploads/**")
                     .addResourceLocations("file:" + imgPath); 

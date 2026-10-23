@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/admin/posts")
@@ -143,38 +144,42 @@ public class AdminPostController {
         return "admin/post-view";
     }
 
-    @PostMapping("/api/upload-image")
-    @ResponseBody
-    public ResponseEntity<Map<String, Object>> uploadImage(@RequestParam("upload") MultipartFile file) {
-        Map<String, Object> response = new HashMap<>();
-        if (file.isEmpty()) {
-            response.put("error", Map.of("message", "File tải lên không hợp lệ."));
-            return ResponseEntity.badRequest().body(response);
-        }
+private static final Set<String> ALLOWED_EXT = Set.of(".jpg", ".jpeg", ".png", ".gif", ".webp");
 
-        try {
-            Path uploadDir = Paths.get("uploads");
-            if (!Files.exists(uploadDir)) {
-                Files.createDirectories(uploadDir);
-            }
+@PostMapping("/api/upload-image")
+@ResponseBody
+public ResponseEntity<Map<String, Object>> uploadImage(@RequestParam("upload") MultipartFile file) {
+    Map<String, Object> response = new HashMap<>();
 
-            String originalName = file.getOriginalFilename();
-            String extension = "";
-            if (originalName != null && originalName.contains(".")) {
-                extension = originalName.substring(originalName.lastIndexOf("."));
-            }
-            String fileName = UUID.randomUUID() + extension;
-            Path targetPath = uploadDir.resolve(fileName);
-            Files.copy(file.getInputStream(), targetPath, StandardCopyOption.REPLACE_EXISTING);
-
-            // Phản hồi JSON theo chuẩn SimpleUploadAdapter của CKEditor 5: { "url": "..." }
-            response.put("url", "/uploads/" + fileName);
-            return ResponseEntity.ok(response);
-        } catch (IOException e) {
-            response.put("error", Map.of("message", "Lỗi tải ảnh: " + e.getMessage()));
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
-        }
+    if (file.isEmpty()) {
+        response.put("error", Map.of("message", "File tải lên không hợp lệ."));
+        return ResponseEntity.badRequest().body(response);
     }
+
+    String original = file.getOriginalFilename();
+    String ext = (original != null && original.contains("."))
+            ? original.substring(original.lastIndexOf(".")).toLowerCase() : "";
+    String type = file.getContentType();
+
+    if (!ALLOWED_EXT.contains(ext) || type == null || !type.startsWith("image/")) {
+        response.put("error", Map.of("message", "Chỉ cho phép ảnh JPG, PNG, GIF, WEBP."));
+        return ResponseEntity.badRequest().body(response);
+    }
+
+    try {
+        Path uploadDir = Paths.get("uploads");
+        Files.createDirectories(uploadDir);
+
+        String fileName = UUID.randomUUID() + ext;
+        Files.copy(file.getInputStream(), uploadDir.resolve(fileName), StandardCopyOption.REPLACE_EXISTING);
+
+        response.put("url", "/uploads/" + fileName);
+        return ResponseEntity.ok(response);
+    } catch (IOException e) {
+        response.put("error", Map.of("message", "Lỗi tải ảnh: " + e.getMessage()));
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+    }
+}
 
     /**
      * Import trực tiếp tệp XML có sẵn trong dự án: vigereduvn.WordPress.2026-10-14.xml
